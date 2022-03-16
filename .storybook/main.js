@@ -1,3 +1,6 @@
+const path = require('path')
+const toPath = _path => path.join(process.cwd(), _path)
+
 module.exports = {
   "stories": [
     "../src/**/*.stories.mdx",
@@ -12,5 +15,15 @@ module.exports = {
   "framework": "@storybook/react",
   "core": {
     "builder": "webpack5"
-  }
+  },
+  webpackFinal: async config => ({
+    ...config,
+    resolve: {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        '@emotion/core': toPath('node_modules/@emotion/react'),
+      },
+    },
+  }),
 }
