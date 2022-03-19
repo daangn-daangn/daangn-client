@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { ProductBoxProps } from './ProductBox';
 
-export const StyledProductBox = styled.div<ProductBoxProps>`
+export const StyledProductBox = styled.div`
   width: 100%;
   display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid ${(props) => props.theme.$black20};
   .product_info {
     flex: 1;
     margin-left: 10px;

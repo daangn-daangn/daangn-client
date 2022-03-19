@@ -6,7 +6,7 @@ export const StyledLike = styled.div<LikeProps>`
   /* align-items: center; */
   gap: 3px;
   span {
-    color: ${(props) => props.theme.$black70};
+    color: ${(props) => props.theme.$black60};
     font-size: 0.95rem;
   }
   svg {
