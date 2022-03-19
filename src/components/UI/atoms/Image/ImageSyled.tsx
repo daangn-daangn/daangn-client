@@ -9,7 +9,7 @@ export const StyledImage = styled.div<ImageProps>`
       border-radius: ${props.borderRedius || '7px'};
       background: ${background};
       width: ${props.width || '100px'};
-      height: ${props.width || '100px'};
+      height: ${props.height || '100px'};
     `;
   }}
 `;
