@@ -8,7 +8,7 @@ export const ButtonStyled = styled.button<ButtonProps>`
   color: white;
   padding: 7px 10px;
   font-weight: 600;
-  font-size: ${(props) => `${props.fontSize}rem` || '1rem'};
+  font-size: ${(props) => props.fontSize || '1rem'};
   letter-spacing: -1px;
   &:hover {
     background: ${props => (props.theme.hoverColor)};
