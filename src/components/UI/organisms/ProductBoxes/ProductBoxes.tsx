@@ -4,14 +4,19 @@ import { StyledProductBoxes } from './ProductBoxesStyled';
 export interface IProduct {
   id: number;
   title: string;
+  category: string;
   imgUrl: string;
   location: string;
   created_at: Date;
   price: number;
   likes: number[];
+  description: string;
+  view: number;
+  favorite: number;
+  chat: number;
 }
 
-const dummyProduct: IProduct = {
+const dummyProduct: Partial<IProduct> = {
   id: 1,
   title: '아이폰 팔아요',
   imgUrl:
