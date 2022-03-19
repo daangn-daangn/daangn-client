@@ -1,9 +1,8 @@
-import React from "react";
 import { ButtonStyled } from './ButtonStyled';
 
 export interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  fontSize?: number;
+  fontSize?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
