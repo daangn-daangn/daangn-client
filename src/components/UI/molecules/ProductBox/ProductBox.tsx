@@ -6,7 +6,7 @@ import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
 import { StyledProductBox } from './ProductBoxStyled';
 
 export interface ProductBoxProps {
-  product: IProduct;
+  product: Pick<IProduct, 'id' | 'imgUrl' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
 }
 
 const ProductBox = ({ product }: ProductBoxProps) => {
