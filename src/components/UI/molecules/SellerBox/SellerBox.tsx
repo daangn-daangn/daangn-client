@@ -6,6 +6,7 @@ export interface SellerBoxProps {
   sellerName: string;
   sellerImgUrl: string;
   location: string;
+  degree: number;
 }
 
 const SellerBox = (props: SellerBoxProps) => {
@@ -23,7 +24,7 @@ const SellerBox = (props: SellerBoxProps) => {
           <p className="seller-inform_location">{props.location}</p>
         </div>
         <div className="seller-temperature">
-          <Temperature degree={38.6} />
+          <Temperature degree={props.degree} />
         </div>
       </SellerBoxStyled>
     </>
