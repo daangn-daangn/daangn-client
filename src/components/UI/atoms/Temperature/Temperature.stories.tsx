@@ -12,18 +12,37 @@ const Template: Story<TemperatureProps> = (args) => (
   </>
 );
 
-export const Low = Template.bind({});
-Low.args = {
+export const ProductLow = Template.bind({});
+ProductLow.args = {
   degree: 36.8,
+  type: 'product',
 };
 
-export const Middle = Template.bind({});
-Middle.args = {
+export const ProductMiddle = Template.bind({});
+ProductMiddle.args = {
   degree: 37.9,
+  type: 'product',
 };
 
-export const High = Template.bind({});
-High.args = {
+export const ProductHigh = Template.bind({});
+ProductHigh.args = {
   degree: 51.2,
+  type: 'product',
 };
 
+export const UserLow = Template.bind({});
+UserLow.args = {
+  degree: 36.8,
+  type: 'user',
+};
+
+export const UserMiddle = Template.bind({});
+UserMiddle.args = {
+  degree: 37.9,
+  type: 'user',
+};
+export const UserHigh = Template.bind({});
+UserHigh.args = {
+  degree: 51.2,
+  type: 'user',
+};
