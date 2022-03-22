@@ -12,19 +12,14 @@ export interface SellerBoxProps {
 const SellerBox = (props: SellerBoxProps) => {
   return (
     <>
-      <SellerBoxStyled {...props} >
-        <Image
-          imgUrl={props.sellerImgUrl}
-          width="40px"
-          height="40px"
-          borderRedius="50%"
-        />
+      <SellerBoxStyled {...props}>
+        <Image imgUrl={props.sellerImgUrl} width="40px" height="40px" borderRedius="50%" />
         <div className="seller-inform">
           <p className="seller-inform_name">{props.sellerName}</p>
           <p className="seller-inform_location">{props.location}</p>
         </div>
         <div className="seller-temperature">
-          <Temperature degree={props.degree} />
+          <Temperature type="product" degree={props.degree} />
         </div>
       </SellerBoxStyled>
     </>
