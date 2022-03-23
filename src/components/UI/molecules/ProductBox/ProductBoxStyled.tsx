@@ -19,10 +19,6 @@ export const StyledProductBox = styled.div`
         font-size: 0.7rem;
       }
     }
-    .product_info__price {
-      color: ${(props) => props.theme.$black};
-      font-weight: 700;
-    }
   }
   .product_state {
     display: flex;

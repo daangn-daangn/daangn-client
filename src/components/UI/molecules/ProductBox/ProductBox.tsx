@@ -1,5 +1,6 @@
 import Image from '../../atoms/Image/Image';
 import Like from '../../atoms/Like/Like';
+import Price from '../../atoms/Price/Price';
 import Time from '../../atoms/Time/Time';
 import Title from '../../atoms/Title/Title';
 import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
@@ -20,10 +21,10 @@ const ProductBox = ({ product }: ProductBoxProps) => {
             <span className="product_info__detail-location">{product.location} &#183;</span>
             <Time time={product.created_at} />
           </div>
-          <span className="product_info__price">{product.price.toLocaleString('ko-KR')}원</span>
+          <Price productPrice={product.price} />
         </div>
         <div className="product_state">
-          <Like count={product.likes.length} />
+          <Like isLike={true} count={product.likes.length} />
         </div>
       </StyledProductBox>
     </>
