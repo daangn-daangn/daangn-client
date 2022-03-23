@@ -24,7 +24,10 @@ const SellerBox = (props: SellerBoxProps) => {
           <p className="seller-inform_location">{props.location}</p>
         </div>
         <div className="seller-temperature">
-          <Temperature degree={props.degree} />
+          <Temperature 
+            degree={props.degree}
+            type='product'
+          />
         </div>
       </SellerBoxStyled>
     </>
