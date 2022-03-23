@@ -13,5 +13,12 @@ const Template: Story<LikeProps> = (args) => (
   </>
 );
 
-export const Default = Template.bind({});
-Default.args = {};
+export const isLikeTrue = Template.bind({});
+isLikeTrue.args = {
+  isLike: true,
+};
+
+export const isLikeFalse = Template.bind({});
+isLikeFalse.args = {
+  isLike: false,
+};
