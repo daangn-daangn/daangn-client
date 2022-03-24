@@ -39,7 +39,7 @@ const Slider = (props: SliderProps) => {
             <Image
               imgUrl={slide}
               width="100%"
-              height="300px"
+              height="400px"
               borderRedius="0px"
             />
           </div>
