@@ -21,7 +21,9 @@ const DetailBox = (props : DetailBoxProps) => {
   return (
     <>
       <DetailBoxStyled {...props}>
-        <Slider {...props} />
+        <div className='slider-wrap'>
+          <Slider {...props} />
+        </div>
         <SellerBox {...props} />
         <DescriptionBox {...props} />
       </DetailBoxStyled>
