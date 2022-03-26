@@ -14,8 +14,10 @@ const Template: Story<SellerBoxProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  sellerName: "유키링",
-  sellerImgUrl: "https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg",
-  location: "하라주쿠",
-  degree: 38.6,
+  sellerDetail: {
+    name: "유키링",
+    profileUrl: "https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg",
+    location: "하라주쿠",
+    manner: 38.6,
+  },
 };

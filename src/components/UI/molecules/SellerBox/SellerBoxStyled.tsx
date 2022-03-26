@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { SellerBoxProps } from "./SellerBox";
 
-export const SellerBoxStyled = styled.div<SellerBoxProps>`
+export const SellerBoxStyled = styled.div`
   width: 100%;
   display: flex;
-  padding: 10px;
+  padding: 10px 0px;
   overflow-x: hidden;
   border-bottom: 1px solid ${(props) => props.theme.$black20};
   .seller-inform {

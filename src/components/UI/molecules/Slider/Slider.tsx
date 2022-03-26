@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef } from "react"; 
 import SlideButton from "../../atoms/SlideButton/SlideButton";
 import Image from "../../atoms/Image/Image";
+import { IProduct } from "../../organisms/ProductBoxes/ProductBoxes";
 import { SliderStyled } from './SliderStyled';
 
 export interface SliderProps {
-  slideImages: string[];
+  slides: Pick<IProduct, 'images'>;
 }
 
-const Slider = (props: SliderProps) => {
-  const TOTAL_SLIDES = props.slideImages.length - 1;
+const Slider = ({ slides }: SliderProps) => {
+  const TOTAL_SLIDES = slides.images.length - 1;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slideRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -30,11 +31,11 @@ const Slider = (props: SliderProps) => {
 
   return (
     <>
-      <SliderStyled {...props}>
+      <SliderStyled {...slides}>
         <SlideButton direction="previous" onClick={prevSlide} />
         <SlideButton direction="next" onClick={nextSlide} />
         <div className="slider-container" ref={slideRef}>
-        {props.slideImages.map((slide, idx) =>
+        {slides.images.map((slide, idx) =>
           <div className="slide" key={idx} >
             <Image
               imgUrl={slide}
