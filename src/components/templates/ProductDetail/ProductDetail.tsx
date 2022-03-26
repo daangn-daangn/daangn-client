@@ -6,7 +6,7 @@ import { IProduct } from '../../UI/organisms/ProductBoxes/ProductBoxes';
 import { ProductDetailStyled } from './ProductDetailStyled';
 
 export interface ProductDetailProps {
-  slideImages: string[];
+  slides: Pick<IProduct, 'images'>;
   sellerDetail: Pick<ISeller, 'name' | 'profileUrl' | 'location' | 'manner'>;
   productDetail: Pick<IProduct, 'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view'>;
   isLike: true,

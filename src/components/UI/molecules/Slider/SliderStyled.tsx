@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { SliderProps } from "./Slider";
 
-export const SliderStyled = styled.div<SliderProps>`
+export const SliderStyled = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;

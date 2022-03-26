@@ -12,7 +12,7 @@ export interface ISeller {
 }
 
 export interface DetailBoxProps {
-  slideImages: string[];
+  slides: Pick<IProduct, 'images'>;
   sellerDetail: Pick<ISeller, 'name' | 'profileUrl' | 'location' | 'manner'>;
   productDetail: Pick<IProduct, 'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view'>;
 }

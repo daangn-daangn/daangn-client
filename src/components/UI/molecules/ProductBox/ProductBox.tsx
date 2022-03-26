@@ -7,14 +7,14 @@ import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
 import { StyledProductBox } from './ProductBoxStyled';
 
 export interface ProductBoxProps {
-  product: Pick<IProduct, 'id' | 'imgUrl' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
+  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
 }
 
 const ProductBox = ({ product }: ProductBoxProps) => {
   return (
     <>
       <StyledProductBox>
-        <Image imgUrl={product.imgUrl} />
+        <Image imgUrl={product.thumb_nail_image} />
         <div className="product_info">
           <Title>{product.title}</Title>
           <div className="product_info__detail">
