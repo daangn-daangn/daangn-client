@@ -1,9 +1,9 @@
+import { IProduct } from '../../../../interfaces/Product.interface';
 import Image from '../../atoms/Image/Image';
 import Like from '../../atoms/Like/Like';
 import Price from '../../atoms/Price/Price';
 import Time from '../../atoms/Time/Time';
 import Title from '../../atoms/Title/Title';
-import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
 import { StyledProductBox } from './ProductBoxStyled';
 
 export interface ProductBoxProps {

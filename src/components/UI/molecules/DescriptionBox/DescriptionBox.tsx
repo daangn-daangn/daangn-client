@@ -1,6 +1,6 @@
+import { IProduct } from '../../../../interfaces/Product.interface';
 import Time from '../../atoms/Time/Time';
 import Title from '../../atoms/Title/Title';
-import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
 import { StyledDescriptionBox } from './DescriptionBoxStyled';
 
 export interface DescriptionBoxProps {

@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react"; 
-import SlideButton from "../../atoms/SlideButton/SlideButton";
-import Image from "../../atoms/Image/Image";
-import { IProduct } from "../../organisms/ProductBoxes/ProductBoxes";
+import { useState, useEffect, useRef } from 'react';
+import SlideButton from '../../atoms/SlideButton/SlideButton';
+import Image from '../../atoms/Image/Image';
 import { SliderStyled } from './SliderStyled';
+import { IProduct } from '../../../../interfaces/Product.interface';
 
 export interface SliderProps {
   slides: Pick<IProduct, 'images'>;
@@ -15,17 +15,15 @@ const Slider = ({ slides }: SliderProps) => {
   const slideRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const prevSlide = () => {
-    currentSlide <= 0 ?
-      setCurrentSlide(TOTAL_SLIDES) : setCurrentSlide(currentSlide - 1);
+    currentSlide <= 0 ? setCurrentSlide(TOTAL_SLIDES) : setCurrentSlide(currentSlide - 1);
   };
 
   const nextSlide = () => {
-    currentSlide >= TOTAL_SLIDES ? 
-      setCurrentSlide(0) : setCurrentSlide(currentSlide + 1);
+    currentSlide >= TOTAL_SLIDES ? setCurrentSlide(0) : setCurrentSlide(currentSlide + 1);
   };
 
   useEffect(() => {
-    slideRef.current.style.transition = "all 0.5s ease-in-out";
+    slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
@@ -35,16 +33,11 @@ const Slider = ({ slides }: SliderProps) => {
         <SlideButton direction="previous" onClick={prevSlide} />
         <SlideButton direction="next" onClick={nextSlide} />
         <div className="slider-container" ref={slideRef}>
-        {slides.images.map((slide, idx) =>
-          <div className="slide" key={idx} >
-            <Image
-              imgUrl={slide}
-              width="100%"
-              height="400px"
-              borderRedius="0px"
-            />
-          </div>
-        )}
+          {slides.images.map((slide, idx) => (
+            <div className="slide" key={idx}>
+              <Image imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
+            </div>
+          ))}
         </div>
       </SliderStyled>
     </>
