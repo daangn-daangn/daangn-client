@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import Home, { HomeProps } from './Home';
+import Home, { dummyProducts, HomeProps } from './Home';
 
 export default {
   title: 'Templates/Home',
@@ -16,4 +16,6 @@ const Template: Story<HomeProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  products: dummyProducts,
+};
