@@ -13,21 +13,15 @@ const PostButton = (props: PostButtonProps) => {
 
   return (
     <>
-      {toggle ? 
-        <ModalStyled />
-      :null}
+      {toggle ? <ModalStyled /> : null}
       <PostButtonStyled toggle={toggle} ref={ModalOut}>
-        {toggle ? 
+        {toggle ? (
           <div className="modal-box">
-            <div className="Item">
-              🔖 내 물건 팔기
-            </div>
+            <div className="Item">🔖 내 물건 팔기</div>
           </div>
-        :null}
-        <button onClick={e => setToggle(!toggle)}>
-          {toggle ? "x" : "+"}
-        </button>
-      </PostButtonStyled>    
+        ) : null}
+        <button onClick={(e) => setToggle(!toggle)}>{toggle ? 'x' : '+'}</button>
+      </PostButtonStyled>
     </>
   );
 };

@@ -1,8 +1,8 @@
 import Slider from '../../molecules/Slider/Slider';
 import SellerBox from '../../molecules/SellerBox/SellerBox';
 import DescriptionBox from '../../molecules/DescriptionBox/DescriptionBox';
-import { IProduct } from '../../organisms/ProductBoxes/ProductBoxes';
 import { DetailBoxStyled } from './DetailBoxStyled';
+import { IProduct } from '../../../../interfaces/Product.interface';
 
 export interface ISeller {
   name: string;
@@ -17,11 +17,11 @@ export interface DetailBoxProps {
   productDetail: Pick<IProduct, 'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view'>;
 }
 
-const DetailBox = (props : DetailBoxProps) => {
+const DetailBox = (props: DetailBoxProps) => {
   return (
     <>
       <DetailBoxStyled {...props}>
-        <div className='slider-wrap'>
+        <div className="slider-wrap">
           <Slider {...props} />
         </div>
         <SellerBox {...props} />
