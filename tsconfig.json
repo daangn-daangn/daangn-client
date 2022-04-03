@@ -15,11 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl" : "src",
+    "baseUrl" : "./src",
     "paths": { 
-      "@/atoms/*": ["components/UI/atoms/*"],
-      "@/molecules/*": ["components/UI/molecules/*"],
-      "@/organisms/*": ["components/UI/organisms/*"],
+      "@atoms/*": ["components/UI/atoms/*"],
+      "@molecules/*": ["components/UI/molecules/*"],
+      "@organisms/*": ["components/UI/organisms/*"],
     },
   },
   "include": ["src"]
