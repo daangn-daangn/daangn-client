@@ -14,13 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl" : "src",
-    "paths": { 
-      "@/atoms/*": ["components/UI/atoms/*"],
-      "@/molecules/*": ["components/UI/molecules/*"],
-      "@/organisms/*": ["components/UI/organisms/*"],
-    },
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }
