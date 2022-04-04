@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import ChatTabBar, { ChatTabBarProps } from './ChatTabBar';
 
 export default {
-  title: 'Atoms/ChatTabBar',
+  title: 'Molecules/ChatTabBar',
   component: ChatTabBar,
 } as Meta;
 
