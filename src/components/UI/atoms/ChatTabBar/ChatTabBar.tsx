@@ -4,7 +4,6 @@ import Temperature from '@atoms/Temperature/Temperature';
 import { ReactComponent as Back } from 'assets/back.svg';
 import { ReactComponent as Hamburger } from 'assets/hamburger.svg';
 
-
 export interface ChatTabBarProps {
   userDetail: Pick<IUser, 'nickname' | 'manner'>;
 }
