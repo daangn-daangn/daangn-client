@@ -10,12 +10,12 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
     fill: ${(props) => props.color};
   }
   progress { 
-    appearance: none; 
+    appearance: none;
   }
   progress::-webkit-progress-bar { 
     background: ${(props) => props.theme.$black20};
     border-radius: 10px;
-    width: ${(props) => props.type === 'product' ? "50px" : "94vw"};
+    width: ${(props) => props.type === 'product' ? "50px" : "92vw"};
     height: 6px;
     margin-top: 3px;
   } 
@@ -46,7 +46,7 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
   .first-temperature {
     width: 66px;
     position: absolute;
-    left: calc((94vw * 0.365) - 33px);
+    left: calc((92vw * 0.365) - 33px);
     margin-bottom: -10px;
     .mark {
       color: ${(props) => props.theme.$black60};
@@ -55,5 +55,13 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
       text-align: center;
       line-height: 125%;
     }
+  }
+  .chat-degree-div {
+    border: 1.55px solid ${(props) => props.color};
+    border-radius: 20px;
+    padding: 3px 6px;
+    display: inline-block;
+    width: auto;
+    font-size: 0.68rem;
   }
 `;
