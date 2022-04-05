@@ -41,8 +41,27 @@ UserMiddle.args = {
   degree: 37.9,
   type: 'user',
 };
+
 export const UserHigh = Template.bind({});
 UserHigh.args = {
   degree: 51.2,
   type: 'user',
+};
+
+export const ChatLow = Template.bind({});
+ChatLow.args = {
+  degree: 36.8,
+  type: 'chat',
+};
+
+export const ChatMiddle = Template.bind({});
+ChatMiddle.args = {
+  degree: 37.9,
+  type: 'chat',
+};
+
+export const ChatHigh = Template.bind({});
+ChatHigh.args = {
+  degree: 51.2,
+  type: 'chat',
 };

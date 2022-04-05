@@ -1,7 +1,7 @@
-import { ReactComponent as Smile } from '../../../../assets/smile.svg';
+import { ReactComponent as Smile } from 'assets/smile.svg';
 import { TemperatureStyled } from './TemperatureStyled';
 
-type TemperatureType = 'product' | 'user';
+type TemperatureType = 'product' | 'user' | 'chat';
 
 export interface TemperatureProps {
   type?: TemperatureType;
@@ -17,7 +17,7 @@ const Temperature = (props: TemperatureProps) => {
         degree={props.degree}
         color={props.degree <= 37 ? "#2F68B8" : props.degree <= 50 ? "#71AE6F": "#D18E26"}
       >
-      {props.type === 'product'?
+      {props.type === 'product' ?
         <>
           <div className="flex-div">
             <div className="degree-div">
@@ -29,6 +29,7 @@ const Temperature = (props: TemperatureProps) => {
           <p className="manner-temperature">매너온도</p>
         </>
       :
+      props.type === 'user' ? 
         <>
           <div className="flex-div">
             <div  className="first-temperature">
@@ -39,7 +40,11 @@ const Temperature = (props: TemperatureProps) => {
           </div>
           <progress value={props.degree} max="100"></progress>
         </>
-        }
+      :
+        <>
+          <div className='chat-degree-div'>{props.degree}°C</div>
+        </>
+      }
       </TemperatureStyled>
     </>
   );
