@@ -7,7 +7,7 @@ export const SlideButtonStyled = styled.button<SlideButtonProps>`
   border-radius: 50%;
   position: absolute;
   z-index: 999;
-  top: 45%;
+  top: 48%;
   left: ${(props) => props.direction === "previous" ? "2px" : "none"};
   right: ${(props) => props.direction === "next" ? "2px" : "none"};
   &:hover {
