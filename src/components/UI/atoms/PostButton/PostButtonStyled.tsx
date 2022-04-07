@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import { PostButtonProps } from './PostButton';
 
 export const PostButtonStyled = styled.div<PostButtonProps>`
-  position: fixed;
-  right: 10px;
-  bottom: 50px;
-  z-index: 999999;
   text-align: right;
   button {
+    position: fixed;
+    right: 10px;
+    bottom: 50px;
+    z-index: 999999;
     background: ${(props) => (props.toggle ? 'white' : props.theme.mainColor)};
     border: none;
     border-radius: 50%;
@@ -31,6 +31,10 @@ export const PostButtonStyled = styled.div<PostButtonProps>`
     }
   }
   .modal-box {
+    position: fixed;
+    right: 10px;
+    bottom: 100px;
+    z-index: 999999;
     background: white;
     box-shadow: 0 0 5px rgba(33, 33, 33, 0.1);
     border-radius: 10px;
