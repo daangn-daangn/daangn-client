@@ -13,4 +13,25 @@ export const SliderStyled = styled.div`
     object-fit: cover;
     flex-shrink: 0;
   }
+  .slide-index {
+    position: absolute;
+    z-index: 999;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    .mark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: white;
+    }
+    .normal {
+      opacity: 0.6; 
+    }
+    .current {
+      opacity: 1;
+    }
+  }
 `;

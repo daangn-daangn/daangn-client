@@ -5,17 +5,20 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
   color: ${(props) => props.color};
   font-weight: 600;
   width: ${(props) => props.type === 'product' ? "85px" : "100%"};
+  display: inline-flex;
+  flex-direction: column;
   svg {
     stroke: ${(props) => props.color};
     fill: ${(props) => props.color};
   }
   progress { 
     appearance: none;
+    width: auto;
   }
   progress::-webkit-progress-bar { 
     background: ${(props) => props.theme.$black20};
     border-radius: 10px;
-    width: ${(props) => props.type === 'product' ? "50px" : "92vw"};
+    width: ${(props) => props.type === 'product' ? "50px" : "100%"};
     height: 6px;
     margin-top: 3px;
   } 
@@ -46,7 +49,7 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
   .first-temperature {
     width: 66px;
     position: absolute;
-    left: calc((92vw * 0.365) - 33px);
+    left: calc((100% * 0.365) - 33px);
     margin-bottom: -10px;
     .mark {
       color: ${(props) => props.theme.$black60};
@@ -61,7 +64,8 @@ export const TemperatureStyled = styled.div<TemperatureProps>`
     border-radius: 20px;
     padding: 3px 6px;
     display: inline-block;
-    width: auto;
+    text-align: center;
+    width: 51px;
     font-size: 0.68rem;
   }
 `;
