@@ -12,8 +12,14 @@ const Template: Story<TopProps> = (args) => (
   </>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const isPrevArrowTrue = Template.bind({});
+isPrevArrowTrue.args = {
   isPrevArrow: true,
+  title: '프로필 설정',
+};
+
+export const isPrevArrowFalse = Template.bind({});
+isPrevArrowFalse.args = {
+  isPrevArrow: false,
   title: '프로필 설정',
 };

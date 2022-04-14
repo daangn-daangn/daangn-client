@@ -2,6 +2,7 @@ import { Global } from '@emotion/react';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import { ThemeProvider } from '@emotion/react';
 import Theme from '../src/styles/Theme';
+import { MemoryRouter } from 'react-router';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -17,7 +18,7 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={Theme}>
       <Global styles={GlobalStyle} />
-      <Story />
+      <MemoryRouter initialEntries={['/']}>{Story()}</MemoryRouter>
     </ThemeProvider>
   ),
 ];

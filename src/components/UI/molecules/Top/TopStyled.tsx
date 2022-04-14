@@ -11,6 +11,9 @@ export const StyledTop = styled.header<{ isPrevArrow: boolean; mb?: string }>`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        a {
+          cursor: pointer;
+        }
         & > h3 {
           flex: 1;
           margin-right: 24px;
