@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react';
+import { dummyProducts } from 'components/templates/Home/Home';
 import ProductBoxes, { ProductBoxesProps } from './ProductBoxes';
 
 export default {
@@ -13,4 +14,6 @@ const Template: Story<ProductBoxesProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  products: dummyProducts,
+};
