@@ -1,17 +1,17 @@
-import React from "react";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Global } from "@emotion/react";
-import GlobalStyle from "./styles/GlobalStyle";
-import { ThemeProvider } from '@emotion/react'
-import Theme from "./styles/Theme";
+import LocationCheckPage from 'pages/LocationCheckPage/LocationCheckPage';
+import LocationFindPage from 'pages/LocationFindPage/LocationFindPage';
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={Theme}>
-        <Global styles={GlobalStyle} />
-        <div>app</div>
-      </ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<LocationCheckPage />} />
+          <Route path="find" element={<LocationFindPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

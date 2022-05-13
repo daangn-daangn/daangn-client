@@ -3,6 +3,8 @@ import { MapStyled } from './MapStyled';
 export interface MapProps {
   latitude: number; //위도
   longitude: number; //경도
+  setLatitude?: (value: number) => void;
+  setLongitude?: (value: number) => void;
 }
 
 declare global {
@@ -42,10 +44,8 @@ export default function Map(props: MapProps) {
         const latlng = mouseEvent.latLng;
         marker.setPosition(latlng);
 
-        let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-        message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-        console.log(message);
+        props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
+        props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
       });
     });
   };
