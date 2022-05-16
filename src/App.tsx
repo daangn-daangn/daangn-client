@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import SignupLayout from 'Layouts/SignupLayout';
 import LocationCheckPage from 'pages/LocationCheckPage/LocationCheckPage';
 import LocationFindPage from 'pages/LocationFindPage/LocationFindPage';
 
@@ -8,8 +9,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<LocationCheckPage />} />
-          <Route path="find" element={<LocationFindPage />} />
+          <Route path="signup" element={<SignupLayout />}>
+            <Route path="location" element={<LocationCheckPage />} />
+            <Route path="location/find" element={<LocationFindPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
