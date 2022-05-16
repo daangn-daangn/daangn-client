@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { TabBarProps } from "./TabBar";
+import styled from '@emotion/styled';
+import { TabBarProps } from './TabBar';
 
 export const TabBarStyled = styled.nav<TabBarProps>`
   background: white;
-  border-top: 0.7px solid #BCBCBC;
+  border-top: 1px solid ${(props) => props.theme.$black20};
   position: fixed;
   left: 0;
   bottom: 0;
@@ -23,13 +23,13 @@ export const TabBarStyled = styled.nav<TabBarProps>`
       }
     }
     :nth-of-type(1) {
-      fill: ${props => (props.curTab === 1 ? props.theme.mainColor : "black")};
+      fill: ${(props) => (props.curTab === 1 ? props.theme.mainColor : 'black')};
     }
     :nth-of-type(2) {
-      fill: ${props => (props.curTab === 2 ? props.theme.mainColor : "black")};
+      fill: ${(props) => (props.curTab === 2 ? props.theme.mainColor : 'black')};
     }
     :nth-of-type(3) {
-      fill: ${props => (props.curTab === 3 ? props.theme.mainColor : "black")};
+      fill: ${(props) => (props.curTab === 3 ? props.theme.mainColor : 'black')};
     }
   }
 `;

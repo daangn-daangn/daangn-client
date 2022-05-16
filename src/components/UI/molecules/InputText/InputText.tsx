@@ -4,14 +4,15 @@ import { InputTextStyled } from './InputTextStyled';
 
 export interface InputTextProps {
   label: string;
+  placeholder?: string;
 }
 
 const InputText = (props: InputTextProps) => {
   return (
     <>
       <InputTextStyled>
-        <Label {...props}/>
-        <Input />
+        <Label {...props} />
+        <Input {...props} />
       </InputTextStyled>
     </>
   );
