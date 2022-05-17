@@ -5,14 +5,17 @@ import { InputTextStyled } from './InputTextStyled';
 export interface InputTextProps {
   label: string;
   placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-const InputText = (props: InputTextProps) => {
+const InputText = ({ inputRef, ...props }: InputTextProps) => {
   return (
     <>
       <InputTextStyled>
         <Label {...props} />
-        <Input {...props} />
+        <Input ref={inputRef} {...props} />
       </InputTextStyled>
     </>
   );
