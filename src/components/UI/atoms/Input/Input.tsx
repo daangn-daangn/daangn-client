@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { InputStyled } from './InputStyled';
 
 export interface InputProps {
@@ -6,12 +7,12 @@ export interface InputProps {
   placeholder?: string;
 }
 
-const Input = (props: InputProps) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
   return (
     <>
-      <InputStyled {...props} />
+      <InputStyled ref={ref} {...props} />
     </>
   );
-};
-
+});
+Input.displayName = 'Input';
 export default Input;
