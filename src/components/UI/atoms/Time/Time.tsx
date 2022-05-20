@@ -4,12 +4,13 @@ import moment from 'moment';
 
 export interface TimeProps {
   time: Date;
+  exactTime?: boolean;
 }
 
-const Time = ({ time }: TimeProps) => {
+const Time = ({ time, exactTime }: TimeProps) => {
   return (
     <>
-      <StyledTime>{moment(time).fromNow()}</StyledTime>
+      <StyledTime>{exactTime ? moment(time).format('a hh:mm') : moment(time).fromNow()}</StyledTime>
     </>
   );
 };
