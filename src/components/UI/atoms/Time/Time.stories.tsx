@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Time, { TimeProps } from './Time';
 
@@ -9,11 +8,17 @@ export default {
 
 const Template: Story<TimeProps> = (args) => (
   <>
-    <Time {...args}>삼성갤럭시폰 교환해요</Time>
+    <Time {...args} />
   </>
 );
 
 export const Default = Template.bind({});
 Default.args = {
   time: new Date(),
+};
+
+export const ExactTime = Template.bind({});
+ExactTime.args = {
+  time: new Date(),
+  exactTime: true,
 };
