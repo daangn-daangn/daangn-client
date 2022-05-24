@@ -5,6 +5,7 @@ export interface MapProps {
   longitude: number; //경도
   setLatitude?: (value: number) => void;
   setLongitude?: (value: number) => void;
+  share?: boolean;
 }
 
 declare global {
@@ -31,8 +32,8 @@ export default function Map(props: MapProps) {
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
       const imageSrc = 'https://www.daangn.com/logo.png';
-      const imageSize = new window.kakao.maps.Size(60, 60);
-      const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+      const imageSize = new window.kakao.maps.Size(65, 65);
+      const imageOption = { offset: new window.kakao.maps.Point(30, 65) };
 
       const marker = new window.kakao.maps.Marker({
         position: map.getCenter(),
@@ -40,13 +41,32 @@ export default function Map(props: MapProps) {
       });
       marker.setMap(map);
 
-      window.kakao.maps.event.addListener(map, 'click', function (mouseEvent: any) {
-        const latlng = mouseEvent.latLng;
-        marker.setPosition(latlng);
+      if (props.share) {
+        const content = document.createElement('div');
+        const button = document.createElement('button');
+        button.id = 'custon-overlay-button';
+        button.innerHTML = '이 장소 공유하기';
+        button.onclick = (e) => {
+          // 채팅 보내지는
+          console.log('이 장소 공유하기 버튼 눌림');
+        };
+        content.appendChild(button);
 
-        props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
-        props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
-      });
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+          map: map,
+          position: map.getCenter(),
+          content: content,
+          yAnchor: 0.2,
+        });
+      } else {
+        window.kakao.maps.event.addListener(map, 'click', function (mouseEvent: any) {
+          const latlng = mouseEvent.latLng;
+          marker.setPosition(latlng);
+
+          props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
+          props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
+        });
+      }
     });
   };
   mapScript.addEventListener('load', onLoadKakaoMap);

@@ -3,10 +3,7 @@ import styled from '@emotion/styled';
 export const ChatSendBoxStyled = styled.div`
   background: ${(props) => props.theme.$black20};
   width: 100%;
-  position: fixed;
-  z-index: 99999;
-  left: 0;
-  bottom: 0;
+
   padding: 2px 2px 1px;
   height: auto;
   .div-stair {

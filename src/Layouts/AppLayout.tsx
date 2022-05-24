@@ -1,12 +1,20 @@
+import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const ApplayoutStyled = styled.div`
-  margin: 60px 0;
   padding: 0 20px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
-const Applayout: React.FC = ({ children }) => {
-  return <ApplayoutStyled>{children}</ApplayoutStyled>;
+const Applayout: React.FC = () => {
+  return (
+    <ApplayoutStyled>
+      <Outlet />
+    </ApplayoutStyled>
+  );
 };
 
 export default Applayout;
