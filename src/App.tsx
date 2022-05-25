@@ -5,11 +5,17 @@ import LocationCheckPage from 'pages/LocationCheckPage/LocationCheckPage';
 import LocationFindPage from 'pages/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/NickNameSettingPage/NickNameSettingPage';
 
+import Applayout from 'Layouts/AppLayout';
+import LocationSharePage from 'pages/LocationSharePage/LocationSharePage';
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="" element={<Applayout />}>
+            <Route path="location/share" element={<LocationSharePage />} />
+          </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />
             <Route path="location" element={<LocationCheckPage />} />
