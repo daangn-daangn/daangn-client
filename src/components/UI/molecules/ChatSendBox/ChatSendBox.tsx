@@ -6,9 +6,11 @@ import { ReactComponent as Send } from 'assets/send.svg';
 import { ReactComponent as Location } from 'assets/location.svg';
 import { ReactComponent as Picture } from 'assets/picture.svg';
 
-export interface ChatSendBoxProps {}
+export interface ChatSendBoxProps {
+  onClickSend: () => void;
+}
 
-const ChatSendBox = (props: ChatSendBoxProps) => {
+const ChatSendBox = ({ onClickSend }: ChatSendBoxProps) => {
   const [plusModal, setPlusModal] = useState<boolean>(false);
 
   const InputFileRef = useRef<HTMLInputElement>(null);
@@ -33,7 +35,7 @@ const ChatSendBox = (props: ChatSendBoxProps) => {
         <div className="div-stair">
           <Plus onClick={() => setPlusModal(!plusModal)} />
           <TextArea placeholder="메시지를 입력하세요." />
-          <Send />
+          <Send onClick={onClickSend} />
         </div>
         {plusModal ? (
           <div className="div-stair plus-modal">

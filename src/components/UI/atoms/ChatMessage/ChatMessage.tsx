@@ -1,6 +1,6 @@
 import { ChatMessageStyled } from './ChatMessageStyled';
 import Time from '@atoms/Time/Time';
-import { IChat } from '@molecules/MessagesPerMinute/MessagesPerMinute';
+import { IChat } from 'interfaces/Chat.interface';
 
 export interface ChatMessageProps {
   minute?: boolean; //해당 분에 마지막인지 아닌지 (마지막이면 Time 보여줌)

@@ -7,13 +7,14 @@ export const TimelineStyled = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
+      margin-bottom: 30px;
       .timeline_bar {
         flex: 1;
         height: 1px;
-        background-color: ${props.theme.$black40};
+        background-color: ${props.theme.$black30};
       }
       .timeline_time {
-        margin: 0 2px;
+        margin: 0 5px;
         color: ${props.theme.$black50};
       }
     `;
