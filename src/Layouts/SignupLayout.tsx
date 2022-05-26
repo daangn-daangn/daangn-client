@@ -17,7 +17,6 @@ const SignupLayoutStyled = styled.div`
   }
   button:last-of-type {
     margin-top: auto;
-    margin-bottom: 40px;
   }
 `;
 
