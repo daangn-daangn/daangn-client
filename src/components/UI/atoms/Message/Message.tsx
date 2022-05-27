@@ -1,7 +1,7 @@
 import { MessageStyled } from './MessageStyled';
 
 export interface MessageProps {
-  message: string;
+  message?: string;
 }
 
 const Message = (props: MessageProps) => {
