@@ -10,16 +10,16 @@ export interface InputTextProps {
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
-  inputRef?: React.RefObject<HTMLInputElement>;
   register?: UseFormRegisterReturn;
+  readOnly?: boolean;
 }
 
-const InputText = ({ inputRef, ...props }: InputTextProps) => {
+const InputText = (props: InputTextProps) => {
   return (
     <>
       <InputTextStyled>
         <Label {...props} />
-        <Input ref={inputRef} {...props} {...props.register} />
+        <Input {...props} />
         <Message {...props} />
       </InputTextStyled>
     </>

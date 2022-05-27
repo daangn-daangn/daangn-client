@@ -1,7 +1,6 @@
 import Button from '@atoms/Button/Button';
 import Title from '@atoms/Title/Title';
 import InputText from '@molecules/InputText/InputText';
-import { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { NickNameSettingPageStyled } from './NickNameSettingPageStyled';
 import { useForm } from 'react-hook-form';
@@ -10,9 +9,11 @@ import { IUser } from 'interfaces/User.interface';
 const NickNameSettingPage = () => {
   const navigate = useNavigate();
 
-  const nicknameInput = useRef<HTMLInputElement>(null);
-
-  const { register, handleSubmit, watch } = useForm<Pick<IUser, 'nickname'>>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Pick<IUser, 'nickname'>>({ mode: 'onChange' });
 
   const onSubmit = (data: Pick<IUser, 'nickname'>) => {
     console.log(data);
@@ -27,6 +28,7 @@ const NickNameSettingPage = () => {
     //성공시 위치 찾는 페이지로 이동
     //navigate('/signup/location');
   };
+
   return (
     <NickNameSettingPageStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,10 +37,9 @@ const NickNameSettingPage = () => {
         </Title>
         <div className="text-input-wrap">
           <InputText
-            inputRef={nicknameInput}
             label="닉네임"
-            register={{ ...register('nickname', { required: true }) }}
-            message={watch('nickname') ? '' : '닉네임을 입력해 주세요'}
+            register={{ ...register('nickname', { required: '닉네임을 입력해주세요' }) }}
+            message={errors.nickname?.message}
           />
         </div>
         <Button width="100%" height="56px" type="submit">
@@ -48,4 +49,5 @@ const NickNameSettingPage = () => {
     </NickNameSettingPageStyled>
   );
 };
+
 export default NickNameSettingPage;

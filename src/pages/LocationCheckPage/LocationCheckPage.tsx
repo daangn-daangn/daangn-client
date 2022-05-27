@@ -19,7 +19,7 @@ const LocationCheckPage = () => {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
 
-  const { handleSubmit, setValue, watch } = useForm<Pick<IUser, 'location'>>();
+  const { register, handleSubmit, setValue } = useForm<Pick<IUser, 'location'>>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -41,7 +41,7 @@ const LocationCheckPage = () => {
             현재 위치가 맞나요?
           </Title>
           <div className="text-input-wrap">
-            <InputText label="현재 위치" placeholder={watch('location')} />
+            <InputText label="현재 위치" register={{ ...register('location') }} readOnly={true} />
             <Button
               width="100%"
               height="37px"
