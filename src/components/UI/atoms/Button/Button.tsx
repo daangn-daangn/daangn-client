@@ -2,9 +2,14 @@ import { ButtonStyled } from './ButtonStyled';
 
 export interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  fontSize?: string;
   width?: string;
   height?: string;
+  background?: string;
+  hoverBackground?: string;
+  fontSize?: string;
+  fontColor?: string;
+  fontWeight?: string;
+  padding?: string;
   type?: 'button' | 'submit' | 'reset';
 }
 

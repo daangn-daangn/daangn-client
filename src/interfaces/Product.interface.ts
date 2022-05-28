@@ -21,3 +21,12 @@ export interface IProduct {
   chat: number;
   state: ProductState;
 }
+
+export interface INewProduct {
+  title: string;
+  category: string;
+  thumb_nail_image: File;
+  images: FileList;
+  price: string;
+  description: string;
+}
