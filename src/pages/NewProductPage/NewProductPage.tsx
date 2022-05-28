@@ -62,7 +62,6 @@ const NewProductPage = () => {
   };
 
   const goCategoryPage = () => {
-    console.log(watch());
     navigate('category', { state: { ...watch() } });
   };
 
@@ -74,6 +73,7 @@ const NewProductPage = () => {
       description: watch('description'),
     };
     window.localStorage.setItem('temporary_new_product', JSON.stringify(currentWrite));
+    // navigate('/product'); 홈으로 가는 코드
   };
 
   const onSubmit = (data: INewProduct) => {
@@ -137,8 +137,10 @@ const NewProductPage = () => {
           <Input
             register={{
               ...register('price', {
-                onChange: (e) =>
-                  setValue('price', e.target.value.replace(/[^0-9]/, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')),
+                onChange: (e) => {
+                  console.log(e.target.value);
+                  setValue('price', e.target.value.replace(/[^0-9]|(,)/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                },
               }),
             }}
             placeholder="₩ 가격"

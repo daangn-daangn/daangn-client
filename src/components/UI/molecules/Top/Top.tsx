@@ -16,13 +16,13 @@ export interface TopProps {
 
 const Top = ({ left, leftClick, title, right, mb }: TopProps) => {
   const navigate = useNavigate();
-  const onClickArrow = useCallback(() => {
-    navigate(-1);
-    if (leftClick !== undefined) leftClick();
+  const onClickLeft = useCallback(() => {
+    leftClick ? leftClick() : navigate(-1);
   }, []);
+
   return (
     <StyledTop left={left || 'none'} mb={mb}>
-      <a onClick={onClickArrow}>
+      <a onClick={onClickLeft}>
         <svg>{left === 'prev' ? <Back /> : left === 'close' ? <Clsoe /> : null}</svg>
       </a>
       <Title fontWeigt="700" fontSize="16px">
