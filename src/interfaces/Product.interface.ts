@@ -1,3 +1,5 @@
+import { IUser } from './User.interface';
+
 export enum ProductState {
   DELETE = '삭제상품',
   REVERSED = '예약중',
@@ -20,4 +22,8 @@ export interface IProduct {
   favorite: number;
   chat: number;
   state: ProductState;
+}
+
+export interface IProductWithUser extends IProduct {
+  user: IUser;
 }

@@ -12,14 +12,18 @@ const Template: Story<DealBoxProps> = (args) => (
   </>
 );
 
-export const UserLikeTrue = Template.bind({});
-UserLikeTrue.args = {
+export const UserLikeTrue_And_MyProduct = Template.bind({});
+UserLikeTrue_And_MyProduct.args = {
   isLike: true,
   productPrice: 6000,
+  isMyProduct: true,
+  chatLength: 3,
 };
 
-export const UserLikeFalse = Template.bind({});
-UserLikeFalse.args = {
+export const UserLikeFalse_And_NotMyProduct = Template.bind({});
+UserLikeFalse_And_NotMyProduct.args = {
   isLike: false,
   productPrice: 6000,
+  isMyProduct: false,
+  chatLength: 3,
 };
