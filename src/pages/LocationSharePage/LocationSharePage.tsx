@@ -22,7 +22,7 @@ const LocationSharePage = () => {
   return (
     <>
       <LocationSharePageStyled>
-        <Top title="장소공유" isPrevArrow={true} />
+        <Top title="장소공유" left="prev" />
         <div className="map-wrap" ref={MapWrapRef}>
           <div style={{ height: `${MapWrapRef.current?.offsetHeight}px` }}>
             <Map
