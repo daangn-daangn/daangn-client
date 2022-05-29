@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Top from '@molecules/Top/Top';
 
 const SignupLayoutStyled = styled.div`
-  padding: 0 20px;
+  padding: 50px 20px 0px;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -23,7 +23,7 @@ const SignupLayoutStyled = styled.div`
 const SignupLayout = () => {
   return (
     <SignupLayoutStyled>
-      <Top isPrevArrow={true} title="프로필 설정" />
+      <Top left="prev" title="프로필 설정" />
       <Outlet />
     </SignupLayoutStyled>
   );

@@ -9,6 +9,9 @@ import Applayout from 'Layouts/AppLayout';
 import LocationSharePage from 'pages/LocationSharePage/LocationSharePage';
 import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 
+import NewProductPage from 'pages/NewProductPage/NewProductPage';
+import CategotyPage from 'pages/CategotyPage/CategotyPage';
+
 function App() {
   return (
     <>
@@ -16,6 +19,8 @@ function App() {
         <Routes>
           <Route path="" element={<Applayout />}>
             <Route path="location/share" element={<LocationSharePage />} />
+            <Route path="product/new" element={<NewProductPage />} />
+            <Route path="product/new/category" element={<CategotyPage />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />

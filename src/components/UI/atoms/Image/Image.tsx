@@ -1,4 +1,4 @@
-import { StyledImage } from './ImageSyled';
+import { StyledImage } from './ImageStyled';
 
 export interface ImageProps {
   imgUrl: string;

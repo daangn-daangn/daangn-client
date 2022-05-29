@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const ApplayoutStyled = styled.div`
-  padding: 0 20px;
+  padding: 50px 20px 0px;
   width: 100%;
   min-height: 100vh;
   display: flex;
