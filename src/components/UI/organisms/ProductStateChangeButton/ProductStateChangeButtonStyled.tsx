@@ -9,7 +9,7 @@ export const ProductStateChangeButtonStyled = styled.button`
   justify-content: space-between;
   border: 1px solid ${(props) => props.theme.mainColor};
   font-size: 0.7rem;
-  color: ${(props) => props.theme.$black90};
+  color: ${(props) => props.theme.$black};
   background: #fff;
   cursor: pointer;
   border-radius: 5px;

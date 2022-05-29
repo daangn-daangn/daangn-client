@@ -56,6 +56,7 @@ const ProductDetailPage = () => {
       view: dummyProduct.view,
       state: dummyProduct.state,
     },
+    isMyProduct: dummyUser.id === dummyProduct.user.id,
   };
   return (
     <>

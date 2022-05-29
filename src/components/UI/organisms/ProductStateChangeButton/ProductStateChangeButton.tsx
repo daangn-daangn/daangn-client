@@ -3,6 +3,7 @@ import { ReactComponent as Down } from 'assets/down.svg';
 import { useState } from 'react';
 import ProductStateChangeModal from '@molecules/ProductStateChangeModal/ProductStateChangeModal';
 import { ProductState } from 'interfaces/Product.interface';
+
 export interface ProductStateChangeButtonProps {
   productState: ProductState;
 }

@@ -16,6 +16,8 @@ const ProductStateChangeModal = ({ setShowProductStateModal, productState }: Pro
   };
   const onClickChangeState = () => {
     //Product State Change API
+    //성공하면
+    setShowProductStateModal((prev) => !prev);
   };
 
   return (
@@ -26,7 +28,7 @@ const ProductStateChangeModal = ({ setShowProductStateModal, productState }: Pro
           {Object.values(ProductState)
             .filter((state) => state !== productState)
             .map((state) => (
-              <div className="productStateModal_button" onClick={onClickChangeState}>
+              <div key={state} className="productStateModal_button" onClick={onClickChangeState}>
                 {state}
               </div>
             ))}

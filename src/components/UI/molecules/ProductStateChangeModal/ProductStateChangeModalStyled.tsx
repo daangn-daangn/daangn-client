@@ -15,8 +15,7 @@ export const ProductStateChangeModalStyled = styled.div`
   bottom: 0;
   right: 0px;
   width: 100%;
-  /* height: 150px; */
-  /* padding: 5px 0 55px 0; */
+  padding: 0 0 20px;
   background-color: #ffffff;
   border: 1px solid #e4ebf5;
   border-radius: 16px 16px 0px 0px;

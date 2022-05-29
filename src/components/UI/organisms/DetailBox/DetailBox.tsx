@@ -5,6 +5,7 @@ import { DetailBoxStyled } from './DetailBoxStyled';
 import { IProduct } from 'interfaces/Product.interface';
 import { IUser } from 'interfaces/User.interface';
 import Button from '@atoms/Button/Button';
+import ProductStateChangeButton from '@organisms/ProductStateChangeButton/ProductStateChangeButton';
 
 export interface DetailBoxProps {
   slides: Pick<IProduct, 'images'>;
@@ -13,6 +14,7 @@ export interface DetailBoxProps {
     IProduct,
     'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view' | 'state'
   >;
+  isMyProduct: boolean;
 }
 
 const DetailBox = (props: DetailBoxProps) => {
@@ -24,9 +26,11 @@ const DetailBox = (props: DetailBoxProps) => {
         </div>
         <div className="paddingWrapper">
           <SellerBox {...props} />
-          <Button width="70px" height="30px" fontSize="0.9rem">
-            {props.productDetail.state}
-          </Button>
+          {props.isMyProduct && (
+            <div className="detailbox_stateBtn">
+              <ProductStateChangeButton productState={props.productDetail.state} />
+            </div>
+          )}
           <DescriptionBox {...props} />
         </div>
       </DetailBoxStyled>
