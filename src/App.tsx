@@ -7,6 +7,7 @@ import NickNameSettingPage from 'pages/NickNameSettingPage/NickNameSettingPage';
 
 import Applayout from 'Layouts/AppLayout';
 import LocationSharePage from 'pages/LocationSharePage/LocationSharePage';
+import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 
 import NewProductPage from 'pages/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/CategotyPage/CategotyPage';
@@ -25,6 +26,9 @@ function App() {
             <Route path="nickname" element={<NickNameSettingPage />} />
             <Route path="location" element={<LocationCheckPage />} />
             <Route path="location/find" element={<LocationFindPage />} />
+          </Route>
+          <Route path="/product">
+            <Route path="detail" element={<ProductDetailPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

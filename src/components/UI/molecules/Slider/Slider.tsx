@@ -30,19 +30,25 @@ const Slider = ({ slides }: SliderProps) => {
   return (
     <>
       <SliderStyled {...slides}>
-        <SlideButton direction='previous' onClick={prevSlide} />
-        <SlideButton direction='next' onClick={nextSlide} />
-        <div className='slider-container' ref={slideRef}>
+        <SlideButton direction="previous" onClick={prevSlide} />
+        <SlideButton direction="next" onClick={nextSlide} />
+        <div className="slider-container" ref={slideRef}>
           {slides.images.map((slide, idx) => (
-            <div className='slide' key={idx}>
-              <Image imgUrl={slide} width='100%' height='400px' borderRedius='0px' />
+            <div className="slide" key={idx}>
+              <Image imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
             </div>
           ))}
         </div>
-        <div className='slide-index'>
-          {Array(TOTAL_SLIDES + 1).fill(0).map((slide, idx) => (
-            idx === currentSlide ? <div className='current mark' key={idx} /> : <div className='normal mark' key={idx} />
-          ))}
+        <div className="slide-index">
+          {Array(TOTAL_SLIDES + 1)
+            .fill(0)
+            .map((slide, idx) =>
+              idx === currentSlide ? (
+                <div className="current mark" key={idx} />
+              ) : (
+                <div className="normal mark" key={idx} />
+              ),
+            )}
         </div>
       </SliderStyled>
     </>
