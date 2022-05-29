@@ -18,7 +18,7 @@ const NewProductPage = () => {
   const location = useLocation();
   const state = location.state as INewProduct;
 
-  const [imagesBase64, setImagesBase64] = useState<any[]>([]);
+  const [imagesBase64, setImagesBase64] = useState<{ image: File; url: any }[]>([]);
 
   const { register, handleSubmit, setValue, reset, watch } = useForm<INewProduct>();
 
@@ -39,7 +39,7 @@ const NewProductPage = () => {
     if (watch('images')) {
       setImagesBase64([]);
       Array.from(watch('images')).forEach((image) => {
-        encodeFileToBase64(image).then((data) => setImagesBase64((prev) => [...prev, data]));
+        encodeFileToBase64(image).then((data) => setImagesBase64((prev) => [...prev, { image: image, url: data }]));
       });
       setValue('thumb_nail_image', watch('images')[0]);
     }
@@ -57,8 +57,16 @@ const NewProductPage = () => {
     }
   }, [state]);
 
-  const deleteImage = (clickedImage: string) => {
-    setImagesBase64(imagesBase64.filter((image) => image !== clickedImage));
+  const deleteImage = (clickedImage: File) => {
+    const dataTranster = new DataTransfer();
+
+    Array.from(watch('images'))
+      .filter((file) => file !== clickedImage)
+      .forEach((file) => {
+        dataTranster.items.add(file);
+      });
+
+    setValue('images', dataTranster.files);
   };
 
   const goCategoryPage = () => {
@@ -114,13 +122,13 @@ const NewProductPage = () => {
               </div>
             }
           />
-          {imagesBase64.map((image, index) => (
+          {imagesBase64.map((base64, index) => (
             <div className="input-photo-div_image" key={index}>
               {index === 0 ? <div className="input-photo-div_image_thumbnail">대표 사진</div> : null}
-              <div className="input-photo-div_image_close" onClick={() => deleteImage(image)}>
+              <div className="input-photo-div_image_close" onClick={() => deleteImage(base64.image)}>
                 <Close />
               </div>
-              <Image imgUrl={image} height="70px" width="70px" />
+              <Image imgUrl={base64.url} height="70px" width="70px" />
             </div>
           ))}
         </div>
