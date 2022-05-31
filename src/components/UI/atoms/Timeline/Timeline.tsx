@@ -3,7 +3,7 @@ import 'moment/locale/ko';
 import moment from 'moment';
 
 export interface TimelineProps {
-  time: Date;
+  time: string;
 }
 
 const Timeline = ({ time }: TimelineProps) => {
@@ -11,7 +11,7 @@ const Timeline = ({ time }: TimelineProps) => {
     <>
       <TimelineStyled>
         <div className="timeline_bar"></div>
-        <div className="timeline_time">{moment(time).format('YYYY월 M월 DD일')}</div>
+        <div className="timeline_time">{time}</div>
         <div className="timeline_bar"></div>
       </TimelineStyled>
     </>

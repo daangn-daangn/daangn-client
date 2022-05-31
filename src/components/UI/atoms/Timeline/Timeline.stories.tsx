@@ -14,5 +14,5 @@ const Template: Story<TimelineProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  time: new Date(),
+  time: '2022년 12월 2일',
 };
