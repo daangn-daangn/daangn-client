@@ -2,49 +2,21 @@ import 'moment/locale/ko';
 import moment from 'moment';
 import { IChat } from 'interfaces/Chat.interface';
 
-export function makeChatDaySection(chatList: IChat[]) {
-  const section: { [key: string]: IChat[] } = {};
-  chatList.forEach((chat) => {
-    const monthDate = moment(chat.createdAt).format('YYYY월 M월 DD일');
-    const minutes = moment(chat.createdAt).format('hh:mm');
-    if (monthDate in section) {
-      section[monthDate].push(chat);
-    } else {
-      section[monthDate] = [chat];
-    }
-  });
-  return section;
-}
-
-export function makeChatMinutesSection(chatList: IChat[]) {
-  const section: { [key: string]: IChat[] } = {};
-  chatList.forEach((chat) => {
-    const minutes = moment(chat.createdAt).format('hh:mm');
-    if (minutes in section) {
-      section[minutes].push(chat);
-    } else {
-      section[minutes] = [chat];
-    }
-  });
-  return section;
-}
-
 export function makeChatDayAndMinutesSection(chatList: IChat[]) {
   const section: { [key: string]: { [key: string]: IChat[] } } = {};
   chatList.forEach((chat) => {
-    const monthDate = moment(chat.createdAt).format('YYYY월 M월 DD일');
+    const day = moment(chat.createdAt).format('YYYY월 M월 DD일');
     const minutes = moment(chat.createdAt).format('hh:mm');
-    if (monthDate in section) {
-      if (minutes in section[monthDate]) {
-        section[monthDate][minutes].push(chat);
+    if (day in section) {
+      if (minutes in section[day]) {
+        section[day][minutes].push(chat);
       } else {
-        section[monthDate][minutes] = [chat];
+        section[day][minutes] = [chat];
       }
     } else {
-      section[monthDate] = {};
-      section[monthDate][minutes] = [chat];
+      section[day] = {};
+      section[day][minutes] = [chat];
     }
   });
-  console.log(section);
   return section;
 }
