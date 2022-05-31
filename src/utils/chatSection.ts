@@ -28,3 +28,23 @@ export function makeChatMinutesSection(chatList: IChat[]) {
   });
   return section;
 }
+
+export function makeChatDayAndMinutesSection(chatList: IChat[]) {
+  const section: { [key: string]: { [key: string]: IChat[] } } = {};
+  chatList.forEach((chat) => {
+    const monthDate = moment(chat.createdAt).format('YYYY월 M월 DD일');
+    const minutes = moment(chat.createdAt).format('hh:mm');
+    if (monthDate in section) {
+      if (minutes in section[monthDate]) {
+        section[monthDate][minutes].push(chat);
+      } else {
+        section[monthDate][minutes] = [chat];
+      }
+    } else {
+      section[monthDate] = {};
+      section[monthDate][minutes] = [chat];
+    }
+  });
+  console.log(section);
+  return section;
+}

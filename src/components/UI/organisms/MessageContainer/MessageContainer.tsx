@@ -3,7 +3,7 @@ import ChatSendBox from '@molecules/ChatSendBox/ChatSendBox';
 import MessagesPerMinute from '@molecules/MessagesPerMinute/MessagesPerMinute';
 import { IChat } from 'interfaces/Chat.interface';
 import { useEffect, useRef, useState } from 'react';
-import { makeChatDaySection } from 'utils/chatSection';
+import { makeChatDayAndMinutesSection, makeChatDaySection } from 'utils/chatSection';
 import { MessageContainerStyled } from './MessageContainerStyled';
 
 export interface MessageContainerProps {}
@@ -92,12 +92,13 @@ const MessageContainer = (props: MessageContainerProps) => {
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages]);
-  const section = makeChatDaySection(dummyChats);
+  const section = makeChatDayAndMinutesSection(dummyChats);
+  makeChatDayAndMinutesSection(dummyChats);
   return (
     <>
       <MessageContainerStyled>
         {Object.entries(section).map(([date, chats]) => (
-          <div>
+          <div key={date + chats}>
             <Timeline time={date} />
             <MessagesPerMinute chats={chats} />
           </div>

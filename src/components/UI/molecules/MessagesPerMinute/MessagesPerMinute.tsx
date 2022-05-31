@@ -1,15 +1,13 @@
 import ChatMessage from '@atoms/ChatMessage/ChatMessage';
 import Image from '@atoms/Image/Image';
 import { IChat } from 'interfaces/Chat.interface';
-import { makeChatMinutesSection } from 'utils/chatSection';
 import { MessagesPerMinuteStyled } from './MessagesPerMinuteStyled';
 
 export interface MessagesPerMinuteProps {
-  chats: IChat[];
+  chats: { [key: string]: IChat[] };
 }
 
 const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
-  const section = makeChatMinutesSection(chats);
   const isEndMessage = (sender: string, chatMessages: IChat[], currentIndex: number) => {
     return (
       (sender === 'you' && chatMessages.length === currentIndex + 1) ||
@@ -21,11 +19,11 @@ const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
   };
   return (
     <>
-      {Object.entries(section).map(([date, chatMessages]) => (
-        <MessagesPerMinuteStyled>
+      {Object.entries(chats).map(([date, chatMessages]) => (
+        <MessagesPerMinuteStyled key={chatMessages + date}>
           <div className="messages-wrap">
             {chatMessages.map((chat, idx) => (
-              <>
+              <div key={chat.message + idx}>
                 {chat.sender === 'you' && idx === 0 ? (
                   <Image
                     imgUrl="https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg"
@@ -35,7 +33,7 @@ const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
                   />
                 ) : null}
                 <ChatMessage key={idx} chat={chat} minute={isEndMessage(chat.sender, chatMessages, idx)} />
-              </>
+              </div>
             ))}
           </div>
         </MessagesPerMinuteStyled>
