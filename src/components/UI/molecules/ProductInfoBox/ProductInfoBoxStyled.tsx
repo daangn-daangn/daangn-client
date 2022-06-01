@@ -4,6 +4,7 @@ export const ProductInfoBoxStyled = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.$black20};
   padding: 10px 20px;
   width: 100%;
+  background-color: #fff;
   .messageProduct_info {
     display: flex;
     .messageProduct_info-detail {

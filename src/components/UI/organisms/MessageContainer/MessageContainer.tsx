@@ -83,15 +83,11 @@ const dummyChats: IChat[] = [
 
 const MessageContainer = (props: MessageContainerProps) => {
   const messagesEnd = useRef<HTMLDivElement>(null);
-  const [chatMessages, setChatMessages] = useState<number[]>([1, 2]);
   const scrollToBottom = () => {
     if (messagesEnd.current) {
       messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatMessages]);
   const chatDayAndMinutesSection = makeChatDayAndMinutesSection(dummyChats);
   return (
     <>
@@ -103,7 +99,7 @@ const MessageContainer = (props: MessageContainerProps) => {
           </div>
         ))}
         <div ref={messagesEnd}></div>
-        <ChatSendBox onClickSend={() => setChatMessages((prev) => [...prev, 1])} />
+        <ChatSendBox onClickSend={() => scrollToBottom()} />
       </MessageContainerStyled>
     </>
   );

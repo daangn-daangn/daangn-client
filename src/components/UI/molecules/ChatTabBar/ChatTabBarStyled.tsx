@@ -1,14 +1,15 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const ChatTabBarStyled = styled.nav`
   width: 100%;
-  position: fixed;
+  /* position: fixed;
   left: 0;
   top: 0;
-  z-index: 99999;
+  z-index: 99999; */
   display: flex;
   border-bottom: 1px solid ${(props) => props.theme.$black20};
   padding: 10px 15px;
+  background-color: #fff;
   svg {
     fill: black;
     stroke: black;

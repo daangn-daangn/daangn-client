@@ -11,6 +11,7 @@ import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 
 import NewProductPage from 'pages/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/CategotyPage/CategotyPage';
+import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/product">
             <Route path="detail" element={<ProductDetailPage />} />
+          </Route>
+          <Route path="/chat">
+            <Route path="room" element={<ChatRoomPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
