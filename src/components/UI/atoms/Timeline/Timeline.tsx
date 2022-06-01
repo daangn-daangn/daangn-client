@@ -1,4 +1,4 @@
-import { TimelineStyled } from './TimelineStyled';
+import { StickyHeader, TimelineStyled } from './TimelineStyled';
 import 'moment/locale/ko';
 import moment from 'moment';
 
@@ -8,13 +8,13 @@ export interface TimelineProps {
 
 const Timeline = ({ time }: TimelineProps) => {
   return (
-    <>
+    <StickyHeader>
       <TimelineStyled>
         <div className="timeline_bar"></div>
         <div className="timeline_time">{time}</div>
         <div className="timeline_bar"></div>
       </TimelineStyled>
-    </>
+    </StickyHeader>
   );
 };
 

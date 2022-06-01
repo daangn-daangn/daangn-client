@@ -7,7 +7,6 @@ export const TimelineStyled = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
-      margin-bottom: 30px;
       .timeline_bar {
         flex: 1;
         height: 1px;
@@ -17,6 +16,19 @@ export const TimelineStyled = styled.div`
         margin: 0 5px;
         color: ${props.theme.$black50};
       }
+    `;
+  }}
+`;
+
+export const StickyHeader = styled.header`
+  ${(props) => {
+    return css`
+      /* width: 100%; */
+      display: flex;
+      align-items: center;
+      height: 100%;
+      position: sticky;
+      top: 10px;
     `;
   }}
 `;

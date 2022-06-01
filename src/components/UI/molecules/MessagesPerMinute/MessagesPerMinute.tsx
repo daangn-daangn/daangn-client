@@ -1,5 +1,4 @@
 import ChatMessage from '@atoms/ChatMessage/ChatMessage';
-import Image from '@atoms/Image/Image';
 import { IChat } from 'interfaces/Chat.interface';
 import { MessagesPerMinuteStyled } from './MessagesPerMinuteStyled';
 
@@ -18,27 +17,22 @@ const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
     );
   };
   return (
-    <>
+    <MessagesPerMinuteStyled>
       {Object.entries(chats).map(([date, chatMessages]) => (
-        <MessagesPerMinuteStyled key={chatMessages + date}>
+        <div key={chatMessages + date}>
           <div className="messages-wrap">
             {chatMessages.map((chat, idx) => (
-              <div key={chat.message + idx}>
-                {chat.sender === 'you' && idx === 0 ? (
-                  <Image
-                    imgUrl="https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg"
-                    width="33px"
-                    height="33px"
-                    borderRedius="50%"
-                  />
-                ) : null}
-                <ChatMessage key={idx} chat={chat} minute={isEndMessage(chat.sender, chatMessages, idx)} />
-              </div>
+              <ChatMessage
+                key={idx}
+                isShowImage={chat.sender === 'you' && idx === 0}
+                chat={chat}
+                minute={isEndMessage(chat.sender, chatMessages, idx)}
+              />
             ))}
           </div>
-        </MessagesPerMinuteStyled>
+        </div>
       ))}
-    </>
+    </MessagesPerMinuteStyled>
   );
 };
 export default MessagesPerMinute;
