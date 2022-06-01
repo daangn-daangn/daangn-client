@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import { NavBarProps } from "./NavBar";
+import styled from '@emotion/styled';
+import { NavBarProps } from './NavBar';
 
 export const NavBarStyled = styled.nav<NavBarProps>`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 99999;
+  z-index: ${(props) => props.theme.$zindex_ToolBar};
   width: 100%;
   background: white;
   border-bottom: 1px solid ${(props) => props.theme.$black20};

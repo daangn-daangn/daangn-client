@@ -7,18 +7,20 @@ export const PostButtonStyled = styled.div<PostButtonProps>`
     position: fixed;
     right: 10px;
     bottom: 50px;
-    z-index: 999999;
+    z-index: ${(props) => props.theme.$zindex_Modal};
     background: ${(props) => (props.toggle ? 'white' : props.theme.mainColor)};
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(33, 33, 33, 0.1);
-    color: ${(props) => (props.toggle ? 'black' : 'white')};
-    font-weight: 500;
-    font-size: 2rem;
     width: 50px;
     height: 50px;
     &:hover {
       background: ${(props) => (props.toggle ? props.theme.$black20 : props.theme.hoverColor)};
+    }
+    svg {
+      fill: ${(props) => (props.toggle ? 'black' : 'white')};
+      width: 30px;
+      margin-top: 3px;
     }
   }
   .Item {
@@ -34,7 +36,7 @@ export const PostButtonStyled = styled.div<PostButtonProps>`
     position: fixed;
     right: 10px;
     bottom: 100px;
-    z-index: 999999;
+    z-index: ${(props) => props.theme.$zindex_Modal};
     background: white;
     box-shadow: 0 0 5px rgba(33, 33, 33, 0.1);
     border-radius: 10px;
@@ -52,5 +54,5 @@ export const ModalStyled = styled.div`
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 999999;
+  z-index: ${(props) => props.theme.$zindex_Modal};
 `;

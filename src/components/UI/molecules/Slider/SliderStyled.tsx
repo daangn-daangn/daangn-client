@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const SliderStyled = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ export const SliderStyled = styled.div`
   }
   .slide-index {
     position: absolute;
-    z-index: 999;
+    z-index: ${(props) => props.theme.$zindex_Layer};
     bottom: 10px;
     width: 100%;
     display: flex;
@@ -28,7 +28,7 @@ export const SliderStyled = styled.div`
       background: white;
     }
     .normal {
-      opacity: 0.6; 
+      opacity: 0.6;
     }
     .current {
       opacity: 1;

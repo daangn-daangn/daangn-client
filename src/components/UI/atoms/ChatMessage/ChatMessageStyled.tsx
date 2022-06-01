@@ -31,7 +31,7 @@ export const ChatMessageStyled = styled.div<ChatMessageProps>`
     color: white;
   }
   .you {
-    background: ${(props) => props.theme.$black20};
+    background: ${(props) => props.theme.$black10};
     color: black;
   }
 `;

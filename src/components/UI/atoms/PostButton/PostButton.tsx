@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import { PostButtonStyled, ModalStyled } from './PostButtonStyled';
+import { ReactComponent as Close } from 'assets/close.svg';
+import { ReactComponent as Plus } from 'assets/plus.svg';
+import Button from '@atoms/Button/Button';
 
 export interface PostButtonProps {
   toggle?: boolean;
@@ -20,7 +23,7 @@ const PostButton = (props: PostButtonProps) => {
             <div className="Item">🔖 내 물건 팔기</div>
           </div>
         ) : null}
-        <button onClick={(e) => setToggle(!toggle)}>{toggle ? 'x' : '+'}</button>
+        <button onClick={(e) => setToggle(!toggle)}>{toggle ? <Close /> : <Plus />}</button>
       </PostButtonStyled>
     </>
   );
