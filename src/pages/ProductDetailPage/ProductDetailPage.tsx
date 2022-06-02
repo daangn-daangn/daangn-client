@@ -15,7 +15,7 @@ const dummyUser: IUser = {
   manner: 38.6,
 };
 
-const dummyProduct: IProductWithUser = {
+export const dummyProduct: IProductWithUser = {
   id: 1,
   title: '아이폰 삽니다',
   category: '디지털기기',
@@ -31,7 +31,8 @@ const dummyProduct: IProductWithUser = {
   ],
   location: '서울 강남',
   price: 6000,
-  thumb_nail_image: '',
+  thumb_nail_image:
+    'https://play-lh.googleusercontent.com/6Adeoocj4FktXRmkcFY8j6sknDBK_eoCjsMv6EPJI_ZLhLUeAmZH_r5QxKBBa8xoxgni',
   likes: [],
   state: ProductState.FOR_SALE,
   user: dummyUser,

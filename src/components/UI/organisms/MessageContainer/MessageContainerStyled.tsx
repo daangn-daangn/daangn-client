@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
 
 export const MessageContainerStyled = styled.div`
-  margin-bottom: 50px;
+  padding: 120px 0 40px;
 `;

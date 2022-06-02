@@ -6,7 +6,7 @@ import ProductBoxes from '../../UI/organisms/ProductBoxes/ProductBoxes';
 import TabBar from '../../UI/organisms/TabBar/TabBar';
 import { StyledHome } from './HomeStyled';
 
-const dummyProduct: Pick<
+export const dummyProduct: Pick<
   IProduct,
   'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'
 > = {

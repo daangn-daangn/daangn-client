@@ -19,6 +19,7 @@ Me.args = {
     message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
     createdAt: new Date(),
   },
+  isShowImage: false,
 };
 
 export const You = Template.bind({});
@@ -28,6 +29,7 @@ You.args = {
     message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
     createdAt: new Date(),
   },
+  isShowImage: true,
 };
 
 export const MeWithTime = Template.bind({});
@@ -38,6 +40,7 @@ MeWithTime.args = {
     createdAt: new Date(),
   },
   minute: true,
+  isShowImage: false,
 };
 
 export const YouWithTime = Template.bind({});
@@ -48,4 +51,5 @@ YouWithTime.args = {
     createdAt: new Date(),
   },
   minute: true,
+  isShowImage: true,
 };

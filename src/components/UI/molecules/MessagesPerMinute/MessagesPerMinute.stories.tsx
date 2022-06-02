@@ -14,32 +14,26 @@ const Template: Story<MessagesPerMinuteProps> = (args) => (
 
 export const Me = Template.bind({});
 Me.args = {
-  chats: [
-    {
-      sender: 'me',
-      message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
-      createdAt: new Date(),
-    },
-    {
-      sender: 'me',
-      message: '다음 번에 꼭 같이 거래해요~!',
-      createdAt: new Date(),
-    },
-  ],
+  chats: {
+    '03:24': [
+      {
+        sender: 'me',
+        message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
+        createdAt: new Date(),
+      },
+    ],
+  },
 };
 
 export const You = Template.bind({});
 You.args = {
-  chats: [
-    {
-      sender: 'you',
-      message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
-      createdAt: new Date(),
-    },
-    {
-      sender: 'you',
-      message: '다음 번에 꼭 같이 거래해요~!',
-      createdAt: new Date(),
-    },
-  ],
+  chats: {
+    '03:24': [
+      {
+        sender: 'you',
+        message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
+        createdAt: new Date(),
+      },
+    ],
+  },
 };
