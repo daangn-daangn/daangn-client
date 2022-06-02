@@ -7,8 +7,8 @@ import NickNameSettingPage from 'pages/NickNameSettingPage/NickNameSettingPage';
 
 import Applayout from 'Layouts/AppLayout';
 import LocationSharePage from 'pages/LocationSharePage/LocationSharePage';
-import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 
+import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 import NewProductPage from 'pages/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/CategotyPage/CategotyPage';
 import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
@@ -20,8 +20,6 @@ function App() {
         <Routes>
           <Route path="" element={<Applayout />}>
             <Route path="location/share" element={<LocationSharePage />} />
-            <Route path="product/new" element={<NewProductPage />} />
-            <Route path="product/new/category" element={<CategotyPage />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />
@@ -30,6 +28,8 @@ function App() {
           </Route>
           <Route path="/product">
             <Route path="detail" element={<ProductDetailPage />} />
+            <Route path="new" element={<NewProductPage />} />
+            <Route path="new/category" element={<CategotyPage />} />
           </Route>
           <Route path="/chat">
             <Route path="room" element={<ChatRoomPage />} />

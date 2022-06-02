@@ -2,10 +2,6 @@ import styled from '@emotion/styled';
 
 export const ChatTabBarStyled = styled.nav`
   width: 100%;
-  /* position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 99999; */
   display: flex;
   border-bottom: 1px solid ${(props) => props.theme.$black20};
   padding: 10px 15px;

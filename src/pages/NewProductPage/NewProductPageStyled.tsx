@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
 export const NewProductPageStyled = styled.div`
-  flex: 1;
+  padding: 50px 20px 0px;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   form {

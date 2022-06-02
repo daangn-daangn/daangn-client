@@ -4,9 +4,9 @@ export const ProductStateChangeModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10000;
+  bottom: 0;
+  right: 0;
+  z-index: ${(props) => props.theme.$zindex_Modal};
   background: rgba(32, 34, 36, 0.75);
 `;
 

@@ -7,7 +7,7 @@ export const TabBarStyled = styled.nav<TabBarProps>`
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 99999;
+  z-index: ${(props) => props.theme.$zindex_ToolBar};
   width: 100%;
   height: 45px;
   display: flex;
@@ -23,13 +23,13 @@ export const TabBarStyled = styled.nav<TabBarProps>`
       }
     }
     :nth-of-type(1) {
-      fill: ${(props) => (props.curTab === 1 ? props.theme.mainColor : 'black')};
+      fill: ${(props) => (props.curTab === 1 ? props.theme.mainColor : props.theme.$black30)};
     }
     :nth-of-type(2) {
-      fill: ${(props) => (props.curTab === 2 ? props.theme.mainColor : 'black')};
+      fill: ${(props) => (props.curTab === 2 ? props.theme.mainColor : props.theme.$black30)};
     }
     :nth-of-type(3) {
-      fill: ${(props) => (props.curTab === 3 ? props.theme.mainColor : 'black')};
+      fill: ${(props) => (props.curTab === 3 ? props.theme.mainColor : props.theme.$black30)};
     }
   }
 `;
