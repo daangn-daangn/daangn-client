@@ -8,11 +8,7 @@ export function makeChatDayAndMinutesSection(chatList: IChat[]) {
     const day = moment(chat.createdAt).format('YYYY월 M월 DD일');
     const minutes = moment(chat.createdAt).format('hh:mm');
     if (day in section) {
-      if (minutes in section[day]) {
-        section[day][minutes].push(chat);
-      } else {
-        section[day][minutes] = [chat];
-      }
+      (minutes in section[day] && section[day][minutes].push(chat)) || (section[day][minutes] = [chat]);
     } else {
       section[day] = {};
       section[day][minutes] = [chat];

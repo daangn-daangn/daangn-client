@@ -7,7 +7,7 @@ import { ChatRoomPageStyled } from './ChatRoomPageStyled';
 const ChatRoomPage = () => {
   return (
     <ChatRoomPageStyled>
-      <div className="chatRomm_productInfoBox">
+      <div className="chatRoom_fixed">
         <ChatTabBar userDetail={{ nickname: '이재훈', manner: 46 }} />
         <ProductInfoBox product={dummyProduct} />
       </div>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const ChatRoomPageStyled = styled.div`
-  .chatRomm_productInfoBox {
+  .chatRoom_fixed {
     position: fixed;
     width: 100%;
     left: 0;
