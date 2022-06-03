@@ -9,6 +9,7 @@ export const StyledTop = styled.header<{ left: TopLeftType; mb?: string }>`
       left: 0;
       top: 0;
       width: 100%;
+      z-index: ${props.theme.$zindex_ToolBar};
       padding: 12px 20px;
       margin-bottom: ${props.mb};
       display: flex;

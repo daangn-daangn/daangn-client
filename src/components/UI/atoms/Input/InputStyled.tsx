@@ -12,6 +12,7 @@ export const InputStyled = styled.input<InputProps>`
   font-weight: 500;
   font-size: 0.95rem;
   color: #3f4245;
+  text-align: ${(props) => props.textAlign || 'start'};
   &:hover,
   &:focus {
     border: ${(props) => props.border || `1px solid ${props.theme.mainColor}`};

@@ -13,6 +13,9 @@ import NewProductPage from 'pages/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/CategotyPage/CategotyPage';
 import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
 
+import ProfilePage from 'pages/ProfilePage/ProfilePage';
+import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
+
 function App() {
   return (
     <>
@@ -33,6 +36,10 @@ function App() {
           </Route>
           <Route path="/chat">
             <Route path="room" element={<ChatRoomPage />} />
+          </Route>
+          <Route path="/profile">
+            <Route path="" element={<ProfilePage />} />
+            <Route path="edit" element={<ProfileEditPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
