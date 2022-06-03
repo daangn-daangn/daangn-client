@@ -53,19 +53,19 @@ const ProfilePage = () => {
             <Temperature degree={dummyUser.manner} type="user" />
           </div>
           <div className="profile-box_user_history">
-            <div className="history-item">
+            <div className="history-item" onClick={() => navigate('sell')}>
               <div className="history-item_icon-wrap">
                 <Receipt />
               </div>
               <p>판매내역</p>
             </div>
-            <div className="history-item">
+            <div className="history-item" onClick={() => navigate('buy')}>
               <div className="history-item_icon-wrap">
                 <Bag />
               </div>
               <p>구매내역</p>
             </div>
-            <div className="history-item">
+            <div className="history-item" onClick={() => navigate('like')}>
               <div className="history-item_icon-wrap">
                 <Heart />
               </div>
@@ -79,7 +79,7 @@ const ProfilePage = () => {
           <br />
           최근 3일 이내 활동 (2020년 11월 20일 가입)
         </div>
-        <div className="user-item">
+        <div className="user-item" onClick={() => navigate('sell')}>
           판매상품 <Next />
         </div>
         <div className="user-item">
@@ -88,6 +88,7 @@ const ProfilePage = () => {
         <div className="user-item">
           받은 거래 후기 <Next />
         </div>
+        <TabBar />
       </ProfilePageStyled>
     </>
   );

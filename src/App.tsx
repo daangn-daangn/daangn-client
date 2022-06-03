@@ -15,6 +15,9 @@ import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
 
 import ProfilePage from 'pages/ProfilePage/ProfilePage';
 import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
+import SellHistoryPage from 'pages/SellHistoryPage/SellHistoryPage';
+import BuyHistoryPage from 'pages/BuyHistoryPage/BuyHistoryPage';
+import LikeListPage from 'pages/LikeListPage/LikeListPage';
 
 function App() {
   return (
@@ -40,6 +43,9 @@ function App() {
           <Route path="/profile">
             <Route path="" element={<ProfilePage />} />
             <Route path="edit" element={<ProfileEditPage />} />
+            <Route path="sell" element={<SellHistoryPage />} />
+            <Route path="buy" element={<BuyHistoryPage />} />
+            <Route path="like" element={<LikeListPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
