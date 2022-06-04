@@ -1,8 +1,9 @@
 import { ProductStateChangeButtonStyled } from './ProductStateChangeButtonStyled';
 import { ReactComponent as Down } from 'assets/down.svg';
 import { useState } from 'react';
-import ProductStateChangeModal from '@molecules/ProductStateChangeModal/ProductStateChangeModal';
+import SelectModal from '@molecules/SelectModal/SelectModal';
 import { ProductState } from 'interfaces/Product.interface';
+import { ISelect } from '@molecules/MyProductBox/MyProductBox';
 
 export interface ProductStateChangeButtonProps {
   productState: ProductState;
@@ -13,6 +14,19 @@ const ProductStateChangeButton = ({ productState }: ProductStateChangeButtonProp
   const onClickShowModal = () => {
     setShowProductStateModal((prev) => !prev);
   };
+  const onClickChangeState = () => {
+    //Product State Change API
+    //성공하면
+    setShowProductStateModal((prev) => !prev);
+  };
+
+  const ProductStateChangeType = [ProductState.FOR_SALE, ProductState.REVERSED, ProductState.SOLD_OUT];
+  const ProductStateChangeSelects: ISelect[] = [];
+
+  ProductStateChangeType.forEach((type) => {
+    ProductStateChangeSelects.push({ content: type, function: onClickChangeState });
+  });
+
   return (
     <>
       <ProductStateChangeButtonStyled onClick={onClickShowModal}>
@@ -20,7 +34,7 @@ const ProductStateChangeButton = ({ productState }: ProductStateChangeButtonProp
         <Down />
       </ProductStateChangeButtonStyled>
       {showProductStateModal && (
-        <ProductStateChangeModal productState={productState} setShowProductStateModal={setShowProductStateModal} />
+        <SelectModal title="상태변경" selects={ProductStateChangeSelects} setModal={setShowProductStateModal} />
       )}
     </>
   );

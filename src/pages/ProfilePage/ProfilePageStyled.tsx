@@ -74,8 +74,7 @@ export const ProfilePageStyled = styled.div`
     }
   }
   .user-item {
-    font-weight: 700;
-    border-top: 1px solid ${(props) => props.theme.$black20};
+    border-bottom: 1px solid ${(props) => props.theme.$black20};
     padding-right: 15px;
     padding-left: 15px;
     .next-svg {
@@ -83,8 +82,15 @@ export const ProfilePageStyled = styled.div`
       height: 13px;
       position: relative;
     }
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+  .user-item:last-child {
+    background: red;
   }
   .justify-space-between {
+    font-weight: 700;
     display: flex;
     justify-content: space-between;
     padding-top: 23px;

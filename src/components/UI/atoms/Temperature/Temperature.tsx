@@ -24,7 +24,7 @@ const Temperature = (props: TemperatureProps) => {
                 <div>{props.degree}°C</div>
                 <progress value={props.degree} max="100"></progress>
               </div>
-              <Smile width="25" height="25" stroke-width="8" />
+              <Smile width="25" height="25" strokeWidth="8" />
             </div>
             <p className="manner-temperature">매너온도</p>
           </>
