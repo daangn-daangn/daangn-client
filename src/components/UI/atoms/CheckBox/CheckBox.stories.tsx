@@ -12,5 +12,14 @@ const Template: Story<CheckBoxProps> = (args) => (
   </>
 );
 
-export const Default = Template.bind({});
-Default.args = {};
+export const checkTrue = Template.bind({});
+checkTrue.args = {
+  text: 'test',
+  isCheck: true,
+};
+
+export const checkFalse = Template.bind({});
+checkFalse.args = {
+  text: 'test',
+  isCheck: false,
+};

@@ -1,20 +1,18 @@
 import { CheckBoxStyled } from './CheckBoxStyled';
 import { ReactComponent as CheckSVG } from 'assets/checkBox.svg';
-import { Dispatch, SetStateAction, useState } from 'react';
 
 export interface CheckBoxProps {
   text: string;
-  setIsCheck: Dispatch<SetStateAction<boolean>>;
+  isCheck: boolean;
 }
 
-const CheckBox = (props: CheckBoxProps) => {
-  const [isCheck, setIsCheck] = useState(false);
+const CheckBox = ({ text, isCheck }: CheckBoxProps) => {
   return (
-    <CheckBoxStyled ischecked={isCheck} onClick={() => setIsCheck((prev) => !prev)}>
+    <CheckBoxStyled ischecked={isCheck}>
       <div className="checkBox_Wrapper">
         <CheckSVG />
       </div>
-      <span>check</span>
+      <span>{text}</span>
     </CheckBoxStyled>
   );
 };

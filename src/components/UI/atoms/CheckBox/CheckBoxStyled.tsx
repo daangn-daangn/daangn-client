@@ -16,9 +16,9 @@ export const CheckBoxStyled = styled.div<CheckBoxStyledProps>`
     align-items: center;
     background: ${(props) => props.ischecked && props.theme.mainColor};
     margin-right: 7px;
-    border: ${(props) => !props.ischecked && '1.5px solid #a3a3a3'};
+    border: ${(props) => !props.ischecked && '1.5px solid #c4c2c2'};
     path {
-      stroke: ${(props) => !props.ischecked && '#999999'};
+      stroke: ${(props) => !props.ischecked && '#c4c2c2'};
     }
   }
   & > span {
