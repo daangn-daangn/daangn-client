@@ -4,7 +4,7 @@ export enum ProductState {
   DELETE = '삭제상품',
   REVERSED = '예약중',
   FOR_SALE = '판매중',
-  SOLD_OUT = '판매완료',
+  SOLD_OUT = '거래완료',
 }
 
 export interface IProduct {
@@ -23,7 +23,6 @@ export interface IProduct {
   chat: number;
   state: ProductState;
 }
-
 
 export interface IProductWithUser extends IProduct {
   user: IUser;

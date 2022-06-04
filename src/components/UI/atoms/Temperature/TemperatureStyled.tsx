@@ -1,28 +1,28 @@
-import styled from "@emotion/styled";
-import { TemperatureProps } from "./Temperature";
+import styled from '@emotion/styled';
+import { TemperatureProps } from './Temperature';
 
 export const TemperatureStyled = styled.div<TemperatureProps>`
   color: ${(props) => props.color};
   font-weight: 600;
-  width: ${(props) => props.type === 'product' ? "85px" : "100%"};
+  width: ${(props) => (props.type === 'product' ? '85px' : '100%')};
   display: inline-flex;
   flex-direction: column;
   svg {
     stroke: ${(props) => props.color};
     fill: ${(props) => props.color};
   }
-  progress { 
+  progress {
     appearance: none;
     width: auto;
   }
-  progress::-webkit-progress-bar { 
-    background: ${(props) => props.theme.$black20};
+  progress::-webkit-progress-bar {
+    background: ${(props) => props.theme.$black10};
     border-radius: 10px;
-    width: ${(props) => props.type === 'product' ? "50px" : "100%"};
-    height: 6px;
+    width: ${(props) => (props.type === 'product' ? '50px' : '100%')};
+    height: 8px;
     margin-top: 3px;
-  } 
-  progress::-webkit-progress-value { 
+  }
+  progress::-webkit-progress-value {
     border-radius: 10px;
     background: ${(props) => props.color};
   }

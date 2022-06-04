@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const StyledProductBox = styled.div`
   width: 100%;
   display: flex;
-  padding: 10px 0;
+  padding: 15px 0;
   border-bottom: 1px solid ${(props) => props.theme.$black20};
   .product_info {
     flex: 1;

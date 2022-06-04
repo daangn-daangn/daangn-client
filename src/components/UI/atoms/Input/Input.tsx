@@ -11,6 +11,7 @@ export interface InputProps {
   register?: UseFormRegisterReturn;
   type?: InputType;
   readOnly?: boolean;
+  textAlign?: string;
   autoComplete?: 'off' | 'on';
 }
 
