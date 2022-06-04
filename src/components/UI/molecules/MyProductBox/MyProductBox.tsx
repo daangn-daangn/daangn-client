@@ -9,10 +9,15 @@ import Like from '@atoms/Like/Like';
 import { ReactComponent as More } from 'assets/more.svg';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 
+export interface ISelect {
+  content: string;
+  function: () => void;
+}
+
 export interface MyProductBoxProps {
   type: 'sell' | 'buy' | 'like';
-  stateSelects?: string[];
-  moreSelects?: { content: string; function: () => void }[];
+  stateSelects?: ISelect[];
+  moreSelects?: ISelect[];
   product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
 }
 
@@ -33,7 +38,7 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
         </div>
         <div className="product_state">
           {type !== 'like' ? (
-            <More width="18" height="18" fill="#949494" onClick={() => setShowStateModal(true)} />
+            <More width="18" height="18" fill="#808080" onClick={() => setShowStateModal(true)} />
           ) : (
             <Like isLike={true} width="18px" height="18px" />
           )}
@@ -43,8 +48,8 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
       {type !== 'like' ? (
         <StyledSelectState>
           {stateSelects?.map((select) => (
-            <div className="product_state_select" key={select}>
-              {select}
+            <div className="product_state_select" key={select.content} onClick={select.function}>
+              {select.content}
             </div>
           ))}
         </StyledSelectState>

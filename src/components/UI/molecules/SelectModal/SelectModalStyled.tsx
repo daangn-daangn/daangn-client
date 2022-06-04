@@ -30,6 +30,7 @@ export const SelectModalStyled = styled.div<SelectModalProps>`
   .selectModal_buttons {
     display: flex;
     flex-direction: column;
+    font-weight: 500;
     .selectModal_button {
       cursor: pointer;
       width: 100%;

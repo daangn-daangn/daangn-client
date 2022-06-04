@@ -5,11 +5,11 @@ import { dummyProduct } from 'pages/ProductDetailPage/ProductDetailPage';
 
 const MyProductBoxSelects = {
   후기안씀: {
-    stateSelects: ['거래후기 남기기'],
+    stateSelects: [{ content: '거래후기 남기기', function: () => console.log('거래후기 남기기') }],
     moreSelects: [{ content: '삭제', function: () => console.log('삭제') }],
   },
   후기씀: {
-    stateSelects: ['작성한 후기 보기'],
+    stateSelects: [{ content: '작성한 후기 보기', function: () => console.log('작성한 후기 보기') }],
     moreSelects: [
       { content: '후기 수정', function: () => console.log('후기 수정') },
       { content: '삭제', function: () => console.log('삭제') },

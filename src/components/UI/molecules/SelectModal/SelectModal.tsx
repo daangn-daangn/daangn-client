@@ -14,11 +14,6 @@ const SelectModal = (props: SelectModalProps) => {
   const onClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
-  const onClickChangeState = () => {
-    //Product State Change API
-    //성공하면
-    props.setModal((prev) => !prev);
-  };
 
   return (
     <SelectModalWrapper onClick={onClickModalWrapper}>
@@ -26,7 +21,14 @@ const SelectModal = (props: SelectModalProps) => {
         {props.title ? <div className="selectModal_title">{props.title}</div> : null}
         <div className="selectModal_buttons">
           {props.selects.map((select) => (
-            <div key={select.content} className="selectModal_button" onClick={select.function}>
+            <div
+              key={select.content}
+              className="selectModal_button"
+              onClick={() => {
+                props.setModal((prev) => !prev);
+                select.function();
+              }}
+            >
               {select.content}
             </div>
           ))}
