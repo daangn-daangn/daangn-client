@@ -59,18 +59,40 @@ export const ProfilePageStyled = styled.div`
     padding: 20px;
     line-height: 20px;
   }
-  .user-item {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 700;
-    padding: 23px 15px;
-    border-bottom: 1px solid ${(props) => props.theme.$black20};
-    &:hover {
-      background: ${(props) => props.theme.$black20};
+  @keyframes loop {
+    0% {
+      top: 0px;
+      left: 0px;
     }
-    svg {
+    50% {
+      top: 0px;
+      left: 3px;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+    }
+  }
+  .user-item {
+    font-weight: 700;
+    border-top: 1px solid ${(props) => props.theme.$black20};
+    padding-right: 15px;
+    padding-left: 15px;
+    .next-svg {
       width: 13px;
       height: 13px;
+      position: relative;
+    }
+  }
+  .justify-space-between {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    &:hover {
+      .next-svg {
+        animation: loop 1.1s infinite;
+      }
     }
   }
 `;

@@ -11,6 +11,7 @@ import { ReactComponent as Bag } from 'assets/bag.svg';
 import { ReactComponent as Heart } from 'assets/heart.svg';
 import { IUser } from 'interfaces/User.interface';
 import TabBar from '@organisms/TabBar/TabBar';
+import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
 
 const dummyUser: IUser = {
   id: 1,
@@ -73,20 +74,25 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-
         <div className="user-activity">
           {dummyUser.location} 1회 인증, 경기도 부천시 원미구 미인증 (최근 30일)
           <br />
           최근 3일 이내 활동 (2020년 11월 20일 가입)
         </div>
-        <div className="user-item" onClick={() => navigate('sell')}>
-          판매상품 <Next />
+        <div className="user-item justify-space-between" onClick={() => navigate('sell')}>
+          판매상품 <Next className="next-svg" />
+        </div>
+        <div className="user-item justify-space-between">
+          받은 매너 평가 <Next className="next-svg" />
         </div>
         <div className="user-item">
-          받은 매너 평가 <Next />
-        </div>
-        <div className="user-item">
-          받은 거래 후기 <Next />
+          <div className="justify-space-between" onClick={() => navigate('review')}>
+            받은 거래 후기 <Next className="next-svg" />
+          </div>
+          <div className="reviews-wrap">
+            <ReviewBox review={dummyReview} />
+            <ReviewBox review={dummyReview} />
+          </div>
         </div>
         <TabBar />
       </ProfilePageStyled>

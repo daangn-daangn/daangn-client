@@ -18,6 +18,7 @@ import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
 import SellHistoryPage from 'pages/SellHistoryPage/SellHistoryPage';
 import BuyHistoryPage from 'pages/BuyHistoryPage/BuyHistoryPage';
 import LikeListPage from 'pages/LikeListPage/LikeListPage';
+import ReviewPage from 'pages/ReviewPage/ReviewPage';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="sell" element={<SellHistoryPage />} />
             <Route path="buy" element={<BuyHistoryPage />} />
             <Route path="like" element={<LikeListPage />} />
+            <Route path="review" element={<ReviewPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
