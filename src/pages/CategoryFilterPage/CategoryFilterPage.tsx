@@ -5,7 +5,7 @@ import { CategoryFilterPageStyled } from './CategoryFilterPageStyled';
 const CategoryFilterPage = () => {
   return (
     <CategoryFilterPageStyled>
-      <Top left="prev" title="프로필 설정" />
+      <Top left="prev" title="검색 필터" />
       <CategoryFilterForm />
     </CategoryFilterPageStyled>
   );
