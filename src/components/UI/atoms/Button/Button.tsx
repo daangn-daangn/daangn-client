@@ -10,6 +10,7 @@ export interface ButtonProps {
   fontColor?: string;
   fontWeight?: string;
   padding?: string;
+  borderRedius?: string;
   border?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;

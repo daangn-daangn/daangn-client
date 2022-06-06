@@ -12,6 +12,7 @@ import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 import NewProductPage from 'pages/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/CategotyPage/CategotyPage';
 import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
+import CategoryFilterPage from 'pages/CategoryFilterPage/CategoryFilterPage';
 
 import ProfilePage from 'pages/ProfilePage/ProfilePage';
 import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/chat">
             <Route path="room" element={<ChatRoomPage />} />
           </Route>
+          <Route path="filter" element={<CategoryFilterPage />} />
           <Route path="/profile">
             <Route path="" element={<ProfilePage />} />
             <Route path="edit" element={<ProfileEditPage />} />
