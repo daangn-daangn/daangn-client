@@ -12,34 +12,24 @@ import Button from '@atoms/Button/Button';
 import { ReactComponent as Camera } from 'assets/camera.svg';
 import { ReactComponent as Close } from 'assets/close.svg';
 import { ReactComponent as Next } from 'assets/next.svg';
+import { encodeFileToBase64 } from 'utils/encodeImage';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as INewProduct;
 
-  const [imagesBase64, setImagesBase64] = useState<{ image: File; url: any }[]>([]);
+  const [imagesBase64, setImagesBase64] = useState<{ image: File; url: string }[]>([]);
 
   const { register, handleSubmit, setValue, reset, watch } = useForm<INewProduct>();
-
-  const encodeFileToBase64 = (image: File) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (event: any) => {
-        resolve(event.target.result);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   useEffect(() => {
     if (watch('images')) {
       setImagesBase64([]);
       Array.from(watch('images')).forEach((image) => {
-        encodeFileToBase64(image).then((data) => setImagesBase64((prev) => [...prev, { image: image, url: data }]));
+        encodeFileToBase64(image).then((data) =>
+          setImagesBase64((prev) => [...prev, { image: image, url: data as string }]),
+        );
       });
       setValue('thumb_nail_image', watch('images')[0]);
     }

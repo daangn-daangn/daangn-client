@@ -11,7 +11,9 @@ export interface ButtonProps {
   fontWeight?: string;
   padding?: string;
   borderRedius?: string;
+  border?: string;
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {

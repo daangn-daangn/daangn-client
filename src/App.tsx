@@ -14,6 +14,13 @@ import CategotyPage from 'pages/CategotyPage/CategotyPage';
 import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
 import CategoryFilterPage from 'pages/CategoryFilterPage/CategoryFilterPage';
 
+import ProfilePage from 'pages/ProfilePage/ProfilePage';
+import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
+import SellHistoryPage from 'pages/SellHistoryPage/SellHistoryPage';
+import BuyHistoryPage from 'pages/BuyHistoryPage/BuyHistoryPage';
+import LikeListPage from 'pages/LikeListPage/LikeListPage';
+import ReviewPage from 'pages/ReviewPage/ReviewPage';
+
 function App() {
   return (
     <>
@@ -36,6 +43,14 @@ function App() {
             <Route path="room" element={<ChatRoomPage />} />
           </Route>
           <Route path="filter" element={<CategoryFilterPage />} />
+          <Route path="/profile">
+            <Route path="" element={<ProfilePage />} />
+            <Route path="edit" element={<ProfileEditPage />} />
+            <Route path="sell" element={<SellHistoryPage />} />
+            <Route path="buy" element={<BuyHistoryPage />} />
+            <Route path="like" element={<LikeListPage />} />
+            <Route path="review" element={<ReviewPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
