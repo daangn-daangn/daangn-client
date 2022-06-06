@@ -4,7 +4,7 @@ import { ButtonProps } from './Button';
 export const ButtonStyled = styled.button<ButtonProps>`
   background: ${(props) => props.background || props.theme.mainColor};
   border: none;
-  border-radius: 5px;
+  border-radius: ${(props) => props.borderRedius || '5px'};
   color: ${(props) => props.fontColor || 'white'};
   padding: ${(props) => props.padding || '7px 10px'};
   font-weight: ${(props) => props.fontWeight || '600'};
