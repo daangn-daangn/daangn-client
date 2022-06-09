@@ -20,6 +20,7 @@ import SellHistoryPage from 'pages/SellHistoryPage/SellHistoryPage';
 import BuyHistoryPage from 'pages/BuyHistoryPage/BuyHistoryPage';
 import LikeListPage from 'pages/LikeListPage/LikeListPage';
 import ReviewPage from 'pages/ReviewPage/ReviewPage';
+import MannerPage from 'pages/MannerPage/MannerPage';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="buy" element={<BuyHistoryPage />} />
             <Route path="like" element={<LikeListPage />} />
             <Route path="review" element={<ReviewPage />} />
+            <Route path="manner" element={<MannerPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

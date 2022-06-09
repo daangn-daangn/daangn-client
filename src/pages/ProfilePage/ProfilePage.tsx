@@ -12,6 +12,7 @@ import { ReactComponent as Heart } from 'assets/heart.svg';
 import { IUser } from 'interfaces/User.interface';
 import TabBar from '@organisms/TabBar/TabBar';
 import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
+import List from '@atoms/List/List';
 
 const dummyUser: IUser = {
   id: 1,
@@ -79,13 +80,17 @@ const ProfilePage = () => {
           <br />
           최근 3일 이내 활동 (2020년 11월 20일 가입)
         </div>
-        <div className="user-item justify-space-between" onClick={() => navigate('sell')}>
-          판매상품 <Next className="next-svg" />
-        </div>
-        <div className="user-item justify-space-between">
-          받은 매너 평가 <Next className="next-svg" />
-        </div>
-        <div className="user-item">
+        <List fontWeight="700">
+          <div className="justify-space-between" onClick={() => navigate('sell')}>
+            판매상품 <Next className="next-svg" />
+          </div>
+        </List>
+        <List fontWeight="700">
+          <div className="justify-space-between" onClick={() => navigate('manner')}>
+            받은 매너 평가 <Next className="next-svg" />
+          </div>
+        </List>
+        <List fontWeight="700">
           <div className="justify-space-between" onClick={() => navigate('review')}>
             받은 거래 후기 <Next className="next-svg" />
           </div>
@@ -93,7 +98,7 @@ const ProfilePage = () => {
             <ReviewBox review={dummyReview} />
             <ReviewBox review={dummyReview} />
           </div>
-        </div>
+        </List>
         <TabBar />
       </ProfilePageStyled>
     </>
