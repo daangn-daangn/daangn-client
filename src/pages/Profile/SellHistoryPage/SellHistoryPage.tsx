@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { SellHistoryPageStyled } from './SellHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
-import { dummyProduct } from 'pages/ProductDetailPage/ProductDetailPage';
+import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 
 const MyProductBoxSelects = {

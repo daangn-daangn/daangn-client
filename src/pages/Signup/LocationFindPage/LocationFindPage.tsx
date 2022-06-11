@@ -4,7 +4,7 @@ import Title from '@atoms/Title/Title';
 import Button from '@atoms/Button/Button';
 import Map from '@molecules/Map/Map';
 import { LocationFindPageStyled } from './LocationFindPageStyled';
-import { IUserLocation } from 'pages/LocationCheckPage/LocationCheckPage';
+import { IUserLocation } from 'pages/Signup/LocationCheckPage/LocationCheckPage';
 import { getUserLocation } from 'apis/kakao';
 import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
