@@ -5,7 +5,6 @@ import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage'
 import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
 
-import Applayout from 'Layouts/AppLayout';
 import ChatRoomPage from 'pages/Chat/ChatRoomPage/ChatRoomPage';
 import LocationSharePage from 'pages/Chat/LocationSharePage/LocationSharePage';
 
@@ -13,6 +12,7 @@ import ProductDetailPage from 'pages/Product/ProductDetailPage/ProductDetailPage
 import NewProductPage from 'pages/Product/NewProductPage/NewProductPage';
 import CategotyPage from 'pages/Product/CategotyPage/CategotyPage';
 
+import SearchPage from 'pages/Home/SearchPage/SearchPage';
 import CategoryFilterPage from 'pages/Home/CategoryFilterPage/CategoryFilterPage';
 
 import ProfilePage from 'pages/Profile/ProfilePage/ProfilePage';
@@ -29,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="">
+            <Route path="search" element={<SearchPage />} />
             <Route path="filter" element={<CategoryFilterPage />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>

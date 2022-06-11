@@ -11,9 +11,6 @@ scores.forEach((score) => {
   dummyManner.push({ score: score, count: Math.floor(Math.random() * 10) });
 });
 
-console.log(dummyManner.slice(0, 5));
-console.log(dummyManner.slice(5, 11).reverse());
-
 const MannerPage = () => {
   return (
     <MannerPageStyled>
