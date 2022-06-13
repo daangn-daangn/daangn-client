@@ -1,7 +1,7 @@
 import { BuyHistoryPageStyled } from './BuyHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
-import { dummyProduct } from 'pages/ProductDetailPage/ProductDetailPage';
+import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 
 const MyProductBoxSelects = {
   후기안씀: {

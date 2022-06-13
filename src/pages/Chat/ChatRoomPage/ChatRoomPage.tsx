@@ -1,7 +1,7 @@
 import ChatTabBar from '@molecules/ChatTabBar/ChatTabBar';
 import ProductInfoBox from '@molecules/ProductInfoBox/ProductInfoBox';
 import MessageContainer from '@organisms/MessageContainer/MessageContainer';
-import { dummyProduct } from 'pages/ProductDetailPage/ProductDetailPage';
+import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import { ChatRoomPageStyled } from './ChatRoomPageStyled';
 
 const ChatRoomPage = () => {

@@ -5,7 +5,9 @@ export type InputType = 'text' | 'number' | 'password' | 'email' | 'date';
 
 export interface InputProps {
   width?: string;
+  height?: string;
   input?: string;
+  background?: string;
   border?: string;
   placeholder?: string;
   register?: UseFormRegisterReturn;

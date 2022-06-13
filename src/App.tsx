@@ -1,34 +1,36 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import SignupLayout from 'Layouts/SignupLayout';
-import LocationCheckPage from 'pages/LocationCheckPage/LocationCheckPage';
-import LocationFindPage from 'pages/LocationFindPage/LocationFindPage';
-import NickNameSettingPage from 'pages/NickNameSettingPage/NickNameSettingPage';
+import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage';
+import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
+import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
 
-import Applayout from 'Layouts/AppLayout';
-import LocationSharePage from 'pages/LocationSharePage/LocationSharePage';
+import ChatRoomPage from 'pages/Chat/ChatRoomPage/ChatRoomPage';
+import LocationSharePage from 'pages/Chat/LocationSharePage/LocationSharePage';
 
-import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
-import NewProductPage from 'pages/NewProductPage/NewProductPage';
-import CategotyPage from 'pages/CategotyPage/CategotyPage';
-import ChatRoomPage from 'pages/ChatRoomPage/ChatRoomPage';
-import CategoryFilterPage from 'pages/CategoryFilterPage/CategoryFilterPage';
+import ProductDetailPage from 'pages/Product/ProductDetailPage/ProductDetailPage';
+import NewProductPage from 'pages/Product/NewProductPage/NewProductPage';
+import CategotyPage from 'pages/Product/CategotyPage/CategotyPage';
 
-import ProfilePage from 'pages/ProfilePage/ProfilePage';
-import ProfileEditPage from 'pages/ProfileEditPage/ProfileEditPage';
-import SellHistoryPage from 'pages/SellHistoryPage/SellHistoryPage';
-import BuyHistoryPage from 'pages/BuyHistoryPage/BuyHistoryPage';
-import LikeListPage from 'pages/LikeListPage/LikeListPage';
-import ReviewPage from 'pages/ReviewPage/ReviewPage';
-import MannerPage from 'pages/MannerPage/MannerPage';
+import SearchPage from 'pages/Home/SearchPage/SearchPage';
+import CategoryFilterPage from 'pages/Home/CategoryFilterPage/CategoryFilterPage';
+
+import ProfilePage from 'pages/Profile/ProfilePage/ProfilePage';
+import ProfileEditPage from 'pages/Profile/ProfileEditPage/ProfileEditPage';
+import SellHistoryPage from 'pages/Profile/SellHistoryPage/SellHistoryPage';
+import BuyHistoryPage from 'pages/Profile/BuyHistoryPage/BuyHistoryPage';
+import LikeListPage from 'pages/Profile/LikeListPage/LikeListPage';
+import ReviewPage from 'pages/Profile/ReviewPage/ReviewPage';
+import MannerPage from 'pages/Profile/MannerPage/MannerPage';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Applayout />}>
-            <Route path="location/share" element={<LocationSharePage />} />
+          <Route path="">
+            <Route path="search" element={<SearchPage />} />
+            <Route path="filter" element={<CategoryFilterPage />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />
@@ -42,8 +44,8 @@ function App() {
           </Route>
           <Route path="/chat">
             <Route path="room" element={<ChatRoomPage />} />
+            <Route path="location/share" element={<LocationSharePage />} />
           </Route>
-          <Route path="filter" element={<CategoryFilterPage />} />
           <Route path="/profile">
             <Route path="" element={<ProfilePage />} />
             <Route path="edit" element={<ProfileEditPage />} />
