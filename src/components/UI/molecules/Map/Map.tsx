@@ -5,6 +5,7 @@ export interface MapProps {
   longitude: number; //경도
   setLatitude?: (value: number) => void;
   setLongitude?: (value: number) => void;
+  disabledMouseEvent?: boolean;
   share?: boolean;
 }
 
@@ -41,6 +42,10 @@ export default function Map(props: MapProps) {
       });
       marker.setMap(map);
 
+      if (props.disabledMouseEvent === true) {
+        map.setZoomable(false);
+      }
+
       if (props.share) {
         const content = document.createElement('div');
         const button = document.createElement('button');
@@ -60,11 +65,13 @@ export default function Map(props: MapProps) {
         });
       } else {
         window.kakao.maps.event.addListener(map, 'click', function (mouseEvent: any) {
-          const latlng = mouseEvent.latLng;
-          marker.setPosition(latlng);
+          if (props.disabledMouseEvent !== true) {
+            const latlng = mouseEvent.latLng;
+            marker.setPosition(latlng);
 
-          props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
-          props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
+            props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
+            props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
+          }
         });
       }
     });

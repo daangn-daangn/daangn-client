@@ -32,7 +32,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
               <Image imgUrl={chat.message} width="80%" height="150px" borderRedius="15px" />
             ) : chat.message_type === 'location' ? (
               <div className="message-location">
-                <Map latitude={33.450701} longitude={126.570667} />
+                <Map latitude={33.450701} longitude={126.570667} disabledMouseEvent={true} />
                 <Button background="#f5f5f5" hoverBackground="#e9e9e9" fontColor="#3f3f3f" fontSize="0.9rem">
                   장소 보기
                 </Button>
@@ -47,7 +47,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
               <Image imgUrl={chat.message} width="80%" height="150px" borderRedius="15px" />
             ) : chat.message_type === 'location' ? (
               <div className="message-location">
-                <Map latitude={33.450701} longitude={126.570667} />
+                <Map latitude={33.450701} longitude={126.570667} disabledMouseEvent={true} />
                 <Button background="#f5f5f5" hoverBackground="#e9e9e9" fontColor="#3f3f3f" fontSize="0.9rem">
                   장소 보기
                 </Button>
