@@ -2,6 +2,8 @@ import { ChatMessageStyled } from './ChatMessageStyled';
 import Time from '@atoms/Time/Time';
 import { IChat } from 'interfaces/Chat.interface';
 import Image from '@atoms/Image/Image';
+import Map from '@molecules/Map/Map';
+import Button from '@atoms/Button/Button';
 
 export interface ChatMessageProps {
   minute?: boolean; //해당 분에 마지막인지 아닌지 (마지막이면 Time 보여줌)
@@ -24,11 +26,33 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
         {chat.sender === 'me' ? (
           <div className="message-container justify-end">
             {minute ? <Time time={chat.createdAt} exactTime={true} /> : null}
-            <div className="message-text me">{chat.message}</div>
+            {chat.message_type === 'text' ? (
+              <div className="message-text me">{chat.message}</div>
+            ) : chat.message_type === 'image' ? (
+              <Image imgUrl={chat.message} width="80%" height="150px" borderRedius="15px" />
+            ) : chat.message_type === 'location' ? (
+              <div className="message-location">
+                <Map latitude={33.450701} longitude={126.570667} />
+                <Button background="#f5f5f5" hoverBackground="#e9e9e9" fontColor="#3f3f3f" fontSize="0.9rem">
+                  장소 보기
+                </Button>
+              </div>
+            ) : null}
           </div>
         ) : (
           <div className="message-container justify-start">
-            <div className="message-text you">{chat.message}</div>
+            {chat.message_type === 'text' ? (
+              <div className="message-text me">{chat.message}</div>
+            ) : chat.message_type === 'image' ? (
+              <Image imgUrl={chat.message} width="80%" height="150px" borderRedius="15px" />
+            ) : chat.message_type === 'location' ? (
+              <div className="message-location">
+                <Map latitude={33.450701} longitude={126.570667} />
+                <Button background="#f5f5f5" hoverBackground="#e9e9e9" fontColor="#3f3f3f" fontSize="0.9rem">
+                  장소 보기
+                </Button>
+              </div>
+            ) : null}
             {minute ? <Time time={chat.createdAt} exactTime={true} /> : null}
           </div>
         )}

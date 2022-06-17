@@ -19,6 +19,7 @@ Me.args = {
       {
         sender: 'me',
         message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
+        message_type: 'text',
         createdAt: new Date(),
       },
     ],
@@ -32,6 +33,7 @@ You.args = {
       {
         sender: 'you',
         message: '아 이미 구매했어요 ㅠㅠ 죄송합니당 ㅜㅜㅜㅜ',
+        message_type: 'text',
         createdAt: new Date(),
       },
     ],
