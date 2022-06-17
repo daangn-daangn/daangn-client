@@ -32,6 +32,18 @@ export const ChatMessageStyled = styled.div<ChatMessageProps>`
         font-size: 0.9rem;
         word-wrap: break-word;
       }
+      .message-image {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 80%;
+        background: white;
+        border-radius: 15px;
+        gap: 1px;
+        overflow: hidden;
+        div:last-of-type {
+          grid-column: ${props.imagesCount && props.imagesCount % 2 === 1 ? 'span 2' : null};
+        }
+      }
       .message-location {
         display: flex;
         flex-direction: column;

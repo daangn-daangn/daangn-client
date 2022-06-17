@@ -5,12 +5,13 @@ export interface ImageProps {
   width?: string;
   height?: string;
   borderRedius?: string;
+  innerContent?: string;
 }
 
 const Image = (props: ImageProps) => {
   return (
     <>
-      <StyledImage {...props}></StyledImage>
+      <StyledImage {...props}>{props.innerContent}</StyledImage>
     </>
   );
 };
