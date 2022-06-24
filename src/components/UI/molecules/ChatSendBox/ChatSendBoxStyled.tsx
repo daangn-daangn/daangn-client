@@ -5,6 +5,7 @@ export const ChatSendBoxStyled = styled.div`
   width: 100%;
   padding: 2px 2px 1px;
   position: fixed;
+  z-index: ${(props) => props.theme.$zindex_ToolBar};
   left: 0;
   bottom: 0;
   height: auto;

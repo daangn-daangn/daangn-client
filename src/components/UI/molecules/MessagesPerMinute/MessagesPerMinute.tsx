@@ -22,12 +22,14 @@ const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
         <div key={chatMessages + date}>
           <div className="messages-wrap">
             {chatMessages.map((chat, idx) => (
-              <ChatMessage
-                key={idx}
-                isShowImage={chat.sender === 'you' && idx === 0}
-                chat={chat}
-                minute={isEndMessage(chat.sender, chatMessages, idx)}
-              />
+              <>
+                <ChatMessage
+                  key={idx}
+                  isShowImage={chat.sender === 'you' && idx === 0}
+                  chat={chat}
+                  minute={isEndMessage(chat.sender, chatMessages, idx)}
+                />
+              </>
             ))}
           </div>
         </div>
