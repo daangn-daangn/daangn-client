@@ -23,6 +23,8 @@ import LikeListPage from 'pages/Profile/LikeListPage/LikeListPage';
 import ReviewPage from 'pages/Profile/ReviewPage/ReviewPage';
 import MannerPage from 'pages/Profile/MannerPage/MannerPage';
 
+import ImagePage from 'pages/Image/ImagePage/ImagePage';
+
 function App() {
   return (
     <>
@@ -31,6 +33,7 @@ function App() {
           <Route path="">
             <Route path="search" element={<SearchPage />} />
             <Route path="filter" element={<CategoryFilterPage />} />
+            <Route path="image" element={<ImagePage />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { TopLeftType } from './Top';
+import { TopProps } from './Top';
 
-export const StyledTop = styled.header<{ left: TopLeftType; mb?: string }>`
+export const StyledTop = styled.header<TopProps>`
   ${(props) => {
     return css`
       position: fixed;
@@ -15,8 +15,8 @@ export const StyledTop = styled.header<{ left: TopLeftType; mb?: string }>`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: white;
-      border-bottom: 1px solid ${props.theme.$black20};
+      background: ${props.background || 'white'};
+      border-bottom: ${props.borderBottom || `1px solid ${props.theme.$black20}`};
       a {
         cursor: pointer;
         svg {
