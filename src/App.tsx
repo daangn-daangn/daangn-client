@@ -22,6 +22,7 @@ import BuyHistoryPage from 'pages/Profile/BuyHistoryPage/BuyHistoryPage';
 import LikeListPage from 'pages/Profile/LikeListPage/LikeListPage';
 import ReviewPage from 'pages/Profile/ReviewPage/ReviewPage';
 import MannerPage from 'pages/Profile/MannerPage/MannerPage';
+import NotificationPage from 'pages/Notification/NotificationPage/NotificationPage';
 
 function App() {
   return (
@@ -54,6 +55,9 @@ function App() {
             <Route path="like" element={<LikeListPage />} />
             <Route path="review" element={<ReviewPage />} />
             <Route path="manner" element={<MannerPage />} />
+          </Route>
+          <Route path="/notification">
+            <Route path="" element={<NotificationPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
