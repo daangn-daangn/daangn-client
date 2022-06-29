@@ -6,7 +6,7 @@ import { IUser } from 'interfaces/User.interface';
 import { ProductDetailPageStyled } from './ProductDetailPageStyled';
 import { ProductState } from 'interfaces/Product.interface';
 
-const dummyUser: IUser = {
+export const dummyUser: IUser = {
   id: 1,
   nickname: '유키링',
   profileUrl:
