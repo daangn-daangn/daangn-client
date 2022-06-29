@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ChatMessageStyled } from './ChatMessageStyled';
 import Time from '@atoms/Time/Time';
 import { IChat } from 'interfaces/Chat.interface';
@@ -22,6 +23,19 @@ const dummyImages = [
 ];
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, props) => {
+  const navigate = useNavigate();
+  const clickImage = (idx: number) => {
+    console.log('ddd');
+    navigate('/image', {
+      state: {
+        currentIdx: idx,
+        slides: {
+          images: dummyImages,
+        },
+      },
+    });
+  };
+
   return (
     <>
       <ChatMessageStyled {...props} isShowImage={isShowImage} chat={chat} imagesCount={dummyImages.length}>
@@ -45,6 +59,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                       .slice(0, 4)
                       .map((item, idx) => (
                         <Image
+                          onClick={() => clickImage(idx)}
                           key={idx}
                           imgUrl={item}
                           width="100%"
@@ -54,7 +69,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                         />
                       ))
                   : dummyImages.map((item, idx) => (
-                      <Image key={idx} imgUrl={item} width="100%" height="150px" borderRedius="0px" />
+                      <Image
+                        onClick={() => clickImage(idx)}
+                        key={idx}
+                        imgUrl={item}
+                        width="100%"
+                        height="150px"
+                        borderRedius="0px"
+                      />
                     ))}
               </div>
             ) : chat.message_type === 'location' ? (
@@ -77,6 +99,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                       .slice(0, 4)
                       .map((item, idx) => (
                         <Image
+                          onClick={() => clickImage(idx)}
                           key={idx}
                           imgUrl={item}
                           width="100%"
@@ -86,7 +109,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                         />
                       ))
                   : dummyImages.map((item, idx) => (
-                      <Image key={idx} imgUrl={item} width="100%" height="150px" borderRedius="0px" />
+                      <Image
+                        onClick={() => clickImage(idx)}
+                        key={idx}
+                        imgUrl={item}
+                        width="100%"
+                        height="150px"
+                        borderRedius="0px"
+                      />
                     ))}
               </div>
             ) : chat.message_type === 'location' ? (

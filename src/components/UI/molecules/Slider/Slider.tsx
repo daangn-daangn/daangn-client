@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SlideButton from '../../atoms/SlideButton/SlideButton';
 import Image from '../../atoms/Image/Image';
 import { SliderStyled } from './SliderStyled';
@@ -8,11 +9,14 @@ import SlideIndex from '@atoms/SlideIndex/SlideIndex';
 export interface SliderProps {
   slides: Pick<IProduct, 'images'>;
   height?: string;
+  currentIdx?: number;
 }
 
-const Slider = ({ slides, height }: SliderProps) => {
+const Slider = ({ slides, height, currentIdx }: SliderProps) => {
+  const navigate = useNavigate();
+
   const TOTAL_SLIDES = slides.images.length - 1;
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(currentIdx || 0);
 
   const slideRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -29,6 +33,17 @@ const Slider = ({ slides, height }: SliderProps) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
+  const clickImage = (idx: number) => {
+    navigate('/image', {
+      state: {
+        currentIdx: idx,
+        slides: {
+          images: slides.images,
+        },
+      },
+    });
+  };
+
   return (
     <>
       <SliderStyled {...slides}>
@@ -38,7 +53,7 @@ const Slider = ({ slides, height }: SliderProps) => {
           {slides.images.map((slide, idx) => (
             <div className="slide" key={idx}>
               {height ? (
-                <Image imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
+                <Image onClick={() => clickImage(idx)} imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
               ) : (
                 <img src={slide} width="100%" />
               )}
