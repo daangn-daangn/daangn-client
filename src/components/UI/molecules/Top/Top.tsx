@@ -12,23 +12,26 @@ export interface TopProps {
   title: string;
   mb?: string;
   right?: React.ReactNode;
+
+  background?: string;
+  borderBottom?: string;
 }
 
-const Top = ({ left, leftClick, title, right, mb }: TopProps) => {
+const Top = (props: TopProps) => {
   const navigate = useNavigate();
   const onClickLeft = useCallback(() => {
-    leftClick ? leftClick() : navigate(-1);
+    props.leftClick ? props.leftClick() : navigate(-1);
   }, []);
 
   return (
-    <StyledTop left={left || 'none'} mb={mb}>
+    <StyledTop {...props} left={props.left || 'none'} mb={props.mb}>
       <a onClick={onClickLeft}>
-        <svg>{left === 'prev' ? <Back /> : left === 'close' ? <Clsoe /> : null}</svg>
+        <svg>{props.left === 'prev' ? <Back /> : props.left === 'close' ? <Clsoe /> : null}</svg>
       </a>
       <Title fontWeigt="700" fontSize="16px">
-        {title}
+        {props.title}
       </Title>
-      <div>{right}</div>
+      <div>{props.right}</div>
     </StyledTop>
   );
 };

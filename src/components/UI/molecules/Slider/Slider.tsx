@@ -1,16 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SlideButton from '../../atoms/SlideButton/SlideButton';
 import Image from '../../atoms/Image/Image';
 import { SliderStyled } from './SliderStyled';
 import { IProduct } from '../../../../interfaces/Product.interface';
+import SlideIndex from '@atoms/SlideIndex/SlideIndex';
 
 export interface SliderProps {
   slides: Pick<IProduct, 'images'>;
+  height?: string;
+  currentIdx?: number;
 }
 
-const Slider = ({ slides }: SliderProps) => {
+const Slider = ({ slides, height, currentIdx }: SliderProps) => {
+  const navigate = useNavigate();
+
   const TOTAL_SLIDES = slides.images.length - 1;
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(currentIdx || 0);
 
   const slideRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -27,6 +33,17 @@ const Slider = ({ slides }: SliderProps) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
+  const clickImage = (idx: number) => {
+    navigate('/image', {
+      state: {
+        currentIdx: idx,
+        slides: {
+          images: slides.images,
+        },
+      },
+    });
+  };
+
   return (
     <>
       <SliderStyled {...slides}>
@@ -35,21 +52,15 @@ const Slider = ({ slides }: SliderProps) => {
         <div className="slider-container" ref={slideRef}>
           {slides.images.map((slide, idx) => (
             <div className="slide" key={idx}>
-              <Image imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
+              {height ? (
+                <Image onClick={() => clickImage(idx)} imgUrl={slide} width="100%" height="400px" borderRedius="0px" />
+              ) : (
+                <img src={slide} width="100%" />
+              )}
             </div>
           ))}
         </div>
-        <div className="slide-index">
-          {Array(TOTAL_SLIDES + 1)
-            .fill(0)
-            .map((slide, idx) =>
-              idx === currentSlide ? (
-                <div className="current mark" key={idx} />
-              ) : (
-                <div className="normal mark" key={idx} />
-              ),
-            )}
-        </div>
+        <SlideIndex totalSlides={TOTAL_SLIDES} currentSlide={currentSlide} />
       </SliderStyled>
     </>
   );

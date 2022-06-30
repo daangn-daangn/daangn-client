@@ -22,7 +22,7 @@ const DetailBox = (props: DetailBoxProps) => {
     <>
       <DetailBoxStyled {...props}>
         <div className="slider-wrap">
-          <Slider {...props} />
+          <Slider {...props} height="400px" />
         </div>
         <div className="paddingWrapper">
           <SellerBox {...props} />
