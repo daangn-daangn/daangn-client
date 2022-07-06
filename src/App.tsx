@@ -44,9 +44,9 @@ function App() {
             <Route path="location/find" element={<LocationFindPage />} />
           </Route>
           <Route path="/product">
-            <Route path="detail" element={<ProductDetailPage />} />
             <Route path="new" element={<NewProductPage />} />
             <Route path="new/category" element={<CategotyPage />} />
+            <Route path=":id" element={<ProductDetailPage />} />
           </Route>
           <Route path="/chat">
             <Route path="room" element={<ChatRoomPage />} />

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { DetailTabBarStyled } from './DetailTabBarStyled';
 import { ReactComponent as Home } from '../../../../assets/home.svg';
 import { ReactComponent as Back } from '../../../../assets/back-thick.svg';
+import { Link } from 'react-router-dom';
 
 export interface DetailTabBarProps {
   isScroll?: boolean;
@@ -25,7 +26,9 @@ const DetailTabBar = (props: DetailTabBarProps) => {
     <>
       <DetailTabBarStyled isScroll={isScroll}>
         <Back width="18" height="18" />
-        <Home width="18" height="18" />
+        <Link to="/">
+          <Home width="18" height="18" />
+        </Link>
       </DetailTabBarStyled>
     </>
   );

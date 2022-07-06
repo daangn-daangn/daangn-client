@@ -39,7 +39,7 @@ const HomePage = () => {
       <div className="productWrapper">
         <ProductBoxes products={dummyProducts} />
       </div>
-      <TabBar curTab={1} />
+      <TabBar />
       <PostButton />
     </StyledHome>
   );
