@@ -18,7 +18,7 @@ export interface MyProductBoxProps {
   type: 'sell' | 'buy' | 'like';
   stateSelects?: ISelect[];
   moreSelects?: ISelect[];
-  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
+  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'>;
 }
 
 const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBoxProps) => {
@@ -40,9 +40,9 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
           {type !== 'like' ? (
             <More width="18" height="18" fill="#808080" onClick={() => setShowStateModal(true)} />
           ) : (
-            <Like isLike={true} width="18px" height="18px" />
+            <Like isFavorite={true} width="18px" height="18px" />
           )}
-          <Like isLike={true} count={product.likes.length} />
+          <Like isFavorite={true} count={product.favorite_count} />
         </div>
       </StyledMyProductBox>
       {type !== 'like' ? (

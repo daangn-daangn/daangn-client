@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import { dummyProducts } from 'components/templates/Home/Home';
+import { dummyProducts } from 'pages/Home/HomePage/HomePage';
 import ProductBoxes, { ProductBoxesProps } from './ProductBoxes';
 
 export default {

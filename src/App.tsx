@@ -25,6 +25,8 @@ import MannerPage from 'pages/Profile/MannerPage/MannerPage';
 import NotificationPage from 'pages/Notification/NotificationPage/NotificationPage';
 
 import ImagePage from 'pages/Image/ImagePage/ImagePage';
+import HomePage from 'pages/Home/HomePage/HomePage';
+import ChatPage from 'pages/Chat/ChatPage/ChatPage';
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="">
+            <Route path="/" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="filter" element={<CategoryFilterPage />} />
             <Route path="image" element={<ImagePage />} />
@@ -42,12 +45,13 @@ function App() {
             <Route path="location/find" element={<LocationFindPage />} />
           </Route>
           <Route path="/product">
-            <Route path="detail" element={<ProductDetailPage />} />
             <Route path="new" element={<NewProductPage />} />
             <Route path="new/category" element={<CategotyPage />} />
+            <Route path=":id" element={<ProductDetailPage />} />
           </Route>
           <Route path="/chat">
-            <Route path="room" element={<ChatRoomPage />} />
+            <Route path="" element={<ChatPage />} />
+            <Route path=":id" element={<ChatRoomPage />} />
             <Route path="location/share" element={<LocationSharePage />} />
           </Route>
           <Route path="/profile">

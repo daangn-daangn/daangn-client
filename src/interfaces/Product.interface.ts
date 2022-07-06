@@ -12,20 +12,19 @@ export interface IProduct {
   title: string;
   category: string;
   thumb_nail_image: string;
-  images: string[];
+  product_images: string[];
   location: string;
   created_at: Date;
   price: number;
-  likes: number[];
   description: string;
   view: number;
-  favorite: number;
-  chat: number;
-  state: ProductState;
+  favorite_count: number;
+  chatting_count: number;
+  product_state: ProductState;
 }
 
 export interface IProductWithUser extends IProduct {
-  user: IUser;
+  seller: IUser;
 }
 
 export interface INewProduct {

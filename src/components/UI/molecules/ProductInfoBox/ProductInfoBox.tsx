@@ -6,7 +6,7 @@ import { IProduct } from 'interfaces/Product.interface';
 import { ProductInfoBoxStyled } from './ProductInfoBoxStyled';
 
 export interface ProductInfoBoxProps {
-  product: Pick<IProduct, 'id' | 'title' | 'state' | 'thumb_nail_image' | 'price'>;
+  product: Pick<IProduct, 'id' | 'title' | 'product_state' | 'thumb_nail_image' | 'price'>;
 }
 
 const ProductInfoBox = ({ product }: ProductInfoBoxProps) => {
@@ -17,7 +17,7 @@ const ProductInfoBox = ({ product }: ProductInfoBoxProps) => {
           <Image imgUrl={product.thumb_nail_image} width="40px" height="40px" />
           <div className="messageProduct_info-detail">
             <div>
-              <span className="messageProduct_info-state">{product.state}</span>
+              <span className="messageProduct_info-state">{product.product_state}</span>
               <Title fontSize="0.9rem">{product.title}</Title>
             </div>
             <Price productPrice={product.price} />

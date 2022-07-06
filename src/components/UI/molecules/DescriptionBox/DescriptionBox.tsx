@@ -4,7 +4,10 @@ import Title from '../../atoms/Title/Title';
 import { StyledDescriptionBox } from './DescriptionBoxStyled';
 
 export interface DescriptionBoxProps {
-  productDetail: Pick<IProduct, 'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view'>;
+  productDetail: Pick<
+    IProduct,
+    'category' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view'
+  >;
 }
 
 const DescriptionBox = ({ productDetail }: DescriptionBoxProps) => {
@@ -20,9 +23,9 @@ const DescriptionBox = ({ productDetail }: DescriptionBoxProps) => {
       </div>
       <p>{productDetail.description}</p>
       <div className="DescriptionBox_status">
-        <span>채팅 {productDetail.chat}</span>
+        <span>채팅 {productDetail.chatting_count}</span>
         <span>&#183;</span>
-        <span>관심 {productDetail.favorite}</span>
+        <span>관심 {productDetail.favorite_count}</span>
         <span>&#183;</span>
         <span>조회 {productDetail.view}</span>
       </div>

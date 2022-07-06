@@ -72,6 +72,7 @@ const NewProductPage = () => {
     };
     window.localStorage.setItem('temporary_new_product', JSON.stringify(currentWrite));
     // navigate('/product'); 홈으로 가는 코드
+    navigate('/');
   };
 
   const onSubmit = (data: INewProduct) => {

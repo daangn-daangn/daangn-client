@@ -7,7 +7,7 @@ import { IProduct } from '../../../../interfaces/Product.interface';
 import SlideIndex from '@atoms/SlideIndex/SlideIndex';
 
 export interface SliderProps {
-  slides: Pick<IProduct, 'images'>;
+  slides: Pick<IProduct, 'product_images'>;
   height?: string;
   currentIdx?: number;
 }
@@ -15,7 +15,7 @@ export interface SliderProps {
 const Slider = ({ slides, height, currentIdx }: SliderProps) => {
   const navigate = useNavigate();
 
-  const TOTAL_SLIDES = slides.images.length - 1;
+  const TOTAL_SLIDES = slides.product_images.length - 1;
   const [currentSlide, setCurrentSlide] = useState(currentIdx || 0);
 
   const slideRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -38,7 +38,7 @@ const Slider = ({ slides, height, currentIdx }: SliderProps) => {
       state: {
         currentIdx: idx,
         slides: {
-          images: slides.images,
+          images: slides.product_images,
         },
       },
     });
@@ -50,7 +50,7 @@ const Slider = ({ slides, height, currentIdx }: SliderProps) => {
         <SlideButton direction="previous" onClick={prevSlide} />
         <SlideButton direction="next" onClick={nextSlide} />
         <div className="slider-container" ref={slideRef}>
-          {slides.images.map((slide, idx) => (
+          {slides.product_images.map((slide, idx) => (
             <div className="slide" key={idx}>
               {height ? (
                 <Image onClick={() => clickImage(idx)} imgUrl={slide} width="100%" height="400px" borderRedius="0px" />

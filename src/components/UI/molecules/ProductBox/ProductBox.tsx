@@ -7,7 +7,7 @@ import Title from '../../atoms/Title/Title';
 import { StyledProductBox } from './ProductBoxStyled';
 
 export interface ProductBoxProps {
-  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>;
+  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'>;
 }
 
 const ProductBox = ({ product }: ProductBoxProps) => {
@@ -24,7 +24,7 @@ const ProductBox = ({ product }: ProductBoxProps) => {
           <Price productPrice={product.price} />
         </div>
         <div className="product_state">
-          <Like isLike={true} count={product.likes.length} />
+          <Like isFavorite={true} count={product.favorite_count} />
         </div>
       </StyledProductBox>
     </>

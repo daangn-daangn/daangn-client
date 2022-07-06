@@ -24,7 +24,7 @@ const ImagePage = () => {
           title=""
           right={<Close fill="white" onClick={clickClose} />}
         />
-        <Slider slides={{ images: state.slides.images }} currentIdx={state.currentIdx} />
+        <Slider slides={{ product_images: state.slides.product_images }} currentIdx={state.currentIdx} />
       </ImagePageStyled>
     </>
   );

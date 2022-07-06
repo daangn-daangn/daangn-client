@@ -4,13 +4,13 @@ import Price from '../../atoms/Price/Price';
 import { StyledDealBox } from './DealBoxStyled';
 
 export interface DealBoxProps {
-  isLike: boolean;
+  isFavorite: boolean;
   productPrice: number;
   isMyProduct: boolean;
   chatLength: number;
 }
 
-const DealBox = ({ isLike, productPrice, isMyProduct, chatLength }: DealBoxProps) => {
+const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength }: DealBoxProps) => {
   const onClickLike = () => {
     // 좋아요 Update API 요청
   };
@@ -22,7 +22,7 @@ const DealBox = ({ isLike, productPrice, isMyProduct, chatLength }: DealBoxProps
   };
   return (
     <StyledDealBox>
-      <Like onClick={onClickLike} width="18px" height="18px" isLike={isLike} />
+      <Like onClick={onClickLike} width="18px" height="18px" isFavorite={isFavorite} />
       <div className="line"></div>
       <div className="dealBox_priceWrapper">
         <Price productPrice={productPrice} />

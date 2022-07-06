@@ -8,11 +8,11 @@ import Button from '@atoms/Button/Button';
 import ProductStateChangeButton from '@organisms/ProductStateChangeButton/ProductStateChangeButton';
 
 export interface DetailBoxProps {
-  slides: Pick<IProduct, 'images'>;
+  slides: Pick<IProduct, 'product_images'>;
   sellerDetail: Pick<IUser, 'nickname' | 'profileUrl' | 'location' | 'manner'>;
   productDetail: Pick<
     IProduct,
-    'category' | 'chat' | 'created_at' | 'description' | 'favorite' | 'title' | 'view' | 'state'
+    'category' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view' | 'product_state'
   >;
   isMyProduct: boolean;
 }
@@ -28,7 +28,7 @@ const DetailBox = (props: DetailBoxProps) => {
           <SellerBox {...props} />
           {props.isMyProduct && (
             <div className="detailbox_stateBtn">
-              <ProductStateChangeButton productState={props.productDetail.state} />
+              <ProductStateChangeButton productState={props.productDetail.product_state} />
             </div>
           )}
           <DescriptionBox {...props} />

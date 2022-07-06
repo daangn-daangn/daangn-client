@@ -11,7 +11,7 @@ export const StyledChatBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 7px;
-    & > div:first-child {
+    & > div:first-of-type {
       display: flex;
       align-items: center;
       gap: 5px;

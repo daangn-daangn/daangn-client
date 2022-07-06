@@ -1,5 +1,5 @@
-import { Meta, Story } from "@storybook/react";
-import TabBar, { TabBarProps } from "./TabBar";
+import { Meta, Story } from '@storybook/react';
+import TabBar, { TabBarProps } from './TabBar';
 
 export default {
   title: 'Organisms/TabBar',
@@ -13,8 +13,7 @@ const Template: Story<TabBarProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-};
+Default.args = {};
 
 export const Home = Template.bind({});
 Home.args = {
