@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import { dummyProduct } from 'components/templates/Home/Home';
+import { dummyProduct } from 'pages/Home/HomePage/HomePage';
 import NotificationCard, { NotificationCardProps } from './NotificationCard';
 
 export default {

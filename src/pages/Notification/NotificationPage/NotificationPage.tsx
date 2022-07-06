@@ -1,7 +1,7 @@
 import NotificationCard from '@molecules/NotificationCard/NotificationCard';
 import Top from '@molecules/Top/Top';
-import { dummyProduct } from 'components/templates/Home/Home';
 import { NotificationType } from 'interfaces/Notification.interface';
+import { dummyProduct } from 'pages/Home/HomePage/HomePage';
 import { dummyUser } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 
 import { NotificationCardGroup, NotificationPageStyled } from './NotificationPageStyled';

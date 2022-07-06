@@ -1,10 +1,10 @@
+import PostButton from '@atoms/PostButton/PostButton';
+import NavBar from '@organisms/NavBar/NavBar';
+import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
+import TabBar from '@organisms/TabBar/TabBar';
 import { IProduct } from '../../../interfaces/Product.interface';
 import Applayout from '../../../Layouts/AppLayout';
-import PostButton from '../../UI/atoms/PostButton/PostButton';
-import NavBar from '../../UI/organisms/NavBar/NavBar';
-import ProductBoxes from '../../UI/organisms/ProductBoxes/ProductBoxes';
-import TabBar from '../../UI/organisms/TabBar/TabBar';
-import { StyledHome } from './HomeStyled';
+import { StyledHome } from './HomePageStyled';
 
 export const dummyProduct: Pick<
   IProduct,
@@ -31,21 +31,18 @@ export const dummyProducts: Pick<
     return indexDummyProduct;
   });
 
-export interface HomeProps {
-  products: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>[];
-}
-
-const Home = ({ products }: HomeProps) => {
+const HomePage = () => {
+  console.log(dummyProducts);
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
-      <Applayout>
-        <ProductBoxes products={products} />
-      </Applayout>
+      <div className="productWrapper">
+        <ProductBoxes products={dummyProducts} />
+      </div>
       <TabBar curTab={1} />
       <PostButton />
     </StyledHome>
   );
 };
 
-export default Home;
+export default HomePage;

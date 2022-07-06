@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react';
+import { dummyProduct } from 'pages/Home/HomePage/HomePage';
 import MyProductBox, { MyProductBoxProps } from './MyProductBox';
-import { dummyProduct } from 'components/templates/Home/Home';
 
 export default {
   title: 'Molecules/MyProductBox',

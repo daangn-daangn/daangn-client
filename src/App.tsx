@@ -25,6 +25,7 @@ import MannerPage from 'pages/Profile/MannerPage/MannerPage';
 import NotificationPage from 'pages/Notification/NotificationPage/NotificationPage';
 
 import ImagePage from 'pages/Image/ImagePage/ImagePage';
+import HomePage from 'pages/Home/HomePage/HomePage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="">
+            <Route path="/" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="filter" element={<CategoryFilterPage />} />
             <Route path="image" element={<ImagePage />} />
