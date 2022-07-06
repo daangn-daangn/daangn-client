@@ -1,14 +1,10 @@
+import { IGetChat } from 'interfaces/Chat.interface';
 import Image from '../../atoms/Image/Image';
 import Time from '../../atoms/Time/Time';
 import { StyledChatBox } from './ChatBoxStyled';
 
 export interface ChatBoxProps {
-  profileURL: string;
-  nickname: string;
-  location: string;
-  prev_chatTime: Date;
-  thumb_nail_image: string;
-  recent_chat: string;
+  chat: IGetChat;
 }
 
 const trimWriting = (writing: string, limit: number): string => {
@@ -19,20 +15,20 @@ const trimWriting = (writing: string, limit: number): string => {
   }
 };
 
-const ChatBox = ({ profileURL, nickname, location, prev_chatTime, thumb_nail_image, recent_chat }: ChatBoxProps) => {
+const ChatBox = ({ chat }: ChatBoxProps) => {
   return (
     <StyledChatBox>
-      <Image width="55px" height="55px" borderRedius="50%" imgUrl={profileURL} />
+      <Image width="55px" height="55px" borderRedius="50%" imgUrl={chat.participant_image} />
       <div className="chatBox_info">
         <div>
-          <span className="chatBox_info-nickname">{nickname}</span>
-          <span className="chatBox_info-location">{location}</span>
+          <span className="chatBox_info-nickname">{chat.participant}</span>
+          <span className="chatBox_info-location">{chat.location}</span>
           <span className="chatBox_info-dot">&#183;</span>
-          <Time time={prev_chatTime} />
+          <Time time={chat.updated_at} />
         </div>
-        <p>{trimWriting(recent_chat, 14)}</p>
+        <p>{trimWriting(chat.last_chat, 14)}</p>
       </div>
-      <Image width="40px" height="40px" imgUrl={thumb_nail_image} />
+      <Image width="40px" height="40px" imgUrl={chat.product_image} />
     </StyledChatBox>
   );
 };

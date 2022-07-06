@@ -31,7 +31,9 @@ const NavBar = (props: NavBarProps) => {
               </Link>
             </>
           ) : props.type === '채팅' ? (
-            <Alarm />
+            <Link to="/notification">
+              <Alarm />
+            </Link>
           ) : (
             <Setting />
           )}

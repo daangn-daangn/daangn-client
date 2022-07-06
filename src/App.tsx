@@ -26,6 +26,7 @@ import NotificationPage from 'pages/Notification/NotificationPage/NotificationPa
 
 import ImagePage from 'pages/Image/ImagePage/ImagePage';
 import HomePage from 'pages/Home/HomePage/HomePage';
+import ChatPage from 'pages/Chat/ChatPage/ChatPage';
 
 function App() {
   return (
@@ -49,7 +50,8 @@ function App() {
             <Route path=":id" element={<ProductDetailPage />} />
           </Route>
           <Route path="/chat">
-            <Route path="room" element={<ChatRoomPage />} />
+            <Route path="" element={<ChatPage />} />
+            <Route path=":id" element={<ChatRoomPage />} />
             <Route path="location/share" element={<LocationSharePage />} />
           </Route>
           <Route path="/profile">

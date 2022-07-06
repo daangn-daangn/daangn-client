@@ -3,7 +3,6 @@ import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
 import { IProduct } from '../../../interfaces/Product.interface';
-import Applayout from '../../../Layouts/AppLayout';
 import { StyledHome } from './HomePageStyled';
 
 export const dummyProduct: Pick<
@@ -32,7 +31,6 @@ export const dummyProducts: Pick<
   });
 
 const HomePage = () => {
-  console.log(dummyProducts);
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
