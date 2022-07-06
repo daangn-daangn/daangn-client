@@ -12,7 +12,7 @@ export const StyledLike = styled.div<LikeProps>`
   svg {
     width: ${(props) => props.width || '14px'};
     height: ${(props) => props.height || '14px'};
-    fill: ${(props) => (props.isLike ? props.theme.mainColor : props.theme.$black50)};
+    fill: ${(props) => (props.isFavorite ? props.theme.mainColor : props.theme.$black50)};
     cursor: pointer;
     &:hover {
       fill: ${(props) => props.theme.hoverColor};

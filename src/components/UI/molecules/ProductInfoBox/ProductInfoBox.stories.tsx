@@ -21,6 +21,6 @@ Default.args = {
     thumb_nail_image:
       'https://dnvefa72aowie.cloudfront.net/origin/article/202201/300ec7e016841850b703e391d7b276f9198c54e7075a32df5a80b6fdd8563a6b.webp?q=82&s=300x300&t=crop',
     price: 300000,
-    state: ProductState.FOR_SALE,
+    product_state: ProductState.FOR_SALE,
   },
 };

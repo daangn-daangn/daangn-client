@@ -8,7 +8,7 @@ import { StyledHome } from './HomePageStyled';
 
 export const dummyProduct: Pick<
   IProduct,
-  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'
+  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
 > = {
   id: 1,
   title: '아이폰 팔아요',
@@ -17,12 +17,12 @@ export const dummyProduct: Pick<
   location: '대연동',
   created_at: new Date(),
   price: 300000,
-  likes: [1, 2, 3, 4, 5],
+  favorite_count: 5,
 };
 
 export const dummyProducts: Pick<
   IProduct,
-  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'
+  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
 >[] = Array(10)
   .fill(dummyProduct)
   .map((dummyProduct, index) => {

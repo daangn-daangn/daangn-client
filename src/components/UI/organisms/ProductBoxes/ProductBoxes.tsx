@@ -3,7 +3,10 @@ import ProductBox from '../../molecules/ProductBox/ProductBox';
 import { StyledProductBoxes } from './ProductBoxesStyled';
 
 export interface ProductBoxesProps {
-  products: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'likes'>[];
+  products: Pick<
+    IProduct,
+    'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
+  >[];
 }
 
 const ProductBoxes = ({ products }: ProductBoxesProps) => {

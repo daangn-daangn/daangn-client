@@ -14,7 +14,7 @@ const Template: Story<DealBoxProps> = (args) => (
 
 export const UserLikeTrue_And_MyProduct = Template.bind({});
 UserLikeTrue_And_MyProduct.args = {
-  isLike: true,
+  isFavorite: true,
   productPrice: 6000,
   isMyProduct: true,
   chatLength: 3,
@@ -22,7 +22,7 @@ UserLikeTrue_And_MyProduct.args = {
 
 export const UserLikeFalse_And_NotMyProduct = Template.bind({});
 UserLikeFalse_And_NotMyProduct.args = {
-  isLike: false,
+  isFavorite: false,
   productPrice: 6000,
   isMyProduct: false,
   chatLength: 3,

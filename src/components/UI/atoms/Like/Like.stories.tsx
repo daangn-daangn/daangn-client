@@ -15,10 +15,10 @@ const Template: Story<LikeProps> = (args) => (
 
 export const isLikeTrue = Template.bind({});
 isLikeTrue.args = {
-  isLike: true,
+  isFavorite: true,
 };
 
 export const isLikeFalse = Template.bind({});
 isLikeFalse.args = {
-  isLike: false,
+  isFavorite: false,
 };
