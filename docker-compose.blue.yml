@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: daangn-client-blue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3000'
+    # 볼륨을 설정합니다.
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    # 리액트 애플리케이션에서 발생하는 버그 해결
+    stdin_open: true
+
+networks:
+  default:
+    external:
+      name: daangn_net
