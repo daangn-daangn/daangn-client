@@ -5,8 +5,8 @@ import CategoryFilter, { checkIncludeCategory } from '@molecules/CategoryFilter/
 import InputText from '@molecules/InputText/InputText';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { searchParamsTitle } from 'stores/Home';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { searchParamsCategories, searchParamsMaxPrice, searchParamsMinPrice, searchParamsTitle } from 'stores/Home';
 import { createSearchParamFn } from 'utils/createSearchParamFn';
 import { CategoryFilterFormStyled } from './CategoryFilterFormStyled';
 
@@ -21,19 +21,27 @@ export interface CategoryFilterFormProps {}
 const CategoryFilterForm = (props: CategoryFilterFormProps) => {
   const navigate = useNavigate();
   const searchTitle = useRecoilValue(searchParamsTitle);
-  const { register, handleSubmit, watch, setValue, reset } = useForm<IForm>({
+  const [searchCategories, setSearchCategories] = useRecoilState(searchParamsCategories);
+  const [searchMinPrice, setSearchMinPrice] = useRecoilState(searchParamsMinPrice);
+  const [searchMaxPrice, setSearchMaxPrice] = useRecoilState(searchParamsMaxPrice);
+  const { register, handleSubmit, watch, setValue } = useForm<IForm>({
     defaultValues: {
-      checkCategories: [],
+      checkCategories: searchCategories,
+      min: searchMinPrice,
+      max: searchMaxPrice,
     },
   });
   const onSubmit: SubmitHandler<IForm> = (data) => {
+    setSearchCategories(data.checkCategories);
+    setSearchMinPrice(data.min || '');
+    setSearchMaxPrice(data.max || '');
     navigate({
       pathname: '/',
       search: createSearchParamFn({
         title: searchTitle,
         categories: data.checkCategories.join(),
-        minPrice: data.min,
-        maxPrice: data.min,
+        minPrice: data.min?.replaceAll(',', ''),
+        maxPrice: data.max?.replaceAll(',', ''),
       }),
     });
   };
@@ -46,7 +54,12 @@ const CategoryFilterForm = (props: CategoryFilterFormProps) => {
     setValue('checkCategories', [...watch('checkCategories'), categoryId]);
   };
   const onReset = () => {
-    reset();
+    setSearchCategories([]);
+    setSearchMinPrice('');
+    setSearchMaxPrice('');
+    setValue('min', '');
+    setValue('max', '');
+    setValue('checkCategories', []);
   };
   return (
     <CategoryFilterFormStyled onSubmit={handleSubmit(onSubmit)}>
