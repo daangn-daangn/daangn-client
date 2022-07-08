@@ -18,7 +18,7 @@ export const dummyUser: IUser = {
 export const dummyProduct: IProductWithUser = {
   id: 1,
   title: '아이폰 삽니다',
-  category: '디지털기기',
+  categoryId: 1,
   description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
   created_at: new Date(),
   view: 256,
@@ -47,7 +47,7 @@ const ProductDetailPage = () => {
       manner: dummyProduct.seller.manner,
     },
     productDetail: {
-      category: dummyProduct.category,
+      categoryId: dummyProduct.categoryId,
       chatting_count: dummyProduct.chatting_count,
       created_at: dummyProduct.created_at,
       description: dummyProduct.description,

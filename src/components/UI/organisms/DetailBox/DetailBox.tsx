@@ -12,7 +12,14 @@ export interface DetailBoxProps {
   sellerDetail: Pick<IUser, 'nickname' | 'profileUrl' | 'location' | 'manner'>;
   productDetail: Pick<
     IProduct,
-    'category' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view' | 'product_state'
+    | 'categoryId'
+    | 'chatting_count'
+    | 'created_at'
+    | 'description'
+    | 'favorite_count'
+    | 'title'
+    | 'view'
+    | 'product_state'
   >;
   isMyProduct: boolean;
 }

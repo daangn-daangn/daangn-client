@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react';
-import CategoryFilter, { CategoryFilterProps, categoryList } from './CategoryFilter';
+import { categoryList } from 'utils/categoryFilter';
+import CategoryFilter, { CategoryFilterProps } from './CategoryFilter';
 
 export default {
   title: 'Molecules/CategoryFilter',

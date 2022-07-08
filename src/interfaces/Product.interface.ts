@@ -10,7 +10,7 @@ export enum ProductState {
 export interface IProduct {
   id: number;
   title: string;
-  category: string;
+  categoryId: number;
   thumb_nail_image: string;
   product_images: string[];
   location: string;
