@@ -28,7 +28,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: npm install
-        run: npm install
+        run: npm install --legacy-peer-deps
         shell: bash
 
       - name: Build with npm # 프로젝트 build
