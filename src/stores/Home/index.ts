@@ -1,21 +1,6 @@
 import { atom } from 'recoil';
 
-export const searchParamsTitle = atom<string>({
-  key: 'searchParamsTitleState',
-  default: '',
-});
-
-export const searchParamsCategories = atom<number[]>({
-  key: 'searchParamsCategoriesState',
-  default: [],
-});
-
-export const searchParamsMinPrice = atom<string>({
-  key: 'searchParamsMinPriceState',
-  default: '',
-});
-
-export const searchParamsMaxPrice = atom<string>({
-  key: 'searchParamsMaxPriceState',
-  default: '',
+export const searchParamsState = atom<{ title: string; categories: number[]; minPrice: string; maxPrice: string }>({
+  key: 'searchParamsState',
+  default: { title: '', categories: [], minPrice: '', maxPrice: '' },
 });

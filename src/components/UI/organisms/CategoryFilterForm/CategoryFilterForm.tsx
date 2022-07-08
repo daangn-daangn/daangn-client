@@ -2,11 +2,10 @@ import Button from '@atoms/Button/Button';
 import Input from '@atoms/Input/Input';
 import Title from '@atoms/Title/Title';
 import CategoryFilter, { checkIncludeCategory } from '@molecules/CategoryFilter/CategoryFilter';
-import InputText from '@molecules/InputText/InputText';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { createSearchParams, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { searchParamsCategories, searchParamsMaxPrice, searchParamsMinPrice, searchParamsTitle } from 'stores/Home';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { searchParamsState } from 'stores/Home';
 import { createSearchParamFn } from 'utils/createSearchParamFn';
 import { CategoryFilterFormStyled } from './CategoryFilterFormStyled';
 
@@ -20,25 +19,25 @@ export interface CategoryFilterFormProps {}
 
 const CategoryFilterForm = (props: CategoryFilterFormProps) => {
   const navigate = useNavigate();
-  const searchTitle = useRecoilValue(searchParamsTitle);
-  const [searchCategories, setSearchCategories] = useRecoilState(searchParamsCategories);
-  const [searchMinPrice, setSearchMinPrice] = useRecoilState(searchParamsMinPrice);
-  const [searchMaxPrice, setSearchMaxPrice] = useRecoilState(searchParamsMaxPrice);
+  const [searchParams, setSearchParams] = useRecoilState(searchParamsState);
   const { register, handleSubmit, watch, setValue } = useForm<IForm>({
     defaultValues: {
-      checkCategories: searchCategories,
-      min: searchMinPrice,
-      max: searchMaxPrice,
+      checkCategories: searchParams.categories,
+      min: searchParams.minPrice,
+      max: searchParams.maxPrice,
     },
   });
   const onSubmit: SubmitHandler<IForm> = (data) => {
-    setSearchCategories(data.checkCategories);
-    setSearchMinPrice(data.min || '');
-    setSearchMaxPrice(data.max || '');
+    setSearchParams((prevSearchParms) => ({
+      ...prevSearchParms,
+      categories: data.checkCategories,
+      minPrice: data.min || '',
+      maxPrice: data.max || '',
+    }));
     navigate({
       pathname: '/',
       search: createSearchParamFn({
-        title: searchTitle,
+        title: searchParams.title,
         categories: data.checkCategories.join(),
         minPrice: data.min?.replaceAll(',', ''),
         maxPrice: data.max?.replaceAll(',', ''),
@@ -54,9 +53,7 @@ const CategoryFilterForm = (props: CategoryFilterFormProps) => {
     setValue('checkCategories', [...watch('checkCategories'), categoryId]);
   };
   const onReset = () => {
-    setSearchCategories([]);
-    setSearchMinPrice('');
-    setSearchMaxPrice('');
+    setSearchParams((prevSearchParams) => ({ ...prevSearchParams, categories: [], minPrice: '', maxPrice: '' }));
     setValue('min', '');
     setValue('max', '');
     setValue('checkCategories', []);
