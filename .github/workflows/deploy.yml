@@ -15,23 +15,24 @@ jobs:
       - name: Checkout # 깃헙이 제공하는 워크스페이스 (이 workflow 를 실행하는 공간) 에서 내 저장소가 위치한 곳으로 이동
         uses: actions/checkout@v3
 
-    #   - name: create env file # 깃헙 settings > secrets 에 올려놓은 비밀 값을 복사해 .env 파일로 생성
-    #     run: |
-    #       touch .env
-    #       echo "${{ secrets.ENV_PROD_VARS }}" >> .env
+
+      #   - name: create env file # 깃헙 settings > secrets 에 올려놓은 비밀 값을 복사해 .env 파일로 생성
+      #     run: |
+      #       touch .env
+      #       echo "${{ secrets.ENV_PROD_VARS }}" >> .env
 
       - name: Set up NPM 16 # npm 셋업
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: npm install
         run: npm install
         shell: bash
 
       - name: Build with npm # 프로젝트 build
-        run: ./npm run build
+        run: npm run build
         shell: bash
 
       - name: Make zip file
@@ -49,4 +50,4 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name sandbox-service-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name sandbox --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+        run: aws deploy create-deployment --application-name sandbox-client-service-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name sandbox --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip

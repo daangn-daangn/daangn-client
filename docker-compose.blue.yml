@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   frontend:
@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3001:3000'
+      - "3001:3000"
     # 볼륨을 설정합니다.
     volumes:
       - /app/node_modules
