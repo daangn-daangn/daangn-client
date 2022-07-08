@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react';
-import { categoryList } from 'utils/categoryFilter';
 import CategoryFilter, { CategoryFilterProps } from './CategoryFilter';
 
 export default {
@@ -15,5 +14,5 @@ const Template: Story<CategoryFilterProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  checkCategories: [categoryList[0], categoryList[9]],
+  checkCategories: [1, 2],
 };

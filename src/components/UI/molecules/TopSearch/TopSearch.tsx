@@ -5,6 +5,8 @@ import { TopSearchStyled } from './TopSearchStyled';
 import { ReactComponent as Back } from 'assets/back.svg';
 import Input from '@atoms/Input/Input';
 import Button from '@atoms/Button/Button';
+import { useSetRecoilState } from 'recoil';
+import { searchParamsTitle } from 'stores/Home';
 
 interface ISearch {
   keyword: string;
@@ -13,6 +15,7 @@ interface ISearch {
 export interface TopSearchProps {}
 
 const TopSearch = (props: TopSearchProps) => {
+  const setSearchParamsTitle = useSetRecoilState(searchParamsTitle);
   const { register, handleSubmit } = useForm<ISearch>();
   const navigate = useNavigate();
   const onClickLeft = useCallback(() => {
@@ -22,6 +25,8 @@ const TopSearch = (props: TopSearchProps) => {
   const onSubmit = (data: ISearch) => {
     // 검색 결과로 이동하는 api
     saveKeyword(data.keyword);
+    setSearchParamsTitle(data.keyword);
+    navigate(`/?title=${data.keyword}`);
   };
 
   const saveKeyword = (keyword: string) => {

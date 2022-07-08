@@ -2,6 +2,10 @@ import PostButton from '@atoms/PostButton/PostButton';
 import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
+import { getProdcts } from 'apis/product/api';
+import { useQuery } from 'react-query';
+import { createSearchParams, useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { IProduct } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
 
@@ -29,8 +33,19 @@ export const dummyProducts: Pick<
     indexDummyProduct.id = index + 1;
     return indexDummyProduct;
   });
-
 const HomePage = () => {
+  /*
+  물품 조회 API 사용 로직
+  const [searchParams] = useSearchParams();
+  const { data: products } = useQuery<IProduct[]>(['products', 'all'], () =>
+    getProdcts({
+      title: searchParams.get('title'),
+      categories: searchParams.get('categories'),
+      minPrice: searchParams.get('minPrice'),
+      maxPrice: searchParams.get('maxPrice'),
+    }),
+  );
+  */
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
