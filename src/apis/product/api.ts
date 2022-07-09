@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { INewProduct } from 'interfaces/Product.interface';
 
 export interface GetProdctsParams {
   title?: string | null;
@@ -25,4 +26,8 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetP
     url += `${flag}maxPrice=${maxPrice}`;
   }
   return axios.get(url).then((res) => res.data);
+};
+
+export const postNewProduct = async (newProduct: INewProduct) => {
+  return axios.post('/api/products', { ...newProduct });
 };

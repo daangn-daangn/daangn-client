@@ -5,6 +5,8 @@ import TabBar from '@organisms/TabBar/TabBar';
 import { getProdcts } from 'apis/product/api';
 import { useQuery } from 'react-query';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { craeteSearchParamsState } from 'stores/Home';
 import { IProduct } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
 
@@ -34,6 +36,8 @@ export const dummyProducts: Pick<
   });
 const HomePage = () => {
   const [searchParams] = useSearchParams();
+  const craeteSearchParams = useRecoilValue(craeteSearchParamsState);
+  console.log(craeteSearchParams);
   /*
   물품 조회 API 사용 로직
   const { data: products } = useQuery<IProduct[]>(['products', 'all'], () =>

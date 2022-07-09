@@ -13,6 +13,8 @@ import { ReactComponent as Camera } from 'assets/camera.svg';
 import { ReactComponent as Close } from 'assets/close.svg';
 import { ReactComponent as Next } from 'assets/next.svg';
 import { encodeFileToBase64 } from 'utils/encodeImage';
+import { categoryList } from 'utils/categoryFilter';
+import { postNewProduct } from 'apis/product/api';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
@@ -24,16 +26,16 @@ const NewProductPage = () => {
   const { register, handleSubmit, setValue, reset, watch } = useForm<INewProduct>();
 
   useEffect(() => {
-    if (watch('images')) {
+    if (watch('product_images')) {
       setImagesBase64([]);
-      Array.from(watch('images')).forEach((image) => {
+      Array.from(watch('product_images')).forEach((image) => {
         encodeFileToBase64(image).then((data) =>
           setImagesBase64((prev) => [...prev, { image: image, url: data as string }]),
         );
       });
-      setValue('thumb_nail_image', watch('images')[0]);
+      setValue('thumb_nail_image', watch('product_images')[0]);
     }
-  }, [watch('images')]);
+  }, [watch('product_images')]);
 
   useEffect(() => {
     /*
@@ -50,13 +52,13 @@ const NewProductPage = () => {
   const deleteImage = (clickedImage: File) => {
     const dataTranster = new DataTransfer();
 
-    Array.from(watch('images'))
+    Array.from(watch('product_images'))
       .filter((file) => file !== clickedImage)
       .forEach((file) => {
         dataTranster.items.add(file);
       });
 
-    setValue('images', dataTranster.files);
+    setValue('product_images', dataTranster.files);
   };
 
   const goCategoryPage = () => {
@@ -66,7 +68,7 @@ const NewProductPage = () => {
   const storeToLocalStorage = () => {
     const currentWrite = {
       title: watch('title'),
-      category: watch('category'),
+      category: watch('categoryId'),
       price: watch('price'),
       description: watch('description'),
     };
@@ -77,6 +79,15 @@ const NewProductPage = () => {
 
   const onSubmit = (data: INewProduct) => {
     console.log(data);
+    postNewProduct(data)
+      .then((res) => {
+        // 성공시 홈으로?
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        //에러시
+      });
   };
 
   return (
@@ -102,8 +113,8 @@ const NewProductPage = () => {
         />
         <div className="input-photo-div borer-bottom-gray">
           <InputPhoto
-            register={{ ...register('images') }}
-            setPickedPhotos={(value) => setValue('images', value)}
+            register={{ ...register('product_images') }}
+            setPickedPhotos={(value) => setValue('product_images', value)}
             buttonNode={
               <div className="input-photo-div_button">
                 <Camera />
@@ -128,7 +139,7 @@ const NewProductPage = () => {
         </div>
         <div className="borer-bottom-gray">
           <div className="input-categoty-div" onClick={() => goCategoryPage()}>
-            <p>{state?.category || '카테고리 선택'}</p>
+            <p>{categoryList.find((category) => category.id === state?.categoryId)?.name || '카테고리 선택'}</p>
             <Next width="10" />
           </div>
         </div>

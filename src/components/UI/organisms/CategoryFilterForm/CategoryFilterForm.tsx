@@ -4,7 +4,7 @@ import Title from '@atoms/Title/Title';
 import CategoryFilter, { checkIncludeCategory } from '@molecules/CategoryFilter/CategoryFilter';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { searchParamsState } from 'stores/Home';
 import { createSearchParamFn } from 'utils/createSearchParamFn';
 import { CategoryFilterFormStyled } from './CategoryFilterFormStyled';

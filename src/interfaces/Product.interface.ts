@@ -29,9 +29,9 @@ export interface IProductWithUser extends IProduct {
 
 export interface INewProduct {
   title: string;
-  category: string;
+  categoryId: number;
   thumb_nail_image: File;
-  images: FileList;
+  product_images: FileList;
   price: string;
   description: string;
 }
