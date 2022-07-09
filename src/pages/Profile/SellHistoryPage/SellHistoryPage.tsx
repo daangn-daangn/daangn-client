@@ -4,6 +4,9 @@ import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
 import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
+import { IProductWithUser, ProdcutStateNum, ProductState } from 'interfaces/Product.interface';
+import { useQuery } from 'react-query';
+import { getSalesHistory } from 'apis/product/api';
 
 const MyProductBoxSelects = {
   판매중: {
@@ -39,12 +42,16 @@ const MyProductBoxSelects = {
 const SellHistoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as { ProductState: string };
-
+  const state = location.state as { productState: ProductState };
+  /* API 붙힌 후 로직
+  const { data: products } = useQuery<IProductWithUser[]>(['products', state], () =>
+    getSalesHistory(state.productState),
+  );
+  */
   const navStates = [
-    { menu: '판매중', onClick: () => navigate('', { state: { ProductState: '판매중' } }) },
-    { menu: '거래완료', onClick: () => navigate('', { state: { ProductState: '거래완료' } }) },
-    { menu: '숨김', onClick: () => navigate('', { state: { ProductState: '숨김' } }) },
+    { menu: ProductState.FOR_SALE, onClick: () => navigate('', { state: { productState: ProductState.FOR_SALE } }) },
+    { menu: ProductState.SOLD_OUT, onClick: () => navigate('', { state: { productState: ProductState.SOLD_OUT } }) },
+    { menu: ProductState.HIDE, onClick: () => navigate('', { state: { productState: ProductState.HIDE } }) },
   ];
 
   return (
@@ -59,12 +66,29 @@ const SellHistoryPage = () => {
           type="sell"
           product={dummyProduct}
           stateSelects={
-            MyProductBoxSelects[(state?.ProductState as keyof typeof MyProductBoxSelects) || '판매중'].stateSelects
+            MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.SOLD_OUT]
+              .stateSelects
           }
           moreSelects={
-            MyProductBoxSelects[(state?.ProductState as keyof typeof MyProductBoxSelects) || '판매중'].moreSelects
+            MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.SOLD_OUT]
+              .moreSelects
           }
         />
+        {/* API붙힌 후 로직
+          {products?.map((product) => (
+          <MyProductBox
+            key={product.id}
+            type="sell"
+            product={product}
+            stateSelects={
+              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.SOLD_OUT ].stateSelects
+            }
+            moreSelects={
+              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || '판매중'].moreSelects
+            }
+          />
+        ))}
+        */}
       </SellHistoryPageStyled>
     </>
   );

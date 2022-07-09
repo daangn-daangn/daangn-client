@@ -20,10 +20,10 @@ const ProductStateChangeButton = ({ productState }: ProductStateChangeButtonProp
     setShowProductStateModal((prev) => !prev);
   };
 
-  const ProductStateChangeType = [ProductState.FOR_SALE, ProductState.REVERSED, ProductState.SOLD_OUT];
+  // const ProductStateChangeType = [ProductState.FOR_SALE, ProductState.SOLD_OUT];
   const ProductStateChangeSelects: ISelect[] = [];
 
-  ProductStateChangeType.forEach((type) => {
+  Object.keys(ProductState).forEach((type) => {
     ProductStateChangeSelects.push({ content: type, function: onClickChangeState });
   });
 

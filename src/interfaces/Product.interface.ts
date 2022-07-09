@@ -1,10 +1,17 @@
 import { IUser } from './User.interface';
 
 export enum ProductState {
-  DELETE = '삭제상품',
-  REVERSED = '예약중',
+  HIDE = '숨김',
   FOR_SALE = '판매중',
   SOLD_OUT = '거래완료',
+  REVERSED = '예약중',
+  DELETE = '삭제상품',
+}
+
+export enum ProdcutStateNum {
+  '판매중',
+  '거래완료',
+  '예약중',
 }
 
 export interface IProduct {

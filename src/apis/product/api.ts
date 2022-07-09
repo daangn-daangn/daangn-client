@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { INewProduct } from 'interfaces/Product.interface';
+import { INewProduct, ProductState } from 'interfaces/Product.interface';
 
 export interface GetProdctsParams {
   title?: string | null;
@@ -30,4 +30,23 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetP
 
 export const postNewProduct = async (newProduct: INewProduct) => {
   return axios.post('/api/products', { ...newProduct });
+};
+
+export const deleteProduct = async (productId: number) => {
+  return axios.delete(`/api/products/${productId}`);
+};
+
+export const getSalesHistory = async (productState: ProductState) => {
+  let stateNum = 1;
+  console.log(productState);
+  if (productState === ProductState.HIDE) {
+    stateNum = 0;
+  }
+  if (productState === ProductState.FOR_SALE) {
+    stateNum = 1;
+  }
+  if (productState === ProductState.SOLD_OUT) {
+    stateNum = 2;
+  }
+  return axios.get(`/api/products/sales-history?state=${stateNum}`).then((res) => res.data);
 };
