@@ -8,6 +8,14 @@ export interface GetProdctsParams {
   maxPrice?: string | null;
 }
 
+export interface EditProdctsParams {
+  category_id: number;
+  title: string;
+  price: number;
+  description: string;
+  prodcutId: number;
+}
+
 export interface PostProductUploadParams {
   category_id: number;
   title: string;
@@ -38,6 +46,10 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetP
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {
   return axios.post('/api/products', { ...newProduct });
+};
+
+export const putProductEdit = async ({ prodcutId, ...rest }: EditProdctsParams) => {
+  return axios.put(`/api/products/${prodcutId}`, { ...rest });
 };
 
 export const deleteProduct = async (productId: number) => {

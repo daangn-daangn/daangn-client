@@ -7,6 +7,7 @@ import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 import { IProductWithUser, ProductState } from 'interfaces/Product.interface';
 import { useQuery } from 'react-query';
 import { getSalesHistory } from 'apis/product/api';
+import useProductHistoryLoad from 'hooks/queries/product/useProductHistoryLoad';
 
 const MyProductBoxSelects = {
   판매중: {
@@ -44,9 +45,7 @@ const SellHistoryPage = () => {
   const location = useLocation();
   const state = location.state as { productState: ProductState };
   /* API 붙힌 후 로직
-  const { data: products } = useQuery<IProductWithUser[]>(['products', state], () =>
-    getSalesHistory(state.productState),
-  );
+  const { data: products } = useProductHistoryLoad(state.productState);
   */
   const navStates = [
     { menu: ProductState.FOR_SALE, onClick: () => navigate('', { state: { productState: ProductState.FOR_SALE } }) },
