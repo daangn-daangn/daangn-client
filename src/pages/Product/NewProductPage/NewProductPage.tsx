@@ -1,7 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { INewProduct } from 'interfaces/Product.interface';
 import { NewProductPageStyled } from './NewProductPageStyled';
 import Top from '@molecules/Top/Top';
 import InputPhoto from '@molecules/InputPhoto/InputPhoto';
@@ -14,16 +13,25 @@ import { ReactComponent as Close } from 'assets/close.svg';
 import { ReactComponent as Next } from 'assets/next.svg';
 import { encodeFileToBase64 } from 'utils/encodeImage';
 import { categoryList } from 'utils/categoryFilter';
-import { postNewProduct } from 'apis/product/api';
+import { postNewProduct, PostProductUploadParams } from 'apis/product/api';
+import useProductUpload from 'hooks/queries/product/useProductUpload';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as INewProduct;
-
+  const state = location.state as PostProductUploadParams;
+  const mutation = useProductUpload({
+    onSuccess: (res) => {
+      // 성공시 홈으로?
+      navigate('/');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const [imagesBase64, setImagesBase64] = useState<{ image: File; url: string }[]>([]);
 
-  const { register, handleSubmit, setValue, reset, watch } = useForm<INewProduct>();
+  const { register, handleSubmit, setValue, reset, watch } = useForm<PostProductUploadParams>();
 
   useEffect(() => {
     if (watch('product_images')) {
@@ -33,7 +41,6 @@ const NewProductPage = () => {
           setImagesBase64((prev) => [...prev, { image: image, url: data as string }]),
         );
       });
-      setValue('thumb_nail_image', watch('product_images')[0]);
     }
   }, [watch('product_images')]);
 
@@ -68,7 +75,7 @@ const NewProductPage = () => {
   const storeToLocalStorage = () => {
     const currentWrite = {
       title: watch('title'),
-      category: watch('categoryId'),
+      category: watch('category_id'),
       price: watch('price'),
       description: watch('description'),
     };
@@ -77,17 +84,9 @@ const NewProductPage = () => {
     navigate('/');
   };
 
-  const onSubmit = (data: INewProduct) => {
+  const onSubmit = (data: PostProductUploadParams) => {
     console.log(data);
-    postNewProduct(data)
-      .then((res) => {
-        // 성공시 홈으로?
-        navigate('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        //에러시
-      });
+    mutation.mutate(data);
   };
 
   return (
@@ -139,7 +138,7 @@ const NewProductPage = () => {
         </div>
         <div className="borer-bottom-gray">
           <div className="input-categoty-div" onClick={() => goCategoryPage()}>
-            <p>{categoryList.find((category) => category.id === state?.categoryId)?.name || '카테고리 선택'}</p>
+            <p>{categoryList.find((category) => category.id === state?.category_id)?.name || '카테고리 선택'}</p>
             <Next width="10" />
           </div>
         </div>
