@@ -4,7 +4,7 @@ import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
 import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
-import { IProductWithUser, ProdcutStateNum, ProductState } from 'interfaces/Product.interface';
+import { IProductWithUser, ProductState } from 'interfaces/Product.interface';
 import { useQuery } from 'react-query';
 import { getSalesHistory } from 'apis/product/api';
 

@@ -8,12 +8,6 @@ export enum ProductState {
   DELETE = '삭제상품',
 }
 
-export enum ProdcutStateNum {
-  '판매중',
-  '거래완료',
-  '예약중',
-}
-
 export interface IProduct {
   id: number;
   title: string;

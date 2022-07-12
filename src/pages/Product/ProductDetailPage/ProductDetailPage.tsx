@@ -5,6 +5,8 @@ import { IProductWithUser } from 'interfaces/Product.interface';
 import { IUser } from 'interfaces/User.interface';
 import { ProductDetailPageStyled } from './ProductDetailPageStyled';
 import { ProductState } from 'interfaces/Product.interface';
+import useProductDetail from 'hooks/queries/product/useProductDetail';
+import { useParams } from 'react-router-dom';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -37,7 +39,13 @@ export const dummyProduct: IProductWithUser = {
   seller: dummyUser,
 };
 
+type ProductDetailPageRouteParams = {
+  productId: string;
+};
+
 const ProductDetailPage = () => {
+  const { productId } = useParams<{ productId: string }>();
+  // const { data, isLoading } = useProductDetail(Number(productId));
   const detailBoxProps: DetailBoxProps = {
     slides: { product_images: dummyProduct.product_images },
     sellerDetail: {

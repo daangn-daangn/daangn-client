@@ -47,7 +47,7 @@ function App() {
           <Route path="/product">
             <Route path="new" element={<NewProductPage />} />
             <Route path="new/category" element={<CategotyPage />} />
-            <Route path=":id" element={<ProductDetailPage />} />
+            <Route path=":productId" element={<ProductDetailPage />} />
           </Route>
           <Route path="/chat">
             <Route path="" element={<ChatPage />} />
