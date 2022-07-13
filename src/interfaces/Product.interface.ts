@@ -36,3 +36,15 @@ export interface INewProduct {
   price: string;
   description: string;
 }
+
+export interface IProductPurchasHistory {
+  id: number;
+  title: string;
+  location: string;
+  price: number;
+  thumb_nail_image: string | null;
+  favorite_count: number;
+  chatting_count: number;
+  has_review: boolean;
+  created_at: Date;
+}

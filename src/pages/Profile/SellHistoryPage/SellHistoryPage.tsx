@@ -7,19 +7,23 @@ import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 import { IProductWithUser, ProductState } from 'interfaces/Product.interface';
 import { useQuery } from 'react-query';
 import { getSalesHistory } from 'apis/product/api';
-import useProductHistoryLoad from 'hooks/queries/product/useProductHistoryLoad';
-import { useRecoilValue } from 'recoil';
+import useSalesHistoryLoad from 'hooks/queries/product/useSalesHistoryLoad';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 import useProdcutPullUp from 'hooks/queries/product/useProdcutPullUp';
 import useProductHide from 'hooks/queries/product/useProductHide';
 import useProdcutDelete from 'hooks/queries/product/useProductDelete';
+import { useEffect } from 'react';
 
 const SellHistoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { productState: ProductState };
-  const selectProductId = useRecoilValue(selectProductIdState);
+  /* API 붙힌 후 로직
+  const { data: products } = useSalesHistoryLoad(state.productState);
+  */
+  const [selectProductId, setSelectProductId] = useRecoilState(selectProductIdState);
   const productEditStateMutation = useProductEditState({
     onSuccess: (data) => {
       //data
@@ -51,14 +55,16 @@ const SellHistoryPage = () => {
       //error
     },
   });
-  /* API 붙힌 후 로직
-  const { data: products } = useProductHistoryLoad(state.productState);
-  */
   const navStates = [
     { menu: ProductState.FOR_SALE, onClick: () => navigate('', { state: { productState: ProductState.FOR_SALE } }) },
     { menu: ProductState.SOLD_OUT, onClick: () => navigate('', { state: { productState: ProductState.SOLD_OUT } }) },
     { menu: ProductState.HIDE, onClick: () => navigate('', { state: { productState: ProductState.HIDE } }) },
   ];
+
+  useEffect(() => {
+    // 페이지 나갈시 고른 productId -1로 초기화
+    return () => setSelectProductId(-1);
+  }, []);
 
   const MyProductBoxSelects = {
     판매중: {

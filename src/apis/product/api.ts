@@ -56,6 +56,7 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetP
   }
   if (minPrice) {
     url += `${flag}minPrice=${minPrice}`;
+    flag = '&';
   }
   if (maxPrice) {
     url += `${flag}maxPrice=${maxPrice}`;
@@ -95,4 +96,8 @@ export const putProductHide = async ({ productId }: PutProdcutHide) => {
 
 export const deleteProduct = async ({ productId }: DeleteProdduct) => {
   return axios.delete(`/api/products/${productId}`).then((res) => res.data);
+};
+
+export const getPurchaseHistory = async () => {
+  return axios.get(`/api/products/purchase-history`).then((res) => res.data);
 };
