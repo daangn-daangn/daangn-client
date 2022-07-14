@@ -39,10 +39,6 @@ export const dummyProduct: IProductWithUser = {
   seller: dummyUser,
 };
 
-type ProductDetailPageRouteParams = {
-  productId: string;
-};
-
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
   // const { data, isLoading } = useProductDetail(Number(productId));
@@ -55,6 +51,7 @@ const ProductDetailPage = () => {
       manner: dummyProduct.seller.manner,
     },
     productDetail: {
+      id: dummyProduct.id,
       categoryId: dummyProduct.categoryId,
       chatting_count: dummyProduct.chatting_count,
       created_at: dummyProduct.created_at,

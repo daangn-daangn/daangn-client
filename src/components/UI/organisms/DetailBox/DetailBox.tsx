@@ -12,6 +12,7 @@ export interface DetailBoxProps {
   sellerDetail: Pick<IUser, 'nickname' | 'profileUrl' | 'location' | 'manner'>;
   productDetail: Pick<
     IProduct,
+    | 'id'
     | 'categoryId'
     | 'chatting_count'
     | 'created_at'
@@ -35,7 +36,10 @@ const DetailBox = (props: DetailBoxProps) => {
           <SellerBox {...props} />
           {props.isMyProduct && (
             <div className="detailbox_stateBtn">
-              <ProductStateChangeButton productState={props.productDetail.product_state} />
+              <ProductStateChangeButton
+                productId={props.productDetail.id}
+                productState={props.productDetail.product_state}
+              />
             </div>
           )}
           <DescriptionBox {...props} />

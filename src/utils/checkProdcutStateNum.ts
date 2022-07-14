@@ -1,6 +1,7 @@
 import { ProductState } from 'interfaces/Product.interface';
 
 const checkProdcutStateNum = (productState: ProductState) => {
+  console.log(productState);
   switch (productState) {
     case ProductState.HIDE:
       return 0;

@@ -30,6 +30,7 @@ MyProduct.args = {
     manner: 38.6,
   },
   productDetail: {
+    id: 1,
     title: '아이폰 삽니다',
     categoryId: 1,
     description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
@@ -59,6 +60,7 @@ Not_MyProduct.args = {
     manner: 38.6,
   },
   productDetail: {
+    id: 1,
     title: '아이폰 삽니다',
     categoryId: 1,
     description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
