@@ -1,6 +1,7 @@
 import Image from '@atoms/Image/Image';
 import Price from '@atoms/Price/Price';
 import Time from '@atoms/Time/Time';
+import useNotificationRead from 'hooks/queries/notification/useNotificationRead';
 import { INotiCodeZero, NotificationType } from 'interfaces/Notification.interface';
 import { StyledNotificationCard } from './NotificationCardStyled';
 
@@ -9,8 +10,13 @@ export interface NotificationCardProps {
 }
 
 const NotificationCard = ({ notification }: NotificationCardProps) => {
+  const mutattion = useNotificationRead();
+  const onClickNotiCard = () => {
+    console.log(notification.id);
+    // mutattion.mutate({ notificationId: notification.id });
+  };
   return (
-    <StyledNotificationCard>
+    <StyledNotificationCard onClick={onClickNotiCard}>
       {notification.noti_code == 0 && (
         <>
           <Image width="40px" height="40px" borderRedius="50%" imgUrl={notification.thumb_nail_image} />
