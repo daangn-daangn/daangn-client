@@ -23,7 +23,7 @@ const NavBar = (props: NavBarProps) => {
               <Link to="/search">
                 <Search />
               </Link>
-              <Link to="/product/new/category">
+              <Link to="/filter">
                 <Hamburger />
               </Link>
               <Link to="/notification">

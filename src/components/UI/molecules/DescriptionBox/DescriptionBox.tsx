@@ -1,3 +1,4 @@
+import { categoryList } from 'utils/categoryFilter';
 import { IProduct } from '../../../../interfaces/Product.interface';
 import Time from '../../atoms/Time/Time';
 import Title from '../../atoms/Title/Title';
@@ -6,7 +7,7 @@ import { StyledDescriptionBox } from './DescriptionBoxStyled';
 export interface DescriptionBoxProps {
   productDetail: Pick<
     IProduct,
-    'category' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view'
+    'categoryId' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view'
   >;
 }
 
@@ -17,7 +18,7 @@ const DescriptionBox = ({ productDetail }: DescriptionBoxProps) => {
         {productDetail.title}
       </Title>
       <div className="DescriptionBox_categoryAndTime">
-        <span>{productDetail.category}</span>
+        <span>{categoryList.find((category) => category.id == productDetail.categoryId)?.name}</span>
         <span>&#183;</span>
         <Time time={productDetail.created_at} />
       </div>

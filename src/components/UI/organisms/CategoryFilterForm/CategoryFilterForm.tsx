@@ -2,39 +2,61 @@ import Button from '@atoms/Button/Button';
 import Input from '@atoms/Input/Input';
 import Title from '@atoms/Title/Title';
 import CategoryFilter, { checkIncludeCategory } from '@molecules/CategoryFilter/CategoryFilter';
-import InputText from '@molecules/InputText/InputText';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { searchParamsState } from 'stores/Home';
+import { createSearchParamFn } from 'utils/createSearchParamFn';
 import { CategoryFilterFormStyled } from './CategoryFilterFormStyled';
 
 interface IForm {
-  checkCategories: { id: number; name: string }[];
-  min?: number;
-  max?: number;
+  checkCategories: number[];
+  min?: string;
+  max?: string;
 }
 
 export interface CategoryFilterFormProps {}
 
 const CategoryFilterForm = (props: CategoryFilterFormProps) => {
-  const { register, handleSubmit, watch, setValue, reset } = useForm<IForm>({
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useRecoilState(searchParamsState);
+  const { register, handleSubmit, watch, setValue } = useForm<IForm>({
     defaultValues: {
-      checkCategories: [],
+      checkCategories: searchParams.categories,
+      min: searchParams.minPrice,
+      max: searchParams.maxPrice,
     },
   });
   const onSubmit: SubmitHandler<IForm> = (data) => {
-    console.log(data);
+    setSearchParams((prevSearchParms) => ({
+      ...prevSearchParms,
+      categories: data.checkCategories,
+      minPrice: data.min || '',
+      maxPrice: data.max || '',
+    }));
+    navigate({
+      pathname: '/',
+      search: createSearchParamFn({
+        title: searchParams.title,
+        categories: data.checkCategories.join(),
+        minPrice: data.min?.replaceAll(',', ''),
+        maxPrice: data.max?.replaceAll(',', ''),
+      }),
+    });
   };
-  const onClickCategory = (category: { id: number; name: string }) => {
-    if (checkIncludeCategory(category, watch('checkCategories'))) {
-      const categoryList = watch('checkCategories').filter(
-        (checkCategory) => JSON.stringify(checkCategory) !== JSON.stringify(category),
-      );
-      setValue('checkCategories', categoryList);
+  const onClickCategory = (categoryId: number) => {
+    if (checkIncludeCategory(categoryId, watch('checkCategories'))) {
+      const categoryIdList = watch('checkCategories').filter((checkCategoryId) => checkCategoryId != categoryId);
+      setValue('checkCategories', categoryIdList);
       return;
     }
-    setValue('checkCategories', [...watch('checkCategories'), category]);
+    setValue('checkCategories', [...watch('checkCategories'), categoryId]);
   };
   const onReset = () => {
-    reset();
+    setSearchParams((prevSearchParams) => ({ ...prevSearchParams, categories: [], minPrice: '', maxPrice: '' }));
+    setValue('min', '');
+    setValue('max', '');
+    setValue('checkCategories', []);
   };
   return (
     <CategoryFilterFormStyled onSubmit={handleSubmit(onSubmit)}>

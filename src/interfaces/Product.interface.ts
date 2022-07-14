@@ -1,16 +1,17 @@
 import { IUser } from './User.interface';
 
 export enum ProductState {
-  DELETE = '삭제상품',
-  REVERSED = '예약중',
+  HIDE = '숨김',
   FOR_SALE = '판매중',
   SOLD_OUT = '거래완료',
+  REVERSED = '예약중',
+  DELETE = '삭제상품',
 }
 
 export interface IProduct {
   id: number;
   title: string;
-  category: string;
+  categoryId: number;
   thumb_nail_image: string;
   product_images: string[];
   location: string;
@@ -29,9 +30,21 @@ export interface IProductWithUser extends IProduct {
 
 export interface INewProduct {
   title: string;
-  category: string;
+  categoryId: number;
   thumb_nail_image: File;
-  images: FileList;
+  product_images: FileList;
   price: string;
   description: string;
+}
+
+export interface IProductPurchasHistory {
+  id: number;
+  title: string;
+  location: string;
+  price: number;
+  thumb_nail_image: string | null;
+  favorite_count: number;
+  chatting_count: number;
+  has_review: boolean;
+  created_at: Date;
 }

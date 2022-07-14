@@ -2,6 +2,7 @@ import { BuyHistoryPageStyled } from './BuyHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
 import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
+import usePurchaseHistoryLoad from 'hooks/queries/product/usePurchaseHistoryLoad';
 
 const MyProductBoxSelects = {
   후기안씀: {
@@ -18,6 +19,7 @@ const MyProductBoxSelects = {
 };
 
 const BuyHistoryPage = () => {
+  // const { data, isLoading } = usePurchaseHistoryLoad();
   return (
     <>
       <BuyHistoryPageStyled>
