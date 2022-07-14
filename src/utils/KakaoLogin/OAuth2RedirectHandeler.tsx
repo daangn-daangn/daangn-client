@@ -22,7 +22,7 @@ const OAuth2RedirectHandler = () => {
       localStorage.setItem(TOKEN_KEY, token);
       setIsLogged(true);
       setToken(token);
-      navigate('/');
+      response.nickname != null ? navigate('/') : navigate('/signup/nickname');
     },
     onError: (error) => {
       console.log(error.message);
