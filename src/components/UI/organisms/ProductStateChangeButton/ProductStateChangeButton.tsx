@@ -3,7 +3,7 @@ import { ReactComponent as Down } from 'assets/down.svg';
 import { useState } from 'react';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 import { ProductState } from 'interfaces/Product.interface';
-import { ISelectNoParameter } from '@molecules/MyProductBox/MyProductBox';
+import { ISelect } from '@molecules/MyProductBox/MyProductBox';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 
 export interface ProductStateChangeButtonProps {
@@ -23,7 +23,7 @@ const ProductStateChangeButton = ({ productId, productState }: ProductStateChang
   });
 
   // const ProductStateChangeType = [ProductState.FOR_SALE, ProductState.SOLD_OUT];
-  const ProductStateChangeSelects: ISelectNoParameter[] = [];
+  const ProductStateChangeSelects: ISelect[] = [];
 
   Object.values(ProductState).forEach((content) => {
     if (content === ProductState.HIDE || content === ProductState.DELETE || content === productState) return;

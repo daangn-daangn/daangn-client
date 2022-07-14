@@ -1,5 +1,6 @@
 import NotificationCard from '@molecules/NotificationCard/NotificationCard';
 import Top from '@molecules/Top/Top';
+import useNotificationsLoad from 'hooks/queries/notification/useNotificationsLoad';
 import { NotificationType } from 'interfaces/Notification.interface';
 import { dummyProduct } from 'pages/Home/HomePage/HomePage';
 import { dummyUser } from 'pages/Product/ProductDetailPage/ProductDetailPage';
@@ -66,6 +67,7 @@ const dummyNotifications: NotificationType[] = [
 ];
 
 const NotificationPage = () => {
+  // const {data,isLoading} = useNotificationsLoad();
   return (
     <>
       <NotificationPageStyled>

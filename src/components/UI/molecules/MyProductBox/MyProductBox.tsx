@@ -16,7 +16,7 @@ export interface ISelectWithProductId {
   function: (productId: number) => void;
 }
 
-export interface ISelectNoParameter {
+export interface ISelect {
   content: string;
   function: () => void;
 }
@@ -24,7 +24,7 @@ export interface ISelectNoParameter {
 export interface MyProductBoxProps {
   type: 'sell' | 'buy' | 'like';
   stateSelects?: ISelectWithProductId[];
-  moreSelects?: ISelectNoParameter[];
+  moreSelects?: ISelect[];
   product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'>;
 }
 
