@@ -28,6 +28,9 @@ import ImagePage from 'pages/Image/ImagePage/ImagePage';
 import HomePage from 'pages/Home/HomePage/HomePage';
 import ChatPage from 'pages/Chat/ChatPage/ChatPage';
 
+import LoginPage from 'pages/Login/LoginPage/LoginPage';
+import OAuth2RedirectHandler from 'utils/KakaoLogin/OAuth2RedirectHandeler';
+
 function App() {
   return (
     <>
@@ -38,6 +41,8 @@ function App() {
             <Route path="search" element={<SearchPage />} />
             <Route path="filter" element={<CategoryFilterPage />} />
             <Route path="image" element={<ImagePage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="/oauth/callback/kakao" element={<OAuth2RedirectHandler />} />
           </Route>
           <Route path="signup" element={<SignupLayout />}>
             <Route path="nickname" element={<NickNameSettingPage />} />
