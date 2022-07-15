@@ -1,10 +1,12 @@
+import { useRecoilState } from 'recoil';
+import { userLocationState } from 'stores/User';
 import { MapStyled } from './MapStyled';
 
 export interface MapProps {
-  latitude: number; //위도
-  longitude: number; //경도
-  setLatitude?: (value: number) => void;
-  setLongitude?: (value: number) => void;
+  // latitude: number; //위도
+  // longitude: number; //경도
+  // setLatitude?: (value: number) => void;
+  // setLongitude?: (value: number) => void;
   disabledMouseEvent?: boolean;
   share?: boolean;
 }
@@ -16,10 +18,10 @@ declare global {
 }
 
 export default function Map(props: MapProps) {
+  const [userLocation, setUserLocation] = useRecoilState(userLocationState);
   const mapScript = document.createElement('script');
-
   mapScript.async = true;
-  mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_API_KEY}&autoload=false`;
+  mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_JS_KEY}&autoload=false`;
 
   document.head.appendChild(mapScript);
 
@@ -27,7 +29,7 @@ export default function Map(props: MapProps) {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
-        center: new window.kakao.maps.LatLng(props.latitude, props.longitude), // 지도의 중심좌표
+        center: new window.kakao.maps.LatLng(userLocation.latitude, userLocation.longitude), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
@@ -69,8 +71,12 @@ export default function Map(props: MapProps) {
             const latlng = mouseEvent.latLng;
             marker.setPosition(latlng);
 
-            props.setLatitude ? props.setLatitude(latlng.getLat()) : null;
-            props.setLongitude ? props.setLongitude(latlng.getLng()) : null;
+            // setLatitude ? setLatitude(latlng.getLat()) : null;
+            // setLongitude ? setLongitude(latlng.getLng()) : null;
+            setUserLocation({
+              latitude: latlng.getLat() || null,
+              longitude: latlng.getLng() || null,
+            });
           }
         });
       }

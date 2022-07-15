@@ -1,3 +1,4 @@
+import axios from 'axios';
 import SignupLayout from 'Layouts/SignupLayout';
 import ChatPage from 'pages/Chat/ChatPage/ChatPage';
 import ChatRoomPage from 'pages/Chat/ChatRoomPage/ChatRoomPage';
@@ -21,7 +22,12 @@ import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage'
 import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { tokenState } from 'stores/Auth';
+
 const LoggedInRouter = () => {
+  const token = useRecoilValue(tokenState);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   return (
     <BrowserRouter>
       <Routes>
@@ -30,8 +36,6 @@ const LoggedInRouter = () => {
           <Route path="search" element={<SearchPage />} />
           <Route path="filter" element={<CategoryFilterPage />} />
           <Route path="image" element={<ImagePage />} />
-          {/* <Route path="login" element={<LoginPage />} />
-            <Route path="/oauth/callback/kakao" element={<OAuth2RedirectHandler />} /> */}
         </Route>
         <Route path="signup" element={<SignupLayout />}>
           <Route path="nickname" element={<NickNameSettingPage />} />

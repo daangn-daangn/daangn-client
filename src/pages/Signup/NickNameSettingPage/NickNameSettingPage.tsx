@@ -5,28 +5,22 @@ import { useNavigate } from 'react-router';
 import { NickNameSettingPageStyled } from './NickNameSettingPageStyled';
 import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
+import { useSetRecoilState } from 'recoil';
+import { nicknameState } from 'stores/User';
 
 const NickNameSettingPage = () => {
   const navigate = useNavigate();
-
+  const setNicname = useSetRecoilState(nicknameState);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Pick<IUser, 'nickname'>>({ mode: 'onChange' });
 
-  const onSubmit = (data: Pick<IUser, 'nickname'>) => {
-    console.log(data);
-    // //닉네임 빈칸으로 제출시 서버로 요청 안되게 막기
-    // if (!nickname) {
-    //   if (nicknameInput.current) {
-    //     nicknameInput.current.focus();
-    //   }
-    //   return;
-    // }
-    //닉네임 서버로 전송
+  const onSubmit = ({ nickname }: Pick<IUser, 'nickname'>) => {
+    setNicname(nickname);
     //성공시 위치 찾는 페이지로 이동
-    //navigate('/signup/location');
+    navigate('/signup/location');
   };
 
   return (
@@ -38,7 +32,17 @@ const NickNameSettingPage = () => {
         <div className="text-input-wrap">
           <InputText
             label="닉네임"
-            register={{ ...register('nickname', { required: '닉네임을 입력해주세요' }) }}
+            register={{
+              ...register('nickname', {
+                required: '닉네임을 입력해주세요',
+                // validate: {
+                //   nicknameCheck: async (nickname) => {
+                //     const result = await getUserNicknameCheck({ nickname });
+                //     return result ? result : '이미 존재하는 닉네임 입니다.';
+                //   },
+                // },
+              }),
+            }}
             message={errors.nickname?.message}
           />
         </div>

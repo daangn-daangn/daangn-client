@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ResposeType } from 'hooks/queries/user/useUserLogin';
 
 export interface PostLogin {
   access_token: string;
@@ -7,6 +6,10 @@ export interface PostLogin {
 
 export interface PostJoin {
   access_token: string;
+}
+
+export interface GetUserNickNameCheckParams {
+  nickname: string;
 }
 
 export const postJoin = async ({ access_token }: PostJoin) => {
@@ -24,5 +27,15 @@ export const postLogin = async ({ access_token }: PostLogin) => {
     .then((res) => res.data)
     .catch((error) => {
       throw new Error('로그인을 실패했습니다.');
+    });
+};
+
+export const getUserNicknameCheck = async ({ nickname }: GetUserNickNameCheckParams) => {
+  return axios
+    .get<{ result: boolean }>(`/api/users/nickname?name=${nickname}`)
+    .then((res) => res.data.result)
+    .catch((error) => {
+      console.log(error);
+      return '서버에러';
     });
 };
