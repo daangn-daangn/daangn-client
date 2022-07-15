@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CLIENT_ID, REDIRECT_URI } from './OAuth';
 import QueryString from 'qs';
 import Spinner from '@atoms/Spinner/Spinner';
-import { postJoin, postLogin } from 'apis/user/api';
 import useUserJoin from 'hooks/queries/user/useUserJoin';
 import useUserLogin from 'hooks/queries/user/useUserLogin';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isLoggedState, tokenState, TOKEN_KEY } from 'stores/Auth';
 
 const OAuth2RedirectHandler = () => {
   const navigate = useNavigate();
-  const setIsLogged = useSetRecoilState(isLoggedState);
+  const [isLogged, setIsLogged] = useRecoilState(isLoggedState);
+  const [nickname, setNickname] = useState<string | null>(null);
   const setToken = useSetRecoilState(tokenState);
   const code = new URL(window.location.href).searchParams.get('code');
   const loginMutatuin = useUserLogin({
@@ -20,9 +20,9 @@ const OAuth2RedirectHandler = () => {
       console.log(response);
       const token = response.api_token;
       localStorage.setItem(TOKEN_KEY, token);
-      setIsLogged(true);
       setToken(token);
-      response.nickname != null ? navigate('/') : navigate('/signup/nickname');
+      setIsLogged(true);
+      setNickname(response.nickname);
     },
     onError: (error) => {
       console.log(error.message);
@@ -65,6 +65,10 @@ const OAuth2RedirectHandler = () => {
       console.log(error, 'error');
     }
   }, [code]);
+
+  useEffect(() => {
+    if (isLogged) nickname != null ? navigate('/') : navigate('/signup/nickname');
+  }, [isLogged, nickname]);
 
   return (
     <div style={{ overflow: 'hidden' }}>

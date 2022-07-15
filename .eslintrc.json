@@ -16,6 +16,7 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "no-unused-vars": "off"
   }
 }
