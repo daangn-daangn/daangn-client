@@ -27,7 +27,7 @@ import { tokenState } from 'stores/Auth';
 
 const LoggedInRouter = () => {
   const token = useRecoilValue(tokenState);
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  axios.defaults.headers.common['api_key'] = `Bearer ${token}`;
   return (
     <BrowserRouter>
       <Routes>

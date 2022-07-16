@@ -32,10 +32,12 @@ export const postLogin = async ({ access_token }: PostLogin) => {
 
 export const getUserNicknameCheck = async ({ nickname }: GetUserNickNameCheckParams) => {
   return axios
-    .get<{ result: boolean }>(`/api/users/nickname?name=${nickname}`)
-    .then((res) => res.data.result)
+    .get(`/api/users/nickname?name=${nickname}`)
+    .then((res) => {
+      return res.data;
+    })
     .catch((error) => {
       console.log(error);
-      return '서버에러';
+      throw new Error('서버 에러');
     });
 };

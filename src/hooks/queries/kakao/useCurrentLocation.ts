@@ -2,7 +2,7 @@ import { getUserLocation } from 'apis/kakao';
 import QUERY_KEYS from 'constants/queryKeys';
 import { QueryKey, useQuery, UseQueryOptions } from 'react-query';
 
-interface CustomQueryOption extends Omit<UseQueryOptions<string, unknown, string, QueryKey>, 'queryFn' | 'queryKey'> {
+interface CustomQueryOption extends UseQueryOptions<string, unknown> {
   latitude: number;
   longitude: number;
 }

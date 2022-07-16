@@ -12,15 +12,16 @@ export interface InputTextProps {
   value?: string;
   register?: UseFormRegisterReturn;
   readOnly?: boolean;
+  msgColor?: string;
 }
 
-const InputText = (props: InputTextProps) => {
+const InputText = ({ msgColor, ...props }: InputTextProps) => {
   return (
     <>
       <InputTextStyled>
         <Label {...props} />
         <Input {...props} />
-        <Message {...props} />
+        <Message color={msgColor} {...props} />
       </InputTextStyled>
     </>
   );

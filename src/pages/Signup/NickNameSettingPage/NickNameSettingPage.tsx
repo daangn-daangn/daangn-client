@@ -7,6 +7,10 @@ import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
 import { useSetRecoilState } from 'recoil';
 import { nicknameState } from 'stores/User';
+import { getUserNicknameCheck } from 'apis/user/api';
+import useDebounceValue from 'hooks/common/useDebounceValue';
+import useUserNicknameCheck from 'hooks/queries/user/useUserNicknameCheck';
+import { useIsFetching } from 'react-query';
 
 const NickNameSettingPage = () => {
   const navigate = useNavigate();
@@ -14,9 +18,16 @@ const NickNameSettingPage = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Pick<IUser, 'nickname'>>({ mode: 'onChange' });
 
+  const debouncedNicknameQuery = useDebounceValue(watch('nickname'));
+  const { data } = useUserNicknameCheck({
+    nickname: debouncedNicknameQuery,
+    enabled: !!debouncedNicknameQuery,
+  });
+  const isFetching = useIsFetching();
   const onSubmit = ({ nickname }: Pick<IUser, 'nickname'>) => {
     setNicname(nickname);
     //성공시 위치 찾는 페이지로 이동
@@ -35,15 +46,16 @@ const NickNameSettingPage = () => {
             register={{
               ...register('nickname', {
                 required: '닉네임을 입력해주세요',
-                // validate: {
-                //   nicknameCheck: async (nickname) => {
-                //     const result = await getUserNicknameCheck({ nickname });
-                //     return result ? result : '이미 존재하는 닉네임 입니다.';
-                //   },
-                // },
+                validate: {
+                  nicknameCheck: async () => {
+                    if (!data) return '확인중...';
+                    return data.response.result ? data.response.result : '이미 사용중인 닉네임 입니다.';
+                  },
+                },
               }),
             }}
-            message={errors.nickname?.message}
+            message={!data?.response.result ? errors.nickname?.message : '사용가능한 닉네임 입니다.'}
+            msgColor={data?.response.result ? 'blue' : ''}
           />
         </div>
         <Button width="100%" height="56px" type="submit">
