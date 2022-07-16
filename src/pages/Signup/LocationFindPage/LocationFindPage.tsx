@@ -8,12 +8,13 @@ import { useForm } from 'react-hook-form';
 import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
 import { useRecoilValue } from 'recoil';
 import { userLocationState } from 'stores/User';
+import useSetLocation from 'hooks/common/useSetLocation';
 
 const LocationFindPage = () => {
   const navigae = useNavigate();
   const MapWrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const { handleSubmit } = useForm();
-  const userLocation = useRecoilValue(userLocationState);
+  const [userLocation, setUserLocation] = useSetLocation();
   const { data: mapLocation } = useCurrentLocation({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,

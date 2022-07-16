@@ -9,7 +9,7 @@ import ProductStateChangeButton from '@organisms/ProductStateChangeButton/Produc
 
 export interface DetailBoxProps {
   slides: Pick<IProduct, 'product_images'>;
-  sellerDetail: Pick<IUser, 'nickname' | 'profileUrl' | 'location' | 'manner'>;
+  sellerDetail: Pick<IUser, 'nickname' | 'profile_url' | 'location' | 'manner'>;
   productDetail: Pick<
     IProduct,
     | 'id'

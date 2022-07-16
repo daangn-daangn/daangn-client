@@ -4,14 +4,14 @@ import { SellerBoxStyled } from './SellerBoxStyled';
 import { IUser } from 'interfaces/User.interface';
 
 export interface SellerBoxProps {
-  sellerDetail: Pick<IUser, 'nickname' | 'profileUrl' | 'location' | 'manner'>;
+  sellerDetail: Pick<IUser, 'nickname' | 'profile_url' | 'location' | 'manner'>;
 }
 
 const SellerBox = ({ sellerDetail }: SellerBoxProps) => {
   return (
     <>
       <SellerBoxStyled {...sellerDetail}>
-        <Image imgUrl={sellerDetail.profileUrl} width="40px" height="40px" borderRedius="50%" />
+        <Image imgUrl={sellerDetail.profile_url} width="40px" height="40px" borderRedius="50%" />
         <div className="seller-inform">
           <p className="seller-inform_name">{sellerDetail.nickname}</p>
           <p className="seller-inform_location">{sellerDetail.location}</p>

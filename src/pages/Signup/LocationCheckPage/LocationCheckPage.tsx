@@ -7,6 +7,10 @@ import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
 import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
 import useSetLocation from 'hooks/common/useSetLocation';
+import useMe from 'hooks/queries/user/useMe';
+import { useRecoilValue } from 'recoil';
+import { nicknameState } from 'stores/User';
+import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
 
 export interface IUserLocation {
   latitude: number; //위도
@@ -15,7 +19,11 @@ export interface IUserLocation {
 
 const LocationCheckPage = () => {
   const navigate = useNavigate();
+
+  const nickname = useRecoilValue(nicknameState);
+
   const [userLocation, setUserLocation] = useSetLocation();
+
   const { data } = useCurrentLocation({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,
@@ -23,12 +31,25 @@ const LocationCheckPage = () => {
   });
   const { register, handleSubmit, setValue } = useForm<Pick<IUser, 'location'>>();
 
-  const onSubmit = (data: Pick<IUser, 'location'>) => {
-    console.log(data);
-  };
+  const userInfoEditMutation = useUserInfoEdit({
+    onSuccess: (data) => {
+      console.log(data.response.profile_url);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   if (!data) setValue('location', '위치 찾는 중...');
   else setValue('location', data);
+
+  const onSubmit = (data: Pick<IUser, 'location'>) => {
+    userInfoEditMutation.mutate({
+      nickname,
+      location: data.location,
+      profile_url: localStorage.getItem('kakaoProfile') || '',
+    });
+  };
 
   return (
     <>

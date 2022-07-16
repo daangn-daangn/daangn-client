@@ -32,6 +32,7 @@ const OAuth2RedirectHandler = () => {
   const joinMutation = useUserJoin({
     onSuccess: (data) => {
       console.log(data);
+      localStorage.setItem('kakaoProfile', data.response.profile_url);
     },
     onError: (error) => {
       console.log(error.message);

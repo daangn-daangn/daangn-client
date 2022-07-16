@@ -30,9 +30,9 @@ const ProfileEditPage = () => {
     watch,
     reset,
     trigger,
-  } = useForm<Pick<IUser, 'nickname' | 'profileUrl'>>();
+  } = useForm<Pick<IUser, 'nickname' | 'profile_url'>>();
 
-  const onSubmit = (data: Pick<IUser, 'nickname' | 'profileUrl'>) => {
+  const onSubmit = (data: Pick<IUser, 'nickname' | 'profile_url'>) => {
     console.log(data);
   };
 
@@ -67,11 +67,11 @@ const ProfileEditPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} onChange={(e) => onChange()}>
           <div className="profile-url">
             <div onClick={onClickShowModal}>
-              <Image imgUrl={watch('profileUrl')} borderRedius="50%" />
+              <Image imgUrl={watch('profile_url')} borderRedius="50%" />
             </div>
             <InputPhoto
               setPickedPhotos={(value) =>
-                encodeFileToBase64(value[0]).then((data) => setValue('profileUrl', data as string))
+                encodeFileToBase64(value[0]).then((data) => setValue('profile_url', data as string))
               }
               buttonNode={<div ref={inputPhotoRef} />}
             />

@@ -7,7 +7,7 @@ import { ReactComponent as More } from 'assets/more.svg';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 
 export interface IReview {
-  writer: Pick<IUser, 'nickname' | 'profileUrl' | 'location'>;
+  writer: Pick<IUser, 'nickname' | 'profile_url' | 'location'>;
   content: string;
   created_at: Date;
 }
@@ -19,7 +19,7 @@ export interface ReviewBoxProps {
 export const dummyReview: IReview = {
   writer: {
     nickname: '혜꾸루꾸루',
-    profileUrl: 'https://sitem.ssgcdn.com/21/24/83/item/1000355832421_i1_1200.jpg',
+    profile_url: 'https://sitem.ssgcdn.com/21/24/83/item/1000355832421_i1_1200.jpg',
     location: '서울특별시 성북구',
   },
   content: '다음에 또 거래해요!',
@@ -36,7 +36,7 @@ const ReviewBox = ({ review }: ReviewBoxProps) => {
   return (
     <>
       <ReviewBoxStyled>
-        <Image imgUrl={review.writer.profileUrl} width="35px" height="35px" borderRedius="50%" />
+        <Image imgUrl={review.writer.profile_url} width="35px" height="35px" borderRedius="50%" />
         <div className="review_info">
           <p className="review_info__writer">{review.writer.nickname}</p>
           <div className="review_info__detail">

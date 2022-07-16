@@ -25,7 +25,7 @@ export const dummyGetChat = {
   participant: '테스트닉네임1',
   participant_image: dummyProduct.thumb_nail_image,
   location: '노원구 상계동',
-  product_image: dummyUser.profileUrl,
+  product_image: dummyUser.profile_url,
   last_chat: '안녕하세요',
   not_read_chat_count: 0,
   page_offset: 0,

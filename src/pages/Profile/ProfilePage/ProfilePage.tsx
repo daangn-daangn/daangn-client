@@ -17,7 +17,7 @@ import List from '@atoms/List/List';
 const dummyUser: IUser = {
   id: 1,
   nickname: '유키링',
-  profileUrl:
+  profile_url:
     'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
   location: '서울 강남',
   manner: 38.6,
@@ -32,7 +32,7 @@ const ProfilePage = () => {
         <NavBar type="나의 당근" />
         <div className="profile-box">
           <div className="profile-box_image_name">
-            <Image imgUrl={dummyUser.profileUrl} borderRedius="50%" width="70px" height="70px" />
+            <Image imgUrl={dummyUser.profile_url} borderRedius="50%" width="70px" height="70px" />
             <Title fontWeigt="700" fontSize="0.95rem">
               {dummyUser.nickname}
             </Title>

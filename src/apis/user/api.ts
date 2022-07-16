@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IUser } from 'interfaces/User.interface';
 
 export interface PostLogin {
   access_token: string;
@@ -11,6 +12,21 @@ export interface PostJoin {
 export interface GetUserNickNameCheckParams {
   nickname: string;
 }
+
+export interface PutUserInfo {
+  nickname: string;
+  location: string;
+  profile_url: string;
+}
+
+export const getLoginUser = async () => {
+  return axios
+    .get('/api/users')
+    .then((res) => res.data.response)
+    .catch((error) => {
+      throw new Error('서버 에러');
+    });
+};
 
 export const postJoin = async ({ access_token }: PostJoin) => {
   return axios
@@ -39,5 +55,16 @@ export const getUserNicknameCheck = async ({ nickname }: GetUserNickNameCheckPar
     .catch((error) => {
       console.log(error);
       throw new Error('서버 에러');
+    });
+};
+
+export const putUserInfo = async (putUserInfo: PutUserInfo) => {
+  return axios
+    .put('/api/users', { ...putUserInfo })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
     });
 };

@@ -23,7 +23,7 @@ const NickNameSettingPage = () => {
   } = useForm<Pick<IUser, 'nickname'>>({ mode: 'onChange' });
 
   const debouncedNicknameQuery = useDebounceValue(watch('nickname'));
-  const { data } = useUserNicknameCheck({
+  const { data, isLoading } = useUserNicknameCheck({
     nickname: debouncedNicknameQuery,
     enabled: !!debouncedNicknameQuery,
   });

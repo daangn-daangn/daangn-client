@@ -1,7 +1,7 @@
 export interface IUser {
   id: number;
   nickname: string;
-  profileUrl: string;
+  profile_url: string;
   location: string;
   manner: number;
 }
