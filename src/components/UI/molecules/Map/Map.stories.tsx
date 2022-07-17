@@ -14,13 +14,13 @@ const Template: Story<MapProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  latitude: 33.450701,
-  longitude: 126.570667,
+  // latitude: 33.450701,
+  // longitude: 126.570667,
 };
 
 export const DisabledMouseEvent = Template.bind({});
 DisabledMouseEvent.args = {
-  latitude: 33.450701,
-  longitude: 126.570667,
-  disabledMouseEvent: true,
+  // latitude: 33.450701,
+  // longitude: 126.570667,
+  // disabledMouseEvent: true,
 };

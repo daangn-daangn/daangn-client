@@ -6,7 +6,7 @@ export const LocationFindPageStyled = styled.div`
   flex-direction: column;
   .current-location {
     font-size: 15px;
-    font-weigt: 500;
+    font-weight: 500;
   }
   .map-wrap {
     flex: 1;

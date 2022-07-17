@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 export const dummyUser: IUser = {
   id: 1,
   nickname: '유키링',
-  profileUrl:
+  profile_url:
     'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
   location: '서울 강남',
   manner: 38.6,
@@ -46,7 +46,7 @@ const ProductDetailPage = () => {
     slides: { product_images: dummyProduct.product_images },
     sellerDetail: {
       nickname: dummyProduct.seller.nickname,
-      profileUrl: dummyProduct.seller.profileUrl,
+      profile_url: dummyProduct.seller.profile_url,
       location: dummyProduct.seller.location,
       manner: dummyProduct.seller.manner,
     },

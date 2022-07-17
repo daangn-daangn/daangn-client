@@ -62,7 +62,7 @@ const dummyNotifications: NotificationType[] = [
     thumb_nail_image: null,
     reviewer_id: 1,
     nickname: 'TEST',
-    profile_url: dummyUser.profileUrl,
+    profile_url: dummyUser.profile_url,
   },
 ];
 

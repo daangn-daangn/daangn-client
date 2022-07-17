@@ -1,34 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Title from '@atoms/Title/Title';
 import Button from '@atoms/Button/Button';
 import Map from '@molecules/Map/Map';
 import { LocationFindPageStyled } from './LocationFindPageStyled';
-import { IUserLocation } from 'pages/Signup/LocationCheckPage/LocationCheckPage';
-import { getUserLocation } from 'apis/kakao';
 import { useForm } from 'react-hook-form';
-import { IUser } from 'interfaces/User.interface';
+import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
+import { useRecoilValue } from 'recoil';
+import { userLocationState } from 'stores/User';
+import useSetLocation from 'hooks/common/useSetLocation';
 
 const LocationFindPage = () => {
-  const location = useLocation();
-  const state = location.state as IUserLocation;
-
+  const navigae = useNavigate();
   const MapWrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const { handleSubmit } = useForm();
+  const [userLocation, setUserLocation] = useSetLocation();
+  const { data: mapLocation } = useCurrentLocation({
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+    enabled: !!(userLocation.latitude && userLocation.longitude),
+  });
 
-  const { handleSubmit, setValue, watch } = useForm<Pick<IUser, 'location'>>();
-
-  const [latitude, setLatitude] = useState<number>(state.latitude);
-  const [longitude, setLongitude] = useState<number>(state.longitude);
-
-  useEffect(() => {
-    const coordToAddress = async () => {
-      setValue('location', await getUserLocation(longitude, latitude));
-    };
-    coordToAddress();
-  }, [latitude, longitude]);
-
-  const onSubmit = (data: Pick<IUser, 'location'>) => {
-    console.log(data);
+  const onSubmit = () => {
+    navigae(-1);
   };
 
   return (
@@ -38,10 +32,10 @@ const LocationFindPage = () => {
           <Title fontSize="23px" fontWeigt="700">
             현재 위치를 선택해주세요
           </Title>
-          <p className="current-location">현재 선택된 주소: {watch('location')}</p>
+          <p className="current-location">현재 선택된 주소: {mapLocation ? mapLocation : '로딩중...'}</p>
           <div className="map-wrap" ref={MapWrapRef}>
             <div style={{ height: `${MapWrapRef.current?.offsetHeight - 3}px` }}>
-              <Map latitude={latitude} setLatitude={setLatitude} longitude={longitude} setLongitude={setLongitude} />
+              <Map />
             </div>
           </div>
           <Button width="100%" height="56px" type="submit">

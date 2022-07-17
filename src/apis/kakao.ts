@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}`;
+const instance = axios.create();
 
 export const getUserLocation = async (longitude: number, latitude: number) => {
-  return await axios
-    .get('https://dapi.kakao.com/v2/local/geo/coord2regioncode.json', { params: { x: longitude, y: latitude } })
+  return await instance
+    .get('https://dapi.kakao.com/v2/local/geo/coord2regioncode.json', {
+      params: { x: longitude, y: latitude },
+      headers: {
+        Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}`,
+      },
+    })
     .then((res) => {
       return res.data.documents[0].address_name;
     });
