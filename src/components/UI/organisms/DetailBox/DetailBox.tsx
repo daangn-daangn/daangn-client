@@ -3,8 +3,6 @@ import SellerBox from '@molecules/SellerBox/SellerBox';
 import DescriptionBox from '@molecules/DescriptionBox/DescriptionBox';
 import { DetailBoxStyled } from './DetailBoxStyled';
 import { IProduct } from 'interfaces/Product.interface';
-import { IUser } from 'interfaces/User.interface';
-import Button from '@atoms/Button/Button';
 import ProductStateChangeButton from '@organisms/ProductStateChangeButton/ProductStateChangeButton';
 
 export interface DetailBoxProps {

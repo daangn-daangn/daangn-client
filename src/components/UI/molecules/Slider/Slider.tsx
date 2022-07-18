@@ -5,6 +5,7 @@ import Image from '../../atoms/Image/Image';
 import { SliderStyled } from './SliderStyled';
 import { IProduct } from '../../../../interfaces/Product.interface';
 import SlideIndex from '@atoms/SlideIndex/SlideIndex';
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 
 export interface SliderProps {
   slides: Pick<IProduct, 'product_images'>;
@@ -14,7 +15,6 @@ export interface SliderProps {
 
 const Slider = ({ slides, height, currentIdx }: SliderProps) => {
   const navigate = useNavigate();
-
   const TOTAL_SLIDES = slides.product_images.length - 1;
   const [currentSlide, setCurrentSlide] = useState(currentIdx || 0);
 
@@ -38,7 +38,7 @@ const Slider = ({ slides, height, currentIdx }: SliderProps) => {
       state: {
         currentIdx: idx,
         slides: {
-          images: slides.product_images,
+          product_images: slides.product_images,
         },
       },
     });

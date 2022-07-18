@@ -8,6 +8,7 @@ import { ProductState } from 'interfaces/Product.interface';
 import useProductDetail from 'hooks/queries/product/useProductDetail';
 import { useParams } from 'react-router-dom';
 import Spinner from '@atoms/Spinner/Spinner';
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -50,10 +51,7 @@ const ProductDetailPage = () => {
   }
   const detailBoxProps: DetailBoxProps = {
     slides: {
-      product_images:
-        product.product_images.length == 0
-          ? ['https://file.mk.co.kr/meet/neds/2020/07/image_readtop_2020_786275_15961837924301453.jpg']
-          : product.product_images,
+      product_images: product.product_images.length == 0 ? [PRODUCT_DEFAULT_IMAGE] : product.product_images,
     },
     productDetail: {
       id: product.id,
