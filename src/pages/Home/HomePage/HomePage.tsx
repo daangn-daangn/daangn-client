@@ -1,11 +1,9 @@
 import PostButton from '@atoms/PostButton/PostButton';
+import Spinner from '@atoms/Spinner/Spinner';
 import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
-import { getProdcts } from 'apis/product/api';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
-import { useQuery } from 'react-query';
-import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { craeteSearchParamsState } from 'stores/Home';
 import { IProduct } from '../../../interfaces/Product.interface';
@@ -37,19 +35,16 @@ export const dummyProducts: Pick<
   });
 
 const HomePage = () => {
-  const [searchParams] = useSearchParams();
   const craeteSearchParams = useRecoilValue(craeteSearchParamsState);
   console.log(craeteSearchParams);
-  /*
-  물품 조회 API 사용 로직 
   const { data: products, isLoading } = useProductsLoad();
-  */
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
-      <div className="productWrapper">
-        <ProductBoxes products={dummyProducts} />
-      </div>
+      <div className="productWrapper">{products && <ProductBoxes products={products} />}</div>
       <TabBar />
       <PostButton />
     </StyledHome>

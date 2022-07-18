@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IProduct } from '../../../../interfaces/Product.interface';
+import { IProduct } from 'interfaces/Product.interface';
 import ProductBox from '../../molecules/ProductBox/ProductBox';
 import { StyledProductBoxes } from './ProductBoxesStyled';
 

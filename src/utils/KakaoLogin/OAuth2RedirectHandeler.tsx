@@ -20,9 +20,9 @@ const OAuth2RedirectHandler = () => {
       console.log(response);
       const token = response.api_token;
       localStorage.setItem(TOKEN_KEY, token);
+      setNickname(response.nickname);
       setToken(token);
       setIsLogged(true);
-      setNickname(response.nickname);
     },
     onError: (error) => {
       console.log(error.message);

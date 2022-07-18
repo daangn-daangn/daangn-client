@@ -44,24 +44,11 @@ export interface DeleteProdduct {
 }
 
 export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
-  let url = '/api/product';
-  let flag = '?';
-  if (title) {
-    url += `${flag}title=${title}`;
-    flag = '&';
-  }
-  if (categories) {
-    url += `${flag}category=${categories}`;
-    flag = '&';
-  }
-  if (minPrice) {
-    url += `${flag}minPrice=${minPrice}`;
-    flag = '&';
-  }
-  if (maxPrice) {
-    url += `${flag}maxPrice=${maxPrice}`;
-  }
-  return axios.get(url).then((res) => res.data);
+  return axios
+    .get('/api/products', {
+      params: { title, categories, minPrice, maxPrice },
+    })
+    .then((res) => res.data.response);
 };
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {
