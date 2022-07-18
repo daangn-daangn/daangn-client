@@ -46,7 +46,7 @@ export interface PostProductFavoriteParams extends IProductIdParams {}
 export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
   return axios
     .get('/api/products', {
-      params: { title, categories, minPrice, maxPrice },
+      params: { title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
     })
     .then((res) => res.data.response);
 };
