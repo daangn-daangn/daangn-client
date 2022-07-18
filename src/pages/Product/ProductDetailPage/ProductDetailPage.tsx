@@ -9,6 +9,7 @@ import useProductDetail from 'hooks/queries/product/useProductDetail';
 import { useParams } from 'react-router-dom';
 import Spinner from '@atoms/Spinner/Spinner';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
+import useMe from 'hooks/queries/user/useMe';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -44,6 +45,7 @@ export const dummyProduct: IProductWithUser = {
 
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
+  const { data: me } = useMe();
   const { data: product, isLoading } = useProductDetail({ productId: Number(productId), refetchOnWindowFocus: false });
   console.log(product);
   if (!product) {
@@ -64,7 +66,7 @@ const ProductDetailPage = () => {
       view_count: product.view_count,
       product_state: product.product_state,
     },
-    isMyProduct: product.id === product.seller.id,
+    isMyProduct: me?.id === product.seller.id,
     sellerId: product.seller.id,
   };
   return (
@@ -73,7 +75,7 @@ const ProductDetailPage = () => {
         <DetailTabBar />
         <DetailBox {...detailBoxProps} />
         <DealBox
-          isMyProduct={product.id === product.seller.id}
+          isMyProduct={me?.id === product.seller.id}
           isFavorite={product.is_favorite}
           productPrice={product.price}
           chatLength={product.chatting_count}

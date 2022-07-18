@@ -20,7 +20,6 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength }: DealBoxP
   const onClickMyProductChat = () => {
     // 내 상품 채팅방 보기 API 요청
   };
-
   return (
     <StyledDealBox>
       <Like onClick={onClickLike} width="18px" height="18px" isFavorite={isFavorite} />
