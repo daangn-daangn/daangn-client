@@ -1,4 +1,6 @@
 import useProdcutFavorite from 'hooks/queries/product/useProductFavorite';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../atoms/Button/Button';
 import Like from '../../atoms/Like/Like';
 import Price from '../../atoms/Price/Price';
@@ -13,16 +15,18 @@ export interface DealBoxProps {
 }
 
 const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId }: DealBoxProps) => {
+  const navigate = useNavigate();
   const favoriteMutate = useProdcutFavorite();
   const onClickFavorit = () => {
     // 찜하기 Update API 요청
-    if (!isFavorite) favoriteMutate.mutate({ productId });
+    favoriteMutate.mutate({ productId });
   };
   const onClickChat = () => {
     // 채팅방 Create API 요청
   };
   const onClickMyProductChat = () => {
     // 내 상품 채팅방 보기 API 요청
+    navigate('/chat');
   };
   return (
     <StyledDealBox>

@@ -46,7 +46,7 @@ export const dummyProduct: IProductWithUser = {
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const { data: me } = useMe({ refetchOnWindowFocus: false });
-  const { data: product, isLoading } = useProductDetail({ productId: Number(productId), refetchOnWindowFocus: false });
+  const { data: product } = useProductDetail({ productId: Number(productId), refetchOnWindowFocus: false });
   if (!product) {
     return <Spinner />;
   }

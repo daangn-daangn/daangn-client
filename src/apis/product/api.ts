@@ -69,8 +69,8 @@ export const getProductById = async (productId: number) => {
 };
 
 export const putProductChangeState = async ({ productId, productState, buyerId }: PutProductChangeStateParmas) => {
-  const stateNum = checkProdcutStateNum(productState);
-  return axios.put(`/api/products/${productId}`, { stateNum, buyerId }).then((res) => res.data);
+  const state = checkProdcutStateNum(productState);
+  return axios.put(`/api/products/state/${productId}`, { state, buyerId }).then((res) => res.data);
 };
 
 export const putProductPullUp = async ({ productId }: PutProdcutPullUpParams) => {

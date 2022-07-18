@@ -13,31 +13,31 @@ export interface ProductStateChangeButtonProps {
 
 const ProductStateChangeButton = ({ productId, productState }: ProductStateChangeButtonProps) => {
   const [showProductStateModal, setShowProductStateModal] = useState(false);
+  const [state, setState] = useState(productState);
   const onClickShowModal = () => {
     setShowProductStateModal((prev) => !prev);
   };
-  const mutattion = useProductEditState({
-    onSuccess: (data) => {
-      //성공시
+  const mutation = useProductEditState({
+    onMutate: ({ productState }) => {
+      setState(productState);
     },
   });
 
-  // const ProductStateChangeType = [ProductState.FOR_SALE, ProductState.SOLD_OUT];
   const ProductStateChangeSelects: ISelect[] = [];
 
   Object.values(ProductState).forEach((content) => {
-    if (content === ProductState.HIDE || content === ProductState.DELETE || content === productState) return;
+    if (content === ProductState.HIDE || content === ProductState.DELETE || content === state) return;
     ProductStateChangeSelects.push({
       content,
       function: () => {
         switch (content) {
           case ProductState.FOR_SALE:
             console.log('판매중');
-            mutattion.mutate({ productId, productState: content });
+            mutation.mutate({ productId, productState: content });
             break;
           case ProductState.REVERSED:
             console.log('예약');
-            mutattion.mutate({ productId, productState: content });
+            mutation.mutate({ productId, productState: content });
             break;
           case ProductState.SOLD_OUT:
             console.log('거래완료');
@@ -53,7 +53,7 @@ const ProductStateChangeButton = ({ productId, productState }: ProductStateChang
   return (
     <>
       <ProductStateChangeButtonStyled onClick={onClickShowModal}>
-        <span>{productState}</span>
+        <span>{state}</span>
         <Down />
       </ProductStateChangeButtonStyled>
       {showProductStateModal && (
