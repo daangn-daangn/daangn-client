@@ -2,6 +2,10 @@ import axios from 'axios';
 import { INewProduct, ProductState } from 'interfaces/Product.interface';
 import checkProdcutStateNum from 'utils/checkProdcutStateNum';
 
+interface IProductIdParams {
+  productId: number;
+}
+
 export interface GetProdctsParams {
   title?: string | null;
   categories?: string | null;
@@ -25,23 +29,19 @@ export interface PostProductUploadParams {
   product_images: FileList;
 }
 
-export interface PutProductChangeState {
+export interface PutProductChangeStateParmas {
   productId: number;
   productState: ProductState;
   buyerId?: number;
 }
 
-export interface PutProdcutPullUp {
-  productId: number;
-}
+export interface PutProdcutPullUpParams extends IProductIdParams {}
 
-export interface PutProdcutHide {
-  productId: number;
-}
+export interface PutProdcutHideParams extends IProductIdParams {}
 
-export interface DeleteProdduct {
-  productId: number;
-}
+export interface DeleteProdductParams extends IProductIdParams {}
+
+export interface PostProductFavoriteParams extends IProductIdParams {}
 
 export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
   return axios
@@ -68,23 +68,35 @@ export const getProductById = async (productId: number) => {
   return axios.get(`/api/products/${productId}`).then((res) => res.data.response);
 };
 
-export const putProductChangeState = async ({ productId, productState, buyerId }: PutProductChangeState) => {
+export const putProductChangeState = async ({ productId, productState, buyerId }: PutProductChangeStateParmas) => {
   const stateNum = checkProdcutStateNum(productState);
   return axios.put(`/api/products/${productId}`, { stateNum, buyerId }).then((res) => res.data);
 };
 
-export const putProductPullUp = async ({ productId }: PutProdcutPullUp) => {
+export const putProductPullUp = async ({ productId }: PutProdcutPullUpParams) => {
   return axios.put(`/api/products/refreshment/${productId}`).then((res) => res.data);
 };
 
-export const putProductHide = async ({ productId }: PutProdcutHide) => {
+export const putProductHide = async ({ productId }: PutProdcutHideParams) => {
   return axios.put(`/api/sale-reviews/hide/${productId}`).then((res) => res.data);
 };
 
-export const deleteProduct = async ({ productId }: DeleteProdduct) => {
+export const deleteProduct = async ({ productId }: DeleteProdductParams) => {
   return axios.delete(`/api/products/${productId}`).then((res) => res.data);
 };
 
 export const getPurchaseHistory = async () => {
   return axios.get(`/api/products/purchase-history`).then((res) => res.data);
+};
+
+export const postProductFavorite = async ({ productId }: PostProductFavoriteParams) => {
+  return axios
+    .post('/api/favorite-products', {
+      product_id: productId,
+    })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
