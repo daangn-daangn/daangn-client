@@ -68,3 +68,14 @@ export const putUserInfo = async (putUserInfo: PutUserInfo) => {
       return error;
     });
 };
+
+export const getUserInfo = async (userId: number) => {
+  return axios
+    .get(`/api/users/${userId}`)
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      // throw new Error(error);
+      return error;
+    });
+};

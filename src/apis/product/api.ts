@@ -65,7 +65,7 @@ export const getSalesHistory = async (productState: ProductState) => {
 };
 
 export const getProductById = async (productId: number) => {
-  return axios.get(`/api/products/${productId}`).then((res) => res.data);
+  return axios.get(`/api/products/${productId}`).then((res) => res.data.response);
 };
 
 export const putProductChangeState = async ({ productId, productState, buyerId }: PutProductChangeState) => {

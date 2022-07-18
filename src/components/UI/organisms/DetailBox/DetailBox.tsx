@@ -9,20 +9,20 @@ import ProductStateChangeButton from '@organisms/ProductStateChangeButton/Produc
 
 export interface DetailBoxProps {
   slides: Pick<IProduct, 'product_images'>;
-  sellerDetail: Pick<IUser, 'nickname' | 'profile_url' | 'location' | 'manner'>;
   productDetail: Pick<
     IProduct,
     | 'id'
-    | 'categoryId'
+    | 'category_id'
     | 'chatting_count'
     | 'created_at'
     | 'description'
     | 'favorite_count'
     | 'title'
-    | 'view'
+    | 'view_count'
     | 'product_state'
   >;
   isMyProduct: boolean;
+  sellerId: number;
 }
 
 const DetailBox = (props: DetailBoxProps) => {
@@ -33,7 +33,7 @@ const DetailBox = (props: DetailBoxProps) => {
           <Slider {...props} height="400px" />
         </div>
         <div className="paddingWrapper">
-          <SellerBox {...props} />
+          <SellerBox sellerId={props.sellerId} />
           {props.isMyProduct && (
             <div className="detailbox_stateBtn">
               <ProductStateChangeButton

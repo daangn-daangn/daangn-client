@@ -1,5 +1,4 @@
-import { postJoin, PostJoin, PostLogin, postLogin } from 'apis/user/api';
-import { AxiosResponse } from 'axios';
+import { postJoin, PostJoin } from 'apis/user/api';
 import { ResposeSuccessType } from 'interfaces/Response.interfact';
 import { useMutation, UseMutationOptions } from 'react-query';
 

@@ -9,7 +9,17 @@ import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from '@emotion/react';
 import Theme from './styles/Theme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      useErrorBoundary: true,
+    },
+    mutations: {
+      useErrorBoundary: true,
+    },
+  },
+});
 
 ReactDOM.render(
   <>

@@ -7,10 +7,10 @@ import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
 import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
 import useSetLocation from 'hooks/common/useSetLocation';
-import useMe from 'hooks/queries/user/useMe';
 import { useRecoilValue } from 'recoil';
 import { nicknameState } from 'stores/User';
 import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
+import { KAKAO_PROFILE_URL } from 'constants/localstoregeKeys';
 
 export interface IUserLocation {
   latitude: number; //위도
@@ -22,7 +22,7 @@ const LocationCheckPage = () => {
 
   const nickname = useRecoilValue(nicknameState);
 
-  const [userLocation, setUserLocation] = useSetLocation();
+  const [userLocation] = useSetLocation();
 
   const { data } = useCurrentLocation({
     latitude: userLocation.latitude,
@@ -44,10 +44,15 @@ const LocationCheckPage = () => {
   else setValue('location', data);
 
   const onSubmit = (data: Pick<IUser, 'location'>) => {
+    const profile_url = localStorage.getItem(KAKAO_PROFILE_URL);
+    if (!profile_url) {
+      // 어떻게 처리 할지 생각
+      return;
+    }
     userInfoEditMutation.mutate({
       nickname,
       location: data.location,
-      profile_url: localStorage.getItem('kakaoProfile') || '',
+      profile_url,
     });
   };
 

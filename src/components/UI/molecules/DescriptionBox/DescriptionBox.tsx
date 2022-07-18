@@ -7,7 +7,7 @@ import { StyledDescriptionBox } from './DescriptionBoxStyled';
 export interface DescriptionBoxProps {
   productDetail: Pick<
     IProduct,
-    'categoryId' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view'
+    'category_id' | 'chatting_count' | 'created_at' | 'description' | 'favorite_count' | 'title' | 'view_count'
   >;
 }
 
@@ -18,7 +18,7 @@ const DescriptionBox = ({ productDetail }: DescriptionBoxProps) => {
         {productDetail.title}
       </Title>
       <div className="DescriptionBox_categoryAndTime">
-        <span>{categoryList.find((category) => category.id == productDetail.categoryId)?.name}</span>
+        <span>{categoryList.find((category) => category.id == productDetail.category_id)?.name}</span>
         <span>&#183;</span>
         <Time time={productDetail.created_at} />
       </div>
@@ -28,7 +28,7 @@ const DescriptionBox = ({ productDetail }: DescriptionBoxProps) => {
         <span>&#183;</span>
         <span>관심 {productDetail.favorite_count}</span>
         <span>&#183;</span>
-        <span>조회 {productDetail.view}</span>
+        <span>조회 {productDetail.view_count}</span>
       </div>
     </StyledDescriptionBox>
   );

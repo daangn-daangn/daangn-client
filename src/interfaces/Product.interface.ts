@@ -11,17 +11,18 @@ export enum ProductState {
 export interface IProduct {
   id: number;
   title: string;
-  categoryId: number;
+  category_id: number;
   thumb_nail_image: string;
   product_images: string[];
   location: string;
   created_at: Date;
   price: number;
   description: string;
-  view: number;
+  view_count: number;
   favorite_count: number;
   chatting_count: number;
   product_state: ProductState;
+  is_favorite: boolean;
 }
 
 export interface IProductWithUser extends IProduct {
