@@ -13,6 +13,8 @@ import { IUser } from 'interfaces/User.interface';
 import TabBar from '@organisms/TabBar/TabBar';
 import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
 import List from '@atoms/List/List';
+import useMe from 'hooks/queries/user/useMe';
+import Spinner from '@atoms/Spinner/Spinner';
 
 const dummyUser: IUser = {
   id: 1,
@@ -25,16 +27,19 @@ const dummyUser: IUser = {
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-
+  const { data: me } = useMe();
+  if (!me) {
+    return <Spinner />;
+  }
   return (
     <>
       <ProfilePageStyled>
         <NavBar type="나의 당근" />
         <div className="profile-box">
           <div className="profile-box_image_name">
-            <Image imgUrl={dummyUser.profile_url} borderRedius="50%" width="70px" height="70px" />
+            <Image imgUrl={me.profile_url} borderRedius="50%" width="70px" height="70px" />
             <Title fontWeigt="700" fontSize="0.95rem">
-              {dummyUser.nickname}
+              {me.nickname}
             </Title>
           </div>
           <Button
@@ -45,14 +50,14 @@ const ProfilePage = () => {
             fontColor="black"
             border="1px solid #e0dfde"
             onClick={() => {
-              navigate('edit', { state: { ...dummyUser } });
+              navigate('edit', { state: { ...me } });
             }}
           >
             프로필 수정
           </Button>
           <div className="profile-box_manner">
             <p>매너온도</p>
-            <Temperature degree={dummyUser.manner} type="user" />
+            <Temperature degree={me.manner} type="user" />
           </div>
           <div className="profile-box_user_history">
             <div className="history-item" onClick={() => navigate('sell')}>
@@ -76,7 +81,7 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className="user-activity">
-          {dummyUser.location} 1회 인증, 경기도 부천시 원미구 미인증 (최근 30일)
+          {me.location} 1회 인증, 경기도 부천시 원미구 미인증 (최근 30일)
           <br />
           최근 3일 이내 활동 (2020년 11월 20일 가입)
         </div>

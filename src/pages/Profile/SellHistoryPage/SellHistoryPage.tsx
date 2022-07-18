@@ -15,23 +15,28 @@ import useProdcutPullUp from 'hooks/queries/product/useProdcutPullUp';
 import useProductHide from 'hooks/queries/product/useProductHide';
 import useProdcutDelete from 'hooks/queries/product/useProductDelete';
 import { useEffect } from 'react';
+import Spinner from '@atoms/Spinner/Spinner';
 
 const SellHistoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { productState: ProductState };
-  /* API 붙힌 후 로직
-  const { data: products } = useSalesHistoryLoad(state.productState);
-  */
+  const { data: products, refetch } = useSalesHistoryLoad({
+    productState: state?.productState || ProductState.FOR_SALE,
+    refetchOnWindowFocus: false,
+  });
+
   const [selectProductId, setSelectProductId] = useRecoilState(selectProductIdState);
   const productEditStateMutation = useProductEditState({
     onSuccess: (data) => {
       //data
+      refetch();
     },
   });
   const prodcutPullUpMutation = useProdcutPullUp({
     onSuccess: (data) => {
       //data
+      refetch();
     },
     onError: (error) => {
       //error
@@ -50,6 +55,7 @@ const SellHistoryPage = () => {
   const prodcutdeleteMutation = useProdcutDelete({
     onSuccess: (data) => {
       //data
+      refetch();
     },
     onError: (error) => {
       //error
@@ -73,14 +79,14 @@ const SellHistoryPage = () => {
           content: '끌어올리기',
           function: (productId: number) => {
             console.log('끌어올리기', productId);
-            // prodcutPullUpMutation.mutate({productId})
+            prodcutPullUpMutation.mutate({ productId });
           },
         },
         {
           content: '예약중',
           function: (productId: number) => {
             //예약중변경 API 요청
-            // productEditStateMutation.mutate({ productId, productState: ProductState.REVERSED });
+            productEditStateMutation.mutate({ productId, productState: ProductState.REVERSED });
           },
         },
         {
@@ -101,14 +107,15 @@ const SellHistoryPage = () => {
         {
           content: '숨기기',
           function: () => {
-            // prodcutHideMutation.mutate({ productId: selectProductId });
+            prodcutHideMutation.mutate({ productId: selectProductId });
+            // productEditStateMutation.mutate({ productId:selectProductId, productState: ProductState.HIDE });
           },
         },
         {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
@@ -133,7 +140,7 @@ const SellHistoryPage = () => {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
@@ -151,7 +158,7 @@ const SellHistoryPage = () => {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
@@ -166,7 +173,7 @@ const SellHistoryPage = () => {
           <NavStateBar states={navStates} />
         </div>
         {/* 게시글 없는 경우 나중에 추가 */}
-        <MyProductBox
+        {/* <MyProductBox
           type="sell"
           product={dummyProduct}
           stateSelects={
@@ -177,22 +184,26 @@ const SellHistoryPage = () => {
             MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
               .moreSelects
           }
-        />
-        {/* API붙힌 후 로직
-          {products?.map((product) => (
-          <MyProductBox
-            key={product.id}
-            type="sell"
-            product={product}
-            stateSelects={
-              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.SOLD_OUT ].stateSelects
-            }
-            moreSelects={
-              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || '판매중'].moreSelects
-            }
-          />
-        ))}
-        */}
+        /> */}
+        {products ? (
+          products.map((product) => (
+            <MyProductBox
+              key={product.id}
+              type="sell"
+              product={product}
+              stateSelects={
+                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                  .stateSelects
+              }
+              moreSelects={
+                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                  .moreSelects
+              }
+            />
+          ))
+        ) : (
+          <Spinner />
+        )}
       </SellHistoryPageStyled>
     </>
   );

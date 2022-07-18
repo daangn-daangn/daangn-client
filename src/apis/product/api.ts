@@ -61,7 +61,13 @@ export const putProductEdit = async ({ prodcutId, ...rest }: EditProdctsParams) 
 
 export const getSalesHistory = async (productState: ProductState) => {
   const stateNum = checkProdcutStateNum(productState);
-  return axios.get(`/api/products/sales-history?state=${stateNum}`).then((res) => res.data);
+  return axios
+    .get(`/api/products/sales-history?state=${stateNum}`)
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const getProductById = async (productId: number) => {
