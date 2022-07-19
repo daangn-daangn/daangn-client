@@ -2,13 +2,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { SellHistoryPageStyled } from './SellHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
-import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 import { IProductWithUser, ProductState } from 'interfaces/Product.interface';
-import { useQuery } from 'react-query';
-import { getSalesHistory } from 'apis/product/api';
 import useSalesHistoryLoad from 'hooks/queries/product/useSalesHistoryLoad';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 import useProdcutPullUp from 'hooks/queries/product/useProdcutPullUp';
@@ -16,8 +13,11 @@ import useProductHide from 'hooks/queries/product/useProductHide';
 import useProdcutDelete from 'hooks/queries/product/useProductDelete';
 import { useEffect } from 'react';
 import Spinner from '@atoms/Spinner/Spinner';
+import { useQueryClient } from 'react-query';
+import QUERY_KEYS from 'constants/queryKeys';
 
 const SellHistoryPage = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { productState: ProductState };
@@ -25,40 +25,69 @@ const SellHistoryPage = () => {
     productState: state?.productState || ProductState.FOR_SALE,
     refetchOnWindowFocus: false,
   });
-
+  const queryKey = [QUERY_KEYS.PRODUCTS, state?.productState || ProductState.FOR_SALE];
   const [selectProductId, setSelectProductId] = useRecoilState(selectProductIdState);
   const productEditStateMutation = useProductEditState({
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      console.log(previousProducts);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(
+        queryKey,
+        (oldProducts) => oldProducts && oldProducts.filter((oldProduct) => oldProduct.id !== productId),
+      );
+      return previousProducts;
+    },
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
     onSuccess: (data) => {
-      //data
-      refetch();
+      queryClient.invalidateQueries(queryKey);
     },
   });
   const prodcutPullUpMutation = useProdcutPullUp({
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(queryKey, (oldProducts) => {
+        if (!oldProducts) return undefined;
+        const product = oldProducts.find((oldProduct) => oldProduct.id === productId);
+        if (!product) return undefined;
+        const newProducts = oldProducts.filter((oldProduct) => oldProduct.id !== productId);
+        return [product, ...newProducts];
+      });
+      return previousProducts;
+    },
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
     onSuccess: (data) => {
-      //data
-      refetch();
-    },
-    onError: (error) => {
-      //error
-    },
-  });
-
-  const prodcutHideMutation = useProductHide({
-    onSuccess: (data) => {
-      //data
-    },
-    onError: (error) => {
-      //error
+      queryClient.invalidateQueries(queryKey);
     },
   });
 
   const prodcutdeleteMutation = useProdcutDelete({
-    onSuccess: (data) => {
-      //data
-      refetch();
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      console.log(previousProducts);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(
+        queryKey,
+        (oldProducts) => oldProducts && oldProducts.filter((oldProduct) => oldProduct.id != productId),
+      );
+      return previousProducts;
     },
-    onError: (error) => {
-      //error
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(queryKey);
     },
   });
   const navStates = [
@@ -107,8 +136,7 @@ const SellHistoryPage = () => {
         {
           content: '숨기기',
           function: () => {
-            prodcutHideMutation.mutate({ productId: selectProductId });
-            // productEditStateMutation.mutate({ productId:selectProductId, productState: ProductState.HIDE });
+            productEditStateMutation.mutate({ productId: selectProductId, productState: ProductState.HIDE });
           },
         },
         {
@@ -133,7 +161,7 @@ const SellHistoryPage = () => {
         {
           content: '숨기기',
           function: () => {
-            // prodcutHideMutation.mutate({ productId: selectProductId });
+            productEditStateMutation.mutate({ productId: selectProductId, productState: ProductState.HIDE });
           },
         },
         {
@@ -146,7 +174,14 @@ const SellHistoryPage = () => {
       ],
     },
     숨김: {
-      stateSelects: [{ content: '숨기기 해제', function: (productId: number) => console.log('숨기기 해제') }],
+      stateSelects: [
+        {
+          content: '숨기기 해제',
+          function: (productId: number) => {
+            productEditStateMutation.mutate({ productId, productState: ProductState.FOR_SALE });
+          },
+        },
+      ],
       moreSelects: [
         {
           content: '게시글 수정',

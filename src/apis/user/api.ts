@@ -75,7 +75,6 @@ export const getUserInfo = async (userId: number) => {
     .then((res) => res.data.response)
     .catch((error) => {
       console.error(error);
-      // throw new Error(error);
-      return error;
+      throw new Error(error);
     });
 };
