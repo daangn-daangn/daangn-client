@@ -38,7 +38,7 @@ export interface INewProduct {
   description: string;
 }
 
-export interface IProductPurchasHistory {
+export interface IProductLoad {
   id: number;
   title: string;
   location: string;
@@ -49,3 +49,7 @@ export interface IProductPurchasHistory {
   has_review: boolean;
   created_at: Date;
 }
+
+export interface IProductPurchasHistory extends IProductLoad {}
+
+export interface IProductFavorite extends IProductLoad {}

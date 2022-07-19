@@ -47,15 +47,7 @@ const BuyHistoryPage = () => {
           <MyProductBox
             key={product.id}
             type="sell"
-            product={{
-              id: product.id,
-              thumb_nail_image: product.thumb_nail_image || PRODUCT_DEFAULT_IMAGE,
-              title: product.title,
-              location: product.location,
-              created_at: product.created_at,
-              price: product.price,
-              favorite_count: product.favorite_count,
-            }}
+            product={product}
             stateSelects={MyProductBoxSelects.후기안씀.stateSelects}
             moreSelects={MyProductBoxSelects.후기안씀.moreSelects}
           />

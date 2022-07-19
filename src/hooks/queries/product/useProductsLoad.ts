@@ -1,12 +1,12 @@
 import { getProdcts } from 'apis/product/api';
 import QUERY_KEYS from 'constants/queryKeys';
-import { IProduct } from 'interfaces/Product.interface';
+import { IProduct, IProductLoad } from 'interfaces/Product.interface';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { craeteSearchParamsState } from 'stores/Home';
 
-interface CustomQueryOption extends UseQueryOptions<IProduct[], unknown> {}
+interface CustomQueryOption extends UseQueryOptions<IProductLoad[], unknown> {}
 
 const useProductsLoad = ({ ...options }: CustomQueryOption = {}) => {
   const [searchParams] = useSearchParams();
@@ -18,7 +18,7 @@ const useProductsLoad = ({ ...options }: CustomQueryOption = {}) => {
     minPrice: searchParams.get('minPrice'),
     maxPrice: searchParams.get('maxPrice'),
   };
-  return useQuery<IProduct[]>(
+  return useQuery<IProductLoad[]>(
     [QUERY_KEYS.PRODUCTS, queries],
     () =>
       getProdcts({

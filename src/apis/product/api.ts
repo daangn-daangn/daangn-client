@@ -102,6 +102,16 @@ export const getPurchaseHistory = async () => {
     });
 };
 
+export const getProductFavorite = async () => {
+  return axios
+    .get('/api/favorite-products')
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
 export const postProductFavorite = async ({ productId }: PostProductFavoriteParams) => {
   return axios
     .post('/api/favorite-products', {

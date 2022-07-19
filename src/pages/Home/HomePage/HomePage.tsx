@@ -6,13 +6,10 @@ import TabBar from '@organisms/TabBar/TabBar';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
 import { useRecoilValue } from 'recoil';
 import { craeteSearchParamsState } from 'stores/Home';
-import { IProduct } from '../../../interfaces/Product.interface';
+import { IProduct, IProductLoad } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
 
-export const dummyProduct: Pick<
-  IProduct,
-  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
-> = {
+export const dummyProduct: IProductLoad = {
   id: 1,
   title: '아이폰 팔아요',
   thumb_nail_image:
@@ -21,12 +18,11 @@ export const dummyProduct: Pick<
   created_at: new Date(),
   price: 300000,
   favorite_count: 5,
+  chatting_count: 0,
+  has_review: false,
 };
 
-export const dummyProducts: Pick<
-  IProduct,
-  'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
->[] = Array(10)
+export const dummyProducts: IProductLoad[] = Array(10)
   .fill(dummyProduct)
   .map((dummyProduct, index) => {
     const indexDummyProduct = { ...dummyProduct };
