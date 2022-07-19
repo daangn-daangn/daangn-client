@@ -93,7 +93,13 @@ export const deleteProduct = async ({ productId }: DeleteProdductParams) => {
 };
 
 export const getPurchaseHistory = async () => {
-  return axios.get(`/api/products/purchase-history`).then((res) => res.data);
+  return axios
+    .get(`/api/products/purchase-history`)
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const postProductFavorite = async ({ productId }: PostProductFavoriteParams) => {
