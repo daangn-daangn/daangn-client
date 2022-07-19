@@ -1,4 +1,5 @@
 import useProdcutFavorite from 'hooks/queries/product/useProductFavorite';
+import useProdcutFavoriteDelete from 'hooks/queries/product/useProductFavoriteDelete';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../atoms/Button/Button';
@@ -16,10 +17,17 @@ export interface DealBoxProps {
 
 const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId }: DealBoxProps) => {
   const navigate = useNavigate();
-  const favoriteMutate = useProdcutFavorite();
+  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
+  const favoriteMutation = useProdcutFavorite({
+    onMutate: () => setIsFavoriteState((prev) => !prev),
+  });
+  const deleteFavoriteMutation = useProdcutFavoriteDelete({
+    onMutate: () => setIsFavoriteState((prev) => !prev),
+  });
   const onClickFavorit = () => {
     // 찜하기 Update API 요청
-    favoriteMutate.mutate({ productId });
+    if (!isFavoriteState) favoriteMutation.mutate({ productId });
+    else deleteFavoriteMutation.mutate({ productId });
   };
   const onClickChat = () => {
     // 채팅방 Create API 요청
@@ -30,7 +38,7 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId 
   };
   return (
     <StyledDealBox>
-      <Like onClick={onClickFavorit} width="18px" height="18px" isFavorite={isFavorite} />
+      <Like onClick={onClickFavorit} width="18px" height="18px" isFavorite={isFavoriteState} />
       <div className="line"></div>
       <div className="dealBox_priceWrapper">
         <Price productPrice={productPrice} />

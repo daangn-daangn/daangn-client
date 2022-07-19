@@ -42,6 +42,7 @@ export interface PutProdcutHideParams extends IProductIdParams {}
 export interface DeleteProdductParams extends IProductIdParams {}
 
 export interface PostProductFavoriteParams extends IProductIdParams {}
+export interface DeleteProductFavoriteParams extends IProductIdParams {}
 
 export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
   return axios
@@ -100,6 +101,16 @@ export const postProductFavorite = async ({ productId }: PostProductFavoritePara
     .post('/api/favorite-products', {
       product_id: productId,
     })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
+export const deleteProductFavorite = async ({ productId }: DeleteProductFavoriteParams) => {
+  return axios
+    .delete(`/api/favorite-products/products/${productId}`)
     .then((res) => res.data)
     .catch((error) => {
       console.error(error);

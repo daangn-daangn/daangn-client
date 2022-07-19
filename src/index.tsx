@@ -30,7 +30,7 @@ ReactDOM.render(
           <App />
         </ThemeProvider>
       </RecoilRoot>
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      <ReactQueryDevtools initialIsOpen={false} position="top-right" />
     </QueryClientProvider>
   </>,
   document.getElementById('root'),
