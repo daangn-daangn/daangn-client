@@ -1,6 +1,5 @@
+import { TOKEN_KEY } from 'constants/localstoregeKeys';
 import { atom } from 'recoil';
-
-export const TOKEN_KEY = 'daangn_token';
 
 const token = localStorage.getItem(TOKEN_KEY);
 

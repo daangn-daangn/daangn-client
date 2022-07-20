@@ -1,8 +1,8 @@
-import { DeleteProdduct, deleteProduct } from 'apis/product/api';
+import { DeleteProdductParams, deleteProduct } from 'apis/product/api';
 import { AxiosResponse } from 'axios';
 import { useMutation, UseMutationOptions } from 'react-query';
 
-const useProdcutDelete = (option?: UseMutationOptions<AxiosResponse<unknown>, Error, DeleteProdduct>) => {
+const useProdcutDelete = (option?: UseMutationOptions<AxiosResponse<unknown>, Error, DeleteProdductParams>) => {
   return useMutation(deleteProduct, option);
 };
 

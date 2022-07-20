@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
-import { IProduct } from '../../../../interfaces/Product.interface';
+import { IProduct, IProductLoad } from 'interfaces/Product.interface';
 import ProductBox from '../../molecules/ProductBox/ProductBox';
 import { StyledProductBoxes } from './ProductBoxesStyled';
 
 export interface ProductBoxesProps {
-  products: Pick<
-    IProduct,
-    'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'
-  >[];
+  products: IProductLoad[];
 }
 
 const ProductBoxes = ({ products }: ProductBoxesProps) => {

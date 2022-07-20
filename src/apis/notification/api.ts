@@ -5,7 +5,13 @@ export interface PutNotificationReadParams {
 }
 
 export const getNotifications = async () => {
-  return axios.get('/api/notifications').then((res) => res.data);
+  return axios
+    .get('/api/notifications')
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const putNotificationRead = async ({ notificationId }: PutNotificationReadParams) => {

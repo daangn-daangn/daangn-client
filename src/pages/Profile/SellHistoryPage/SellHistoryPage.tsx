@@ -2,57 +2,92 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { SellHistoryPageStyled } from './SellHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
-import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 import { IProductWithUser, ProductState } from 'interfaces/Product.interface';
-import { useQuery } from 'react-query';
-import { getSalesHistory } from 'apis/product/api';
 import useSalesHistoryLoad from 'hooks/queries/product/useSalesHistoryLoad';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 import useProdcutPullUp from 'hooks/queries/product/useProdcutPullUp';
 import useProductHide from 'hooks/queries/product/useProductHide';
 import useProdcutDelete from 'hooks/queries/product/useProductDelete';
 import { useEffect } from 'react';
+import Spinner from '@atoms/Spinner/Spinner';
+import { useQueryClient } from 'react-query';
+import QUERY_KEYS from 'constants/queryKeys';
 
 const SellHistoryPage = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { productState: ProductState };
-  /* API 붙힌 후 로직
-  const { data: products } = useSalesHistoryLoad(state.productState);
-  */
+  const { data: products, refetch } = useSalesHistoryLoad({
+    productState: state?.productState || ProductState.FOR_SALE,
+    refetchOnWindowFocus: false,
+  });
+  const queryKey = [QUERY_KEYS.PRODUCTS, state?.productState || ProductState.FOR_SALE];
   const [selectProductId, setSelectProductId] = useRecoilState(selectProductIdState);
   const productEditStateMutation = useProductEditState({
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      console.log(previousProducts);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(
+        queryKey,
+        (oldProducts) => oldProducts && oldProducts.filter((oldProduct) => oldProduct.id !== productId),
+      );
+      return previousProducts;
+    },
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
     onSuccess: (data) => {
-      //data
+      queryClient.invalidateQueries(queryKey);
     },
   });
   const prodcutPullUpMutation = useProdcutPullUp({
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(queryKey, (oldProducts) => {
+        if (!oldProducts) return undefined;
+        const product = oldProducts.find((oldProduct) => oldProduct.id === productId);
+        if (!product) return undefined;
+        const newProducts = oldProducts.filter((oldProduct) => oldProduct.id !== productId);
+        return [product, ...newProducts];
+      });
+      return previousProducts;
+    },
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
     onSuccess: (data) => {
-      //data
-    },
-    onError: (error) => {
-      //error
-    },
-  });
-
-  const prodcutHideMutation = useProductHide({
-    onSuccess: (data) => {
-      //data
-    },
-    onError: (error) => {
-      //error
+      queryClient.invalidateQueries(queryKey);
     },
   });
 
   const prodcutdeleteMutation = useProdcutDelete({
-    onSuccess: (data) => {
-      //data
+    onMutate: async ({ productId }) => {
+      await queryClient.cancelQueries(queryKey);
+      const previousProducts = queryClient.getQueryData<IProductWithUser[]>(queryKey);
+      console.log(previousProducts);
+      queryClient.setQueryData<IProductWithUser[] | undefined>(
+        queryKey,
+        (oldProducts) => oldProducts && oldProducts.filter((oldProduct) => oldProduct.id != productId),
+      );
+      return previousProducts;
     },
-    onError: (error) => {
-      //error
+    onError: (error, variables, previousProducts) => {
+      if (previousProducts) {
+        queryClient.setQueryData(queryKey, previousProducts);
+      }
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(queryKey);
     },
   });
   const navStates = [
@@ -73,14 +108,14 @@ const SellHistoryPage = () => {
           content: '끌어올리기',
           function: (productId: number) => {
             console.log('끌어올리기', productId);
-            // prodcutPullUpMutation.mutate({productId})
+            prodcutPullUpMutation.mutate({ productId });
           },
         },
         {
           content: '예약중',
           function: (productId: number) => {
             //예약중변경 API 요청
-            // productEditStateMutation.mutate({ productId, productState: ProductState.REVERSED });
+            productEditStateMutation.mutate({ productId, productState: ProductState.REVERSED });
           },
         },
         {
@@ -101,14 +136,14 @@ const SellHistoryPage = () => {
         {
           content: '숨기기',
           function: () => {
-            // prodcutHideMutation.mutate({ productId: selectProductId });
+            productEditStateMutation.mutate({ productId: selectProductId, productState: ProductState.HIDE });
           },
         },
         {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
@@ -126,20 +161,27 @@ const SellHistoryPage = () => {
         {
           content: '숨기기',
           function: () => {
-            // prodcutHideMutation.mutate({ productId: selectProductId });
+            productEditStateMutation.mutate({ productId: selectProductId, productState: ProductState.HIDE });
           },
         },
         {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
     },
     숨김: {
-      stateSelects: [{ content: '숨기기 해제', function: (productId: number) => console.log('숨기기 해제') }],
+      stateSelects: [
+        {
+          content: '숨기기 해제',
+          function: (productId: number) => {
+            productEditStateMutation.mutate({ productId, productState: ProductState.FOR_SALE });
+          },
+        },
+      ],
       moreSelects: [
         {
           content: '게시글 수정',
@@ -151,7 +193,7 @@ const SellHistoryPage = () => {
           content: '삭제',
           function: () => {
             console.log('삭제');
-            // prodcutdeleteMutation.mutate({productId:selectProductId})
+            prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
       ],
@@ -166,7 +208,7 @@ const SellHistoryPage = () => {
           <NavStateBar states={navStates} />
         </div>
         {/* 게시글 없는 경우 나중에 추가 */}
-        <MyProductBox
+        {/* <MyProductBox
           type="sell"
           product={dummyProduct}
           stateSelects={
@@ -177,22 +219,26 @@ const SellHistoryPage = () => {
             MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
               .moreSelects
           }
-        />
-        {/* API붙힌 후 로직
-          {products?.map((product) => (
-          <MyProductBox
-            key={product.id}
-            type="sell"
-            product={product}
-            stateSelects={
-              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.SOLD_OUT ].stateSelects
-            }
-            moreSelects={
-              MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || '판매중'].moreSelects
-            }
-          />
-        ))}
-        */}
+        /> */}
+        {products ? (
+          products.map((product) => (
+            <MyProductBox
+              key={product.id}
+              type="sell"
+              product={product}
+              stateSelects={
+                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                  .stateSelects
+              }
+              moreSelects={
+                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                  .moreSelects
+              }
+            />
+          ))
+        ) : (
+          <Spinner />
+        )}
       </SellHistoryPageStyled>
     </>
   );

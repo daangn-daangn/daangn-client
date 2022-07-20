@@ -5,25 +5,6 @@ import { CategotyPageStyled } from './CategotyPageStyled';
 import { ReactComponent as Check } from 'assets/check.svg';
 import { categoryList } from 'utils/categoryFilter';
 
-// export const categories = [
-//   '디지털기기',
-//   '생활가전',
-//   '가구/인테리어',
-//   '유아동',
-//   '유아도서',
-//   '생활/가공식품',
-//   '스포츠/레저',
-//   '여성잡화',
-//   '여성의류',
-//   '남성패션/잡화',
-//   '게임/취미',
-//   '뷰티/미용',
-//   '반려동물식품',
-//   '도서/티켓/음반',
-//   '식물',
-//   '기타 중고물품',
-// ];
-
 export interface CategotyPageProps {}
 
 const CategotyPage = (props: CategotyPageProps) => {
@@ -31,8 +12,8 @@ const CategotyPage = (props: CategotyPageProps) => {
   const location = useLocation();
   const state = location.state as INewProduct;
 
-  const clickCategory = (categoryId: number) => {
-    state.categoryId = categoryId;
+  const clickCategory = (category_id: number) => {
+    state.category_id = category_id;
     navigate('/product/new', { state: { ...state } });
   };
 
@@ -41,7 +22,7 @@ const CategotyPage = (props: CategotyPageProps) => {
       <Top title="카테고리 선택" left="prev" />
       {categoryList.map((category, index) => (
         <div className="category" key={index} onClick={() => clickCategory(category.id)}>
-          {state?.categoryId === category.id ? (
+          {state?.category_id === category.id ? (
             <>
               <p style={{ color: '#EE8548' }}>{category.name}</p>
               <Check />

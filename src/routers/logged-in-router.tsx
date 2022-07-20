@@ -49,7 +49,7 @@ const LoggedInRouter = () => {
         </Route>
         <Route path="/chat">
           <Route path="" element={<ChatPage />} />
-          <Route path=":id" element={<ChatRoomPage />} />
+          <Route path=":chatRoomId" element={<ChatRoomPage />} />
           <Route path="location/share" element={<LocationSharePage />} />
         </Route>
         <Route path="/profile">

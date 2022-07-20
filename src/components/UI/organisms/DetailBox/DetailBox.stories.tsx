@@ -22,20 +22,20 @@ MyProduct.args = {
       'https://img.insight.co.kr/static/2016/02/15/700/yy1275us791rlld79jxb.jpg',
     ],
   },
-  sellerDetail: {
-    nickname: '유키링',
-    profile_url:
-      'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
-    location: '하라주쿠',
-    manner: 38.6,
-  },
+  // sellerDetail: {
+  //   nickname: '유키링',
+  //   profile_url:
+  //     'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
+  //   location: '하라주쿠',
+  //   manner: 38.6,
+  // },
   productDetail: {
     id: 1,
     title: '아이폰 삽니다',
-    categoryId: 1,
+    category_id: 1,
     description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
     created_at: new Date(),
-    view: 256,
+    view_count: 256,
     favorite_count: 21,
     chatting_count: 4,
     product_state: ProductState.FOR_SALE,
@@ -52,20 +52,20 @@ Not_MyProduct.args = {
       'https://img.insight.co.kr/static/2016/02/15/700/yy1275us791rlld79jxb.jpg',
     ],
   },
-  sellerDetail: {
-    nickname: '유키링',
-    profile_url:
-      'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
-    location: '하라주쿠',
-    manner: 38.6,
-  },
+  // sellerDetail: {
+  //   nickname: '유키링',
+  //   profile_url:
+  //     'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
+  //   location: '하라주쿠',
+  //   manner: 38.6,
+  // },
   productDetail: {
     id: 1,
     title: '아이폰 삽니다',
-    categoryId: 1,
+    category_id: 1,
     description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
     created_at: new Date(),
-    view: 256,
+    view_count: 256,
     favorite_count: 21,
     chatting_count: 4,
     product_state: ProductState.FOR_SALE,

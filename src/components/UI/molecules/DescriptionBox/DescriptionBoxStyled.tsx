@@ -12,7 +12,7 @@ export const StyledDescriptionBox = styled.div`
     gap: 3px;
     color: ${(props) => props.theme.$black50};
     font-size: 0.7rem;
-    span:first-child {
+    span:first-of-type {
       text-decoration: underline;
       cursor: pointer;
     }

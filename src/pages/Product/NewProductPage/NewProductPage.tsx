@@ -21,8 +21,9 @@ const NewProductPage = () => {
   const location = useLocation();
   const state = location.state as PostProductUploadParams;
   const mutation = useProductUpload({
-    onSuccess: (res) => {
+    onSuccess: (data) => {
       // 성공시 홈으로?
+      console.log(data);
       navigate('/');
     },
     onError: (error) => {
@@ -85,8 +86,12 @@ const NewProductPage = () => {
   };
 
   const onSubmit = (data: PostProductUploadParams) => {
+    const price = Number(String(data.price).replace(/,/g, ''));
     console.log(data);
-    mutation.mutate(data);
+    mutation.mutate({
+      ...data,
+      price,
+    });
   };
 
   return (

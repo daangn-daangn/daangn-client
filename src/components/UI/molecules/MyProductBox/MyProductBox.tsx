@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyledMyProductBox, StyledSelectState } from './MyProductBoxStyled';
-import { IProduct } from 'interfaces/Product.interface';
+import { IProduct, IProductFavorite, IProductLoad } from 'interfaces/Product.interface';
 import Image from '@atoms/Image/Image';
 import Title from '@atoms/Title/Title';
 import Time from '@atoms/Time/Time';
@@ -10,6 +10,7 @@ import { ReactComponent as More } from 'assets/more.svg';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 import { useSetRecoilState } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 
 export interface ISelectWithProductId {
   content: string;
@@ -25,7 +26,7 @@ export interface MyProductBoxProps {
   type: 'sell' | 'buy' | 'like';
   stateSelects?: ISelectWithProductId[];
   moreSelects?: ISelect[];
-  product: Pick<IProduct, 'id' | 'thumb_nail_image' | 'title' | 'location' | 'created_at' | 'price' | 'favorite_count'>;
+  product: IProductLoad;
 }
 
 const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBoxProps) => {
@@ -38,7 +39,7 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
   return (
     <>
       <StyledMyProductBox {...{ type, product }}>
-        <Image imgUrl={product.thumb_nail_image} />
+        <Image imgUrl={product.thumb_nail_image || PRODUCT_DEFAULT_IMAGE} />
         <div className="product_info">
           <Title>{product.title}</Title>
           <div className="product_info__detail">

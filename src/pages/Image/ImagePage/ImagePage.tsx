@@ -10,7 +10,6 @@ const ImagePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as ImagePageState;
-
   const clickClose = () => {
     navigate(-1);
   };

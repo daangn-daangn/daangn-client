@@ -7,10 +7,8 @@ import { useForm } from 'react-hook-form';
 import { IUser } from 'interfaces/User.interface';
 import { useSetRecoilState } from 'recoil';
 import { nicknameState } from 'stores/User';
-import { getUserNicknameCheck } from 'apis/user/api';
 import useDebounceValue from 'hooks/common/useDebounceValue';
 import useUserNicknameCheck from 'hooks/queries/user/useUserNicknameCheck';
-import { useIsFetching } from 'react-query';
 
 const NickNameSettingPage = () => {
   const navigate = useNavigate();
@@ -23,11 +21,10 @@ const NickNameSettingPage = () => {
   } = useForm<Pick<IUser, 'nickname'>>({ mode: 'onChange' });
 
   const debouncedNicknameQuery = useDebounceValue(watch('nickname'));
-  const { data, isLoading } = useUserNicknameCheck({
+  const { data } = useUserNicknameCheck({
     nickname: debouncedNicknameQuery,
     enabled: !!debouncedNicknameQuery,
   });
-  const isFetching = useIsFetching();
   const onSubmit = ({ nickname }: Pick<IUser, 'nickname'>) => {
     setNicname(nickname);
     //성공시 위치 찾는 페이지로 이동

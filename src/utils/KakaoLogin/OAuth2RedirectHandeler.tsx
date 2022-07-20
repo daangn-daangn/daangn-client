@@ -7,7 +7,8 @@ import useUserJoin from 'hooks/queries/user/useUserJoin';
 import useUserLogin from 'hooks/queries/user/useUserLogin';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { isLoggedState, tokenState, TOKEN_KEY } from 'stores/Auth';
+import { isLoggedState, tokenState } from 'stores/Auth';
+import { KAKAO_PROFILE_URL, TOKEN_KEY } from 'constants/localstoregeKeys';
 
 const OAuth2RedirectHandler = () => {
   const navigate = useNavigate();
@@ -20,22 +21,22 @@ const OAuth2RedirectHandler = () => {
       console.log(response);
       const token = response.api_token;
       localStorage.setItem(TOKEN_KEY, token);
+      setNickname(response.nickname);
       setToken(token);
       setIsLogged(true);
-      setNickname(response.nickname);
     },
     onError: (error) => {
-      console.log(error.message);
+      console.error(error.message);
       navigate('/login');
     },
   });
   const joinMutation = useUserJoin({
     onSuccess: (data) => {
       console.log(data);
-      localStorage.setItem('kakaoProfile', data.response.profile_url);
+      localStorage.setItem(KAKAO_PROFILE_URL, data.response.profile_url);
     },
     onError: (error) => {
-      console.log(error.message);
+      console.error(error.message);
       navigate('/login');
     },
   });
@@ -63,7 +64,7 @@ const OAuth2RedirectHandler = () => {
       };
       handleRedirect();
     } catch (error) {
-      console.log(error, 'error');
+      console.error(error, 'error');
     }
   }, [code]);
 

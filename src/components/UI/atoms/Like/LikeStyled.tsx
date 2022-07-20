@@ -14,8 +14,8 @@ export const StyledLike = styled.div<LikeProps>`
     height: ${(props) => props.height || '14px'};
     fill: ${(props) => (props.isFavorite ? props.theme.mainColor : props.theme.$black50)};
     cursor: pointer;
-    &:hover {
+    /* &:hover {
       fill: ${(props) => props.theme.hoverColor};
-    }
+    } */
   }
 `;
