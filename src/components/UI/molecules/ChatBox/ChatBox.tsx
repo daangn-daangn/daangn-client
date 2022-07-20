@@ -1,3 +1,4 @@
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 import { IGetChat } from 'interfaces/Chat.interface';
 import Image from '../../atoms/Image/Image';
 import Time from '../../atoms/Time/Time';
@@ -26,9 +27,9 @@ const ChatBox = ({ chat }: ChatBoxProps) => {
           <span className="chatBox_info-dot">&#183;</span>
           <Time time={chat.updated_at} />
         </div>
-        <p>{trimWriting(chat.last_chat, 14)}</p>
+        <p>{trimWriting(chat.last_chat || '채팅을 시작해 보세요!', 14)}</p>
       </div>
-      <Image width="40px" height="40px" imgUrl={chat.product_image} />
+      <Image width="40px" height="40px" imgUrl={chat.product_image || PRODUCT_DEFAULT_IMAGE} />
     </StyledChatBox>
   );
 };

@@ -21,7 +21,7 @@ export const getChatRooms = async () => {
 
 export const postChatRoom = async (postChatRoomParams: PostChatRoomParams) => {
   return axios
-    .post('/api/chat-rooms', postChatRoom)
+    .post('/api/chat-rooms', postChatRoomParams)
     .then((res) => res.data.response)
     .catch((error) => {
       console.error(error);

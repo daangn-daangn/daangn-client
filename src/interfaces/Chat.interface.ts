@@ -12,8 +12,8 @@ export interface IGetChat {
   participant: string;
   participant_image: string;
   location: string;
-  product_image: string;
-  last_chat: string;
+  product_image: string | null;
+  last_chat: string | null;
   not_read_chat_count: number;
   page_offset: number;
   page_size: number;

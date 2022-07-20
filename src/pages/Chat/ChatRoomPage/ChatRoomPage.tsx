@@ -1,3 +1,4 @@
+import Spinner from '@atoms/Spinner/Spinner';
 import ChatTabBar from '@molecules/ChatTabBar/ChatTabBar';
 import ProductInfoBox from '@molecules/ProductInfoBox/ProductInfoBox';
 import MessageContainer from '@organisms/MessageContainer/MessageContainer';
@@ -16,15 +17,20 @@ export const dummyProductInfoBox = {
 };
 
 const ChatRoomPage = () => {
-  const { chatRoomId } = useParams<{ chatRoomId: string }>();
-  // const {data} = useChatRoomDetail({chatRoomId} as {chatRoomId:string});
   const [userLocation, setUserLocation] = useSetLocation();
+  const { chatRoomId } = useParams<{ chatRoomId: string }>();
+  const { data } = useChatRoomDetail({ chatRoomId } as { chatRoomId: string });
+
+  if (!data) {
+    return <Spinner />;
+  }
+
   console.log(chatRoomId);
   return (
     <ChatRoomPageStyled>
       <div className="chatRoom_fixed">
-        <ChatTabBar userDetail={{ nickname: '이재훈', manner: 46 }} />
-        <ProductInfoBox product={dummyProductInfoBox} />
+        <ChatTabBar userDetail={{ nickname: data.participant_nickname, manner: data.participant_manner }} />
+        <ProductInfoBox product={data} />
       </div>
       <MessageContainer />
     </ChatRoomPageStyled>

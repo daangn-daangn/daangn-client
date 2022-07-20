@@ -72,8 +72,11 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId,
     },
   });
   const createChatRoomMutation = useChatRoomCreate({
-    onSuccess: () => {
-      //??
+    // onError: (error) => {
+    //   console.log(error);
+    // },
+    onSuccess: ({ room_id }) => {
+      navigate('/chat');
     },
   });
   const onClickFavorit = () => {
