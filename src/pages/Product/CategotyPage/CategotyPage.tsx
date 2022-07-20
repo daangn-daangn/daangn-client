@@ -31,8 +31,8 @@ const CategotyPage = (props: CategotyPageProps) => {
   const location = useLocation();
   const state = location.state as INewProduct;
 
-  const clickCategory = (categoryId: number) => {
-    state.categoryId = categoryId;
+  const clickCategory = (category_id: number) => {
+    state.category_id = category_id;
     navigate('/product/new', { state: { ...state } });
   };
 
@@ -41,7 +41,7 @@ const CategotyPage = (props: CategotyPageProps) => {
       <Top title="카테고리 선택" left="prev" />
       {categoryList.map((category, index) => (
         <div className="category" key={index} onClick={() => clickCategory(category.id)}>
-          {state?.categoryId === category.id ? (
+          {state?.category_id === category.id ? (
             <>
               <p style={{ color: '#EE8548' }}>{category.name}</p>
               <Check />

@@ -15,16 +15,24 @@ import { encodeFileToBase64 } from 'utils/encodeImage';
 import { categoryList } from 'utils/categoryFilter';
 import { postNewProduct, PostProductUploadParams } from 'apis/product/api';
 import useProductUpload from 'hooks/queries/product/useProductUpload';
+import { uploadFileToS3 } from 'utils/handleFileToS3';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as PostProductUploadParams;
   const mutation = useProductUpload({
-    onSuccess: (res) => {
+    onSuccess: (res, variables: PostProductUploadParams) => {
+      localStorage.removeItem('temporary_new_product');
+
+      Array.from(variables.files as FileList).forEach((file, index) => {
+        uploadFileToS3((res as any).response?.product_images[index], file);
+      });
+
       // 성공시 홈으로?
-      navigate('/');
+      //navigate('/');
     },
+
     onError: (error) => {
       console.log(error);
     },
@@ -34,15 +42,15 @@ const NewProductPage = () => {
   const { register, handleSubmit, setValue, reset, watch } = useForm<PostProductUploadParams>();
 
   useEffect(() => {
-    if (watch('product_images')) {
+    if (watch('files')) {
       setImagesBase64([]);
-      Array.from(watch('product_images')).forEach((image) => {
+      Array.from(watch('files') as FileList).forEach((image) => {
         encodeFileToBase64(image).then((data) =>
           setImagesBase64((prev) => [...prev, { image: image, url: data as string }]),
         );
       });
     }
-  }, [watch('product_images')]);
+  }, [watch('files')]);
 
   useEffect(() => {
     /*
@@ -59,13 +67,13 @@ const NewProductPage = () => {
   const deleteImage = (clickedImage: File) => {
     const dataTranster = new DataTransfer();
 
-    Array.from(watch('product_images'))
+    Array.from(watch('files') as FileList)
       .filter((file) => file !== clickedImage)
       .forEach((file) => {
         dataTranster.items.add(file);
       });
 
-    setValue('product_images', dataTranster.files);
+    setValue('files', dataTranster.files);
   };
 
   const goCategoryPage = () => {
@@ -85,6 +93,12 @@ const NewProductPage = () => {
   };
 
   const onSubmit = (data: PostProductUploadParams) => {
+    const filesNames: string[] = [];
+    Array.from(watch('files') as FileList).forEach((image) => {
+      filesNames.push(image.name);
+    });
+    data.product_images = filesNames;
+
     console.log(data);
     mutation.mutate(data);
   };
@@ -113,7 +127,7 @@ const NewProductPage = () => {
         <div className="input-photo-div borer-bottom-gray">
           <InputPhoto
             register={{ ...register('product_images') }}
-            setPickedPhotos={(value) => setValue('product_images', value)}
+            setPickeFiles={(value) => setValue('files', value)}
             buttonNode={
               <div className="input-photo-div_button">
                 <Camera />
@@ -144,13 +158,9 @@ const NewProductPage = () => {
         </div>
         <div className="borer-bottom-gray">
           <Input
+            type="number"
             register={{
-              ...register('price', {
-                onChange: (e) => {
-                  console.log(e.target.value);
-                  setValue('price', e.target.value.replace(/[^0-9]|(,)/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-                },
-              }),
+              ...register('price'),
             }}
             placeholder="₩ 가격"
             border="none"

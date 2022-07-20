@@ -30,7 +30,7 @@ export interface IProductWithUser extends IProduct {
 
 export interface INewProduct {
   title: string;
-  categoryId: number;
+  category_id: number;
   thumb_nail_image: File;
   product_images: FileList;
   price: string;
