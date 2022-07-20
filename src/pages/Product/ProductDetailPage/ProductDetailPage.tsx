@@ -78,6 +78,7 @@ const ProductDetailPage = () => {
           productPrice={product.price}
           chatLength={product.chatting_count}
           productId={product.id}
+          sellerId={product.seller.id}
         />
       </ProductDetailPageStyled>
     </>

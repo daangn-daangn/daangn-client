@@ -1,4 +1,5 @@
 import QUERY_KEYS from 'constants/queryKeys';
+import useChatRoomCreate from 'hooks/queries/chat/useChatRoomCreate';
 import useProductDetail from 'hooks/queries/product/useProductDetail';
 import useProdcutFavorite from 'hooks/queries/product/useProductFavorite';
 import useProdcutFavoriteDelete from 'hooks/queries/product/useProductFavoriteDelete';
@@ -17,9 +18,10 @@ export interface DealBoxProps {
   isMyProduct: boolean;
   chatLength: number;
   productId: number;
+  sellerId: number;
 }
 
-const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId }: DealBoxProps) => {
+const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId, sellerId }: DealBoxProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const queryKey = [QUERY_KEYS.PRODUCTS, productId];
@@ -69,6 +71,11 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId 
       queryClient.invalidateQueries(queryKey);
     },
   });
+  const createChatRoomMutation = useChatRoomCreate({
+    onSuccess: () => {
+      //??
+    },
+  });
   const onClickFavorit = () => {
     // 찜하기 Update API 요청
     if (!isFavorite) favoriteMutation.mutate({ productId });
@@ -76,6 +83,7 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId 
   };
   const onClickChat = () => {
     // 채팅방 Create API 요청
+    createChatRoomMutation.mutate({ product_id: productId, other_user_id: sellerId });
   };
   const onClickMyProductChat = () => {
     // 채팅 페이지로 이동
