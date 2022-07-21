@@ -2,10 +2,36 @@ import { dummyProduct, dummyUser } from 'pages/Product/ProductDetailPage/Product
 
 export interface IChat {
   sender: 'me' | 'you'; //보낸사람 정보. 일단은 me, you로만 구분
-  message: string;
+  message: string | string[];
   message_type: 'text' | 'image' | 'location';
   createdAt: Date;
 }
+
+export type IChatMessageTypeOne = {
+  sender_id: number;
+  message_type: ChatMessageEnum.GENERAL;
+  message: string;
+  img_urls: null;
+  created_at: Date;
+};
+
+export type IChatMessageTypeTwo = {
+  sender_id: number;
+  message_type: ChatMessageEnum.COORDINATE;
+  message: string;
+  img_urls: null;
+  created_at: Date;
+};
+
+export type IChatMessageTypeThree = {
+  sender_id: number;
+  message_type: ChatMessageEnum.IMAGE;
+  message: null;
+  img_urls: string[];
+  created_at: Date;
+};
+
+export type ChatMessageType = IChatMessageTypeOne | IChatMessageTypeTwo | IChatMessageTypeThree;
 
 export interface IGetChat {
   chat_room_id: string;
@@ -47,6 +73,12 @@ export const dummyGetChat = {
   page_size: 10,
   updated_at: new Date(),
 };
+
+export enum ChatMessageEnum {
+  GENERAL,
+  COORDINATE,
+  IMAGE,
+}
 
 export const dummyGetChats: IGetChat[] = Array(10)
   .fill(dummyGetChat)

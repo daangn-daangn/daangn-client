@@ -19,20 +19,19 @@ export const dummyProductInfoBox = {
 const ChatRoomPage = () => {
   const [userLocation, setUserLocation] = useSetLocation();
   const { chatRoomId } = useParams<{ chatRoomId: string }>();
-  const { data } = useChatRoomDetail({ chatRoomId } as { chatRoomId: string });
+  const { data } = useChatRoomDetail({ chatRoomId, refetchOnWindowFocus: false });
 
   if (!data) {
     return <Spinner />;
   }
 
-  console.log(chatRoomId);
   return (
     <ChatRoomPageStyled>
       <div className="chatRoom_fixed">
         <ChatTabBar userDetail={{ nickname: data.participant_nickname, manner: data.participant_manner }} />
         <ProductInfoBox product={data} />
       </div>
-      <MessageContainer />
+      <MessageContainer chatRoomId={chatRoomId as string} />
     </ChatRoomPageStyled>
   );
 };

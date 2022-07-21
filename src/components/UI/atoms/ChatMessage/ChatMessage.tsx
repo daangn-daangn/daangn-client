@@ -54,10 +54,22 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
               <div className="message-text me">{chat.message}</div>
             ) : chat.message_type === 'image' ? (
               <div className="message-image">
-                {dummyImages.length > 4
-                  ? dummyImages
-                      .slice(0, 4)
-                      .map((item, idx) => (
+                {Array.isArray(chat.message) &&
+                  (chat.message.length > 4
+                    ? chat.message
+                        .slice(0, 4)
+                        .map((item, idx) => (
+                          <Image
+                            onClick={() => clickImage(idx)}
+                            key={idx}
+                            imgUrl={item}
+                            width="100%"
+                            height="150px"
+                            borderRedius="0px"
+                            innerContent={idx === 3 ? `+${dummyImages.length - 4}` : ''}
+                          />
+                        ))
+                    : chat.message.map((item, idx) => (
                         <Image
                           onClick={() => clickImage(idx)}
                           key={idx}
@@ -65,19 +77,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                           width="100%"
                           height="150px"
                           borderRedius="0px"
-                          innerContent={idx === 3 ? `+${dummyImages.length - 4}` : ''}
                         />
-                      ))
-                  : dummyImages.map((item, idx) => (
-                      <Image
-                        onClick={() => clickImage(idx)}
-                        key={idx}
-                        imgUrl={item}
-                        width="100%"
-                        height="150px"
-                        borderRedius="0px"
-                      />
-                    ))}
+                      )))}
               </div>
             ) : chat.message_type === 'location' ? (
               <div className="message-location">
@@ -94,10 +95,22 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
               <div className="message-text you">{chat.message}</div>
             ) : chat.message_type === 'image' ? (
               <div className="message-image">
-                {dummyImages.length > 4
-                  ? dummyImages
-                      .slice(0, 4)
-                      .map((item, idx) => (
+                {Array.isArray(chat.message) &&
+                  (chat.message.length > 4
+                    ? chat.message
+                        .slice(0, 4)
+                        .map((item, idx) => (
+                          <Image
+                            onClick={() => clickImage(idx)}
+                            key={idx}
+                            imgUrl={item}
+                            width="100%"
+                            height="150px"
+                            borderRedius="0px"
+                            innerContent={idx === 3 ? `+${dummyImages.length - 4}` : ''}
+                          />
+                        ))
+                    : chat.message.map((item, idx) => (
                         <Image
                           onClick={() => clickImage(idx)}
                           key={idx}
@@ -105,19 +118,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isShowImage, minute, chat }, 
                           width="100%"
                           height="150px"
                           borderRedius="0px"
-                          innerContent={idx === 3 ? `+${dummyImages.length - 4}` : ''}
                         />
-                      ))
-                  : dummyImages.map((item, idx) => (
-                      <Image
-                        onClick={() => clickImage(idx)}
-                        key={idx}
-                        imgUrl={item}
-                        width="100%"
-                        height="150px"
-                        borderRedius="0px"
-                      />
-                    ))}
+                      )))}
               </div>
             ) : chat.message_type === 'location' ? (
               <div className="message-location">
