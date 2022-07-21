@@ -18,6 +18,7 @@ import ProfileEditPage from 'pages/Profile/ProfileEditPage/ProfileEditPage';
 import ProfilePage from 'pages/Profile/ProfilePage/ProfilePage';
 import ReviewPage from 'pages/Profile/ReviewPage/ReviewPage';
 import SellHistoryPage from 'pages/Profile/SellHistoryPage/SellHistoryPage';
+import ReviewGivePage from 'pages/Review/ReviewGivePage/ReviewGivePage';
 import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage';
 import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
@@ -63,6 +64,9 @@ const LoggedInRouter = () => {
         </Route>
         <Route path="/notification">
           <Route path="" element={<NotificationPage />} />
+        </Route>
+        <Route path="/review">
+          <Route path="give" element={<ReviewGivePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
