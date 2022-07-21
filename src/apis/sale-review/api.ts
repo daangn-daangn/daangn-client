@@ -12,6 +12,13 @@ export interface PostBuyerReviewParams {
   content: string;
 }
 
+export interface DeleteSellerReviewParams {
+  sellerReviewId: number;
+}
+export interface DeleteBuyererReviewParams {
+  buyerReviewId: number;
+}
+
 export const getAllSaleRevies = async (userId: number) => {
   return axios
     .get(`/api/sale-reviews/user/${userId}`)
@@ -42,6 +49,16 @@ export const postSellerReview = async (postSellerReviewParams: PostSellerReviewP
     });
 };
 
+export const deleteSellerReview = async ({ sellerReviewId }: DeleteSellerReviewParams) => {
+  return axios
+    .delete(`/api/sale-reviews/seller/${sellerReviewId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
 export const getBuyerReviews = async (userId: number) => {
   return axios
     .get(`/api/sale-reviews/buyer/${userId}`)
@@ -55,6 +72,16 @@ export const getBuyerReviews = async (userId: number) => {
 export const postBuyerReview = async (postBuyerReviewParams: PostBuyerReviewParams) => {
   return axios
     .post('/api/sale-reviews/buyer', postBuyerReviewParams)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
+export const deleteBuyerReview = async ({ buyerReviewId }: DeleteBuyererReviewParams) => {
+  return axios
+    .delete(`/api/sale-reviews/buyer/${buyerReviewId}`)
     .then((res) => res.data)
     .catch((error) => {
       console.error(error);

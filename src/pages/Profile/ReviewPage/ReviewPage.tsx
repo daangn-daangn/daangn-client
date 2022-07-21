@@ -8,11 +8,13 @@ import useMe from 'hooks/queries/user/useMe';
 import useSellerReviewsLoad from 'hooks/queries/review/seller/ useSellerReviewsLoad';
 import useBuyerReviewsLoad from 'hooks/queries/review/buyer/useBuyerReviewsLoad';
 
+export type ReviewState = '전체후기' | '판매자 후기' | '구매자 후기';
+
 const ReviewPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as { ReviewState: string };
-  const reviewState = state?.ReviewState || '전체후기';
+  const state = location.state as { ReviewState: ReviewState };
+  const reviewState: ReviewState = state?.ReviewState || '전체후기';
   const { data: me } = useMe({ refetchOnWindowFocus: false });
   const { data: allReviews } = useReviewsLoad({
     userId: me?.id as number,
@@ -44,17 +46,17 @@ const ReviewPage = () => {
         <span className="review-count"> 후기 1개</span>
         {reviewState === '전체후기' && (
           <div className="reviews-wrap">
-            <ReviewBox review={dummyReview} />
+            <ReviewBox reviewState={reviewState} review={dummyReview} />
           </div>
         )}
         {reviewState === '판매자 후기' && (
           <div className="reviews-wrap">
-            <ReviewBox review={dummyReview} />
+            <ReviewBox reviewState={reviewState} review={dummyReview} />
           </div>
         )}
         {reviewState === '구매자 후기' && (
           <div className="reviews-wrap">
-            <ReviewBox review={dummyReview} />
+            <ReviewBox reviewState={reviewState} review={dummyReview} />
           </div>
         )}
       </ReviewPageStyled>

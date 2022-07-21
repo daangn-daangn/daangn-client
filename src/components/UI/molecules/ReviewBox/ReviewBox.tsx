@@ -6,9 +6,13 @@ import Time from '@atoms/Time/Time';
 import { ReactComponent as More } from 'assets/more.svg';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 import { IReview } from 'interfaces/Review.interface';
+import { ReviewState } from 'pages/Profile/ReviewPage/ReviewPage';
+import useBuyerReviewDelete from 'hooks/queries/review/buyer/useBuyerReviewDelete';
+import useSellerReviewDelete from 'hooks/queries/review/seller/useSellerReviewDelete';
 
 export interface ReviewBoxProps {
   review: IReview;
+  reviewState?: ReviewState;
 }
 
 export const dummyReview: IReview = {
@@ -21,10 +25,22 @@ export const dummyReview: IReview = {
   created_at: new Date(),
 };
 
-const ReviewBox = ({ review }: ReviewBoxProps) => {
+const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
   const [showMoreModal, setShowMoreModal] = useState<boolean>(false);
+  const deleteBuyerReviewMutation = useBuyerReviewDelete();
+  const deleteSellerReviewMutation = useSellerReviewDelete();
   const reviewMoreSelect = [
-    { content: '거래후기 숨기기', function: () => console.log('거래후기 숨기기') },
+    {
+      content: '거래후기 삭제',
+      function: () => {
+        // if (reviewState === '구매자 후기') {
+        //   deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
+        // }
+        // if (reviewState === '판매자 후기') {
+        //   deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
+        // }
+      },
+    },
     { content: '취소', function: () => console.log('취소') },
   ];
 
