@@ -4,11 +4,15 @@ import { IChatRoomDetail } from 'interfaces/Chat.interface';
 import { useQuery, UseQueryOptions } from 'react-query';
 
 interface CustomQueryOption extends UseQueryOptions<IChatRoomDetail, unknown> {
-  chatRoomId: string;
+  chatRoomId: string | undefined;
 }
 
 const useChatRoomDetail = ({ chatRoomId, ...options }: CustomQueryOption) => {
-  return useQuery<IChatRoomDetail>([QUERY_KEYS.CHAT_ROOMS, chatRoomId], () => getCharRoom({ chatRoomId }), options);
+  return useQuery<IChatRoomDetail>(
+    [QUERY_KEYS.CHAT_ROOMS, chatRoomId],
+    () => getCharRoom({ chatRoomId } as { chatRoomId: string }),
+    options,
+  );
 };
 
 export default useChatRoomDetail;

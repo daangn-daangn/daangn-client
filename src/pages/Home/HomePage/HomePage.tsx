@@ -31,8 +31,6 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
-  const craeteSearchParams = useRecoilValue(craeteSearchParamsState);
-  console.log(craeteSearchParams);
   const { data: products, isLoading } = useProductsLoad();
   if (isLoading) {
     return <Spinner />;
