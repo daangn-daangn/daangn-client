@@ -207,19 +207,6 @@ const SellHistoryPage = () => {
           <Top title="판매내역" left="prev" leftClick={() => navigate('/profile')} />
           <NavStateBar states={navStates} />
         </div>
-        {/* 게시글 없는 경우 나중에 추가 */}
-        {/* <MyProductBox
-          type="sell"
-          product={dummyProduct}
-          stateSelects={
-            MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
-              .stateSelects
-          }
-          moreSelects={
-            MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
-              .moreSelects
-          }
-        /> */}
         {products ? (
           products.map((product) => (
             <MyProductBox
