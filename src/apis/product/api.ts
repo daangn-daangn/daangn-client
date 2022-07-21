@@ -26,7 +26,9 @@ export interface PostProductUploadParams {
   title: string;
   price: number;
   description: string;
-  product_images: FileList;
+  product_images: string[]; //까지 서버로 보내줘야 되는 값
+
+  files?: FileList;
 }
 
 export interface PutProductChangeStateParmas {
