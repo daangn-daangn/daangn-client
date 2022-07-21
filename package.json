@@ -84,5 +84,5 @@
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "webpack": "^5.70.0"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://daangn-daangn.link"
 }

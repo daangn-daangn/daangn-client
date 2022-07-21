@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react';
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 import { dummyProduct } from 'pages/Home/HomePage/HomePage';
 import NotificationCard, { NotificationCardProps } from './NotificationCard';
 
@@ -26,7 +27,7 @@ NotiCode_Zero.args = {
     product_id: 1,
     price: null,
     title: 'TEST',
-    thumb_nail_image: dummyProduct.thumb_nail_image,
+    thumb_nail_image: PRODUCT_DEFAULT_IMAGE,
     reviewer_id: null,
     nickname: null,
     profile_url: null,
@@ -44,7 +45,7 @@ NotiCode_One.args = {
     product_id: 1,
     price: 20000,
     title: 'TEST',
-    thumb_nail_image: dummyProduct.thumb_nail_image,
+    thumb_nail_image: PRODUCT_DEFAULT_IMAGE,
     reviewer_id: null,
     nickname: null,
     profile_url: null,
@@ -62,7 +63,7 @@ NotiCode_Two.args = {
     product_id: 1,
     price: null,
     title: 'TEST',
-    thumb_nail_image: dummyProduct.thumb_nail_image,
+    thumb_nail_image: PRODUCT_DEFAULT_IMAGE,
     reviewer_id: null,
     nickname: null,
     profile_url: null,
@@ -83,6 +84,6 @@ NotiCode_Three.args = {
     thumb_nail_image: null,
     reviewer_id: 1,
     nickname: 'TEST',
-    profile_url: dummyProduct.thumb_nail_image,
+    profile_url: PRODUCT_DEFAULT_IMAGE,
   },
 };

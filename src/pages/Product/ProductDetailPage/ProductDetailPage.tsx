@@ -7,6 +7,9 @@ import { ProductDetailPageStyled } from './ProductDetailPageStyled';
 import { ProductState } from 'interfaces/Product.interface';
 import useProductDetail from 'hooks/queries/product/useProductDetail';
 import { useParams } from 'react-router-dom';
+import Spinner from '@atoms/Spinner/Spinner';
+import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
+import useMe from 'hooks/queries/user/useMe';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -20,10 +23,10 @@ export const dummyUser: IUser = {
 export const dummyProduct: IProductWithUser = {
   id: 1,
   title: '아이폰 삽니다',
-  categoryId: 1,
+  category_id: 1,
   description: '원가 18,900갤럭시로 갈아타면서 판매해요~ 한번도 사용안한 새상품입니다',
   created_at: new Date(),
-  view: 256,
+  view_count: 256,
   favorite_count: 21,
   chatting_count: 4,
   product_images: [
@@ -37,42 +40,45 @@ export const dummyProduct: IProductWithUser = {
     'https://play-lh.googleusercontent.com/6Adeoocj4FktXRmkcFY8j6sknDBK_eoCjsMv6EPJI_ZLhLUeAmZH_r5QxKBBa8xoxgni',
   product_state: ProductState.FOR_SALE,
   seller: dummyUser,
+  is_favorite: false,
 };
 
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
-  // const { data, isLoading } = useProductDetail(Number(productId));
-  const detailBoxProps: DetailBoxProps = {
-    slides: { product_images: dummyProduct.product_images },
-    sellerDetail: {
-      nickname: dummyProduct.seller.nickname,
-      profile_url: dummyProduct.seller.profile_url,
-      location: dummyProduct.seller.location,
-      manner: dummyProduct.seller.manner,
-    },
-    productDetail: {
-      id: dummyProduct.id,
-      categoryId: dummyProduct.categoryId,
-      chatting_count: dummyProduct.chatting_count,
-      created_at: dummyProduct.created_at,
-      description: dummyProduct.description,
-      favorite_count: dummyProduct.favorite_count,
-      title: dummyProduct.title,
-      view: dummyProduct.view,
-      product_state: dummyProduct.product_state,
-    },
-    isMyProduct: dummyUser.id === dummyProduct.seller.id,
-  };
+  const { data: me } = useMe({ refetchOnWindowFocus: false });
+  const { data: product } = useProductDetail({ productId: Number(productId), refetchOnWindowFocus: false });
+  if (!product) {
+    return <Spinner />;
+  }
   return (
     <>
       <ProductDetailPageStyled>
         <DetailTabBar />
-        <DetailBox {...detailBoxProps} />
+        <DetailBox
+          slides={{
+            product_images: product.product_images.length == 0 ? [PRODUCT_DEFAULT_IMAGE] : product.product_images,
+          }}
+          productDetail={{
+            id: product.id,
+            category_id: product.category_id,
+            chatting_count: product.chatting_count,
+            created_at: product.created_at,
+            description: product.description,
+            favorite_count: product.favorite_count,
+            title: product.title,
+            view_count: product.view_count,
+            product_state: product.product_state,
+          }}
+          isMyProduct={me?.id === product.seller.id}
+          sellerId={product.seller.id}
+        />
         <DealBox
-          isMyProduct={dummyUser.id === dummyProduct.seller.id}
-          isFavorite={Boolean(dummyProduct.favorite_count)}
-          productPrice={dummyProduct.price}
-          chatLength={dummyProduct.chatting_count}
+          isMyProduct={me?.id === product.seller.id}
+          isFavorite={product.is_favorite}
+          productPrice={product.price}
+          chatLength={product.chatting_count}
+          productId={product.id}
+          sellerId={product.seller.id}
         />
       </ProductDetailPageStyled>
     </>

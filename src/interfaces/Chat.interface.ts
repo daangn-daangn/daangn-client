@@ -12,12 +12,27 @@ export interface IGetChat {
   participant: string;
   participant_image: string;
   location: string;
-  product_image: string;
-  last_chat: string;
+  product_image: string | null;
+  last_chat: string | null;
   not_read_chat_count: number;
   page_offset: number;
   page_size: number;
   updated_at: Date;
+}
+
+export interface IChatRoomDetail {
+  chat_room_id: string;
+  participant_id: number;
+  participant_nickname: string;
+  participant_manner: number;
+  participant_image: string | null;
+  out: boolean;
+  product_id: number;
+  product_image: string | null;
+  product_price: number;
+  product_title: string;
+  product_name: string;
+  product_state: string;
 }
 
 export const dummyGetChat = {
