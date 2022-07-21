@@ -10,7 +10,7 @@ export const ReviewGivePageStyled = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     .subtitle {
       color: ${(props) => props.theme.$black40};
       font-size: 0.9rem;

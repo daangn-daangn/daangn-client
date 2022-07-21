@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 import useProdcutPullUp from 'hooks/queries/product/useProdcutPullUp';
-import useProductHide from 'hooks/queries/product/useProductHide';
 import useProdcutDelete from 'hooks/queries/product/useProductDelete';
 import { useEffect } from 'react';
 import Spinner from '@atoms/Spinner/Spinner';
@@ -21,7 +20,7 @@ const SellHistoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { productState: ProductState };
-  const { data: products, refetch } = useSalesHistoryLoad({
+  const { data: products } = useSalesHistoryLoad({
     productState: state?.productState || ProductState.FOR_SALE,
     refetchOnWindowFocus: false,
   });
@@ -43,7 +42,7 @@ const SellHistoryPage = () => {
         queryClient.setQueryData(queryKey, previousProducts);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
   });
@@ -65,7 +64,7 @@ const SellHistoryPage = () => {
         queryClient.setQueryData(queryKey, previousProducts);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
   });
@@ -86,7 +85,7 @@ const SellHistoryPage = () => {
         queryClient.setQueryData(queryKey, previousProducts);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
   });

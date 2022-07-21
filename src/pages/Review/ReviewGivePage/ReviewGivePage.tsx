@@ -1,11 +1,14 @@
 import Button from '@atoms/Button/Button';
-import Label from '@atoms/Label/Label';
 import Message from '@atoms/Message/Message';
 import TextArea from '@atoms/TextArea/TextArea';
 import Title from '@atoms/Title/Title';
 import Top from '@molecules/Top/Top';
+import useBuyerReviewUpload from 'hooks/queries/review/buyer/useBuyerReviewUpload';
+import useSellerReviewUpload from 'hooks/queries/review/seller/useSellerReviewUpload';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { reviewUploadState } from 'stores/review';
 import { ReviewGivePageStyled } from './ReviewGivePageStyled';
 
 interface IForm {
@@ -14,6 +17,18 @@ interface IForm {
 
 const ReviewGivePage = () => {
   const navigate = useNavigate();
+  const reviewUpload = useRecoilValue(reviewUploadState);
+  const buyerReviewMutation = useBuyerReviewUpload({
+    onSuccess: () => {
+      // 매너평가 페이지로?
+    },
+  });
+  const sellerReviewMutation = useSellerReviewUpload({
+    onSuccess: () => {
+      // 매너평가 페이지로?
+    },
+  });
+
   const {
     register,
     formState: { errors },
@@ -21,7 +36,20 @@ const ReviewGivePage = () => {
   } = useForm<IForm>();
 
   const onSubmit = (data: IForm) => {
-    console.log(data);
+    if (reviewUpload?.type === 'buyer') {
+      buyerReviewMutation.mutate({
+        product_id: reviewUpload.product_id,
+        seller_id: reviewUpload.seller_id,
+        content: data.content,
+      });
+    }
+    if (reviewUpload?.type === 'seller') {
+      sellerReviewMutation.mutate({
+        product_id: reviewUpload.product_id,
+        buyer_id: reviewUpload.buyer_id,
+        content: data.content,
+      });
+    }
   };
   return (
     <ReviewGivePageStyled>
