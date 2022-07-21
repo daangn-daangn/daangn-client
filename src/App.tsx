@@ -27,7 +27,6 @@ import NotificationPage from 'pages/Notification/NotificationPage/NotificationPa
 import ImagePage from 'pages/Image/ImagePage/ImagePage';
 import HomePage from 'pages/Home/HomePage/HomePage';
 import ChatPage from 'pages/Chat/ChatPage/ChatPage';
-import CorsTestPage from 'pages/CorsTest';
 
 function App() {
   return (
@@ -66,9 +65,6 @@ function App() {
           </Route>
           <Route path="/notification">
             <Route path="" element={<NotificationPage />} />
-          </Route>
-          <Route path="/cors-test">
-            <Route path="" element={<CorsTestPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
