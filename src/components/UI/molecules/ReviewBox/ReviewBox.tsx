@@ -38,17 +38,17 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
     },
   });
   const reviewMoreSelect = [
-    {
-      content: '거래후기 삭제',
-      function: () => {
-        if (reviewState === '구매자 후기') {
-          deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
-        }
-        if (reviewState === '판매자 후기') {
-          deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
-        }
-      },
-    },
+    // {
+    //   content: '거래후기 삭제',
+    //   function: () => {
+    //     if (reviewState === '구매자 후기') {
+    //       deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
+    //     }
+    //     if (reviewState === '판매자 후기') {
+    //       deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
+    //     }
+    //   },
+    // },
     {
       content: '숨김',
       function: () => {
