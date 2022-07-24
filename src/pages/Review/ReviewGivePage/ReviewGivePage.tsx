@@ -21,11 +21,13 @@ const ReviewGivePage = () => {
   const buyerReviewMutation = useBuyerReviewUpload({
     onSuccess: () => {
       // 매너평가 페이지로?
+      navigate('/');
     },
   });
   const sellerReviewMutation = useSellerReviewUpload({
     onSuccess: () => {
       // 매너평가 페이지로?
+      navigate('/');
     },
   });
 

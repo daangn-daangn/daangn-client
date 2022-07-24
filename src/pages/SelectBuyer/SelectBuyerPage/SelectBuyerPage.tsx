@@ -3,42 +3,34 @@ import CheckBox from '@atoms/CheckBox/CheckBox';
 import Title from '@atoms/Title/Title';
 import Top from '@molecules/Top/Top';
 import useChatRoomUsersLoad from 'hooks/queries/chat/useChatRoomUsersLoad';
-import { IChatRoomUser } from 'interfaces/Chat.interface';
+import useProductEditState from 'hooks/queries/product/useProductEditState';
+import { ProductState } from 'interfaces/Product.interface';
 import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { StyledSelectBuyerPage, UserList } from './SelectBuyerPageStyled';
-
-const dummyData: IChatRoomUser[] = [
-  {
-    id: 1,
-    name: '이이이',
-  },
-  {
-    id: 2,
-    name: '이재훈',
-  },
-  {
-    id: 3,
-    name: '재재재',
-  },
-  {
-    id: 4,
-    name: '훈훈',
-  },
-  {
-    id: 5,
-    name: '히히',
-  },
-];
+import { reviewUploadState } from 'stores/review';
 
 const SelectBuyerPage = () => {
   const navigate = useNavigate();
+  const [reviewUpload, setReviewUpload] = useRecoilState(reviewUploadState);
   const [selectUser, setSelectUser] = useState<number>(-1);
   const { productId } = useParams<{ productId: string }>();
   const { data: users } = useChatRoomUsersLoad({ productId: Number(productId), refetchOnWindowFocus: false });
   const onClickUser = (id: number) => {
     setSelectUser(id);
+    setReviewUpload({
+      type: 'seller',
+      product_id: Number(productId),
+      buyer_id: id,
+    });
   };
+
+  const mutation = useProductEditState({
+    onSuccess: () => {
+      navigate('/review/give');
+    },
+  });
   return (
     <StyledSelectBuyerPage>
       <Top title="구매자 선택" left="prev" leftClick={() => navigate(-1)} />
@@ -52,7 +44,14 @@ const SelectBuyerPage = () => {
           ))}
         </ul>
       </UserList>
-      <Button disabled={selectUser === -1}>선택 완료</Button>
+      <Button
+        onClick={() =>
+          mutation.mutate({ productId: Number(productId), productState: ProductState.SOLD_OUT, buyer_id: selectUser })
+        }
+        disabled={selectUser === -1}
+      >
+        선택 완료
+      </Button>
     </StyledSelectBuyerPage>
   );
 };

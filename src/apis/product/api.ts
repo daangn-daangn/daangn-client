@@ -32,7 +32,7 @@ export interface PostProductUploadParams {
 export interface PutProductChangeStateParmas {
   productId: number;
   productState: ProductState;
-  buyerId?: number;
+  buyer_id?: number;
 }
 
 export interface PutProdcutPullUpParams extends IProductIdParams {}
@@ -75,9 +75,9 @@ export const getProductById = async (productId: number) => {
   return axios.get(`/api/products/${productId}`).then((res) => res.data.response);
 };
 
-export const putProductChangeState = async ({ productId, productState, buyerId }: PutProductChangeStateParmas) => {
+export const putProductChangeState = async ({ productId, productState, buyer_id }: PutProductChangeStateParmas) => {
   const state = checkProdcutStateNum(productState);
-  return axios.put(`/api/products/state/${productId}`, { state, buyerId }).then((res) => res.data);
+  return axios.put(`/api/products/state/${productId}`, { state, buyer_id }).then((res) => res.data);
 };
 
 export const putProductPullUp = async ({ productId }: PutProdcutPullUpParams) => {
