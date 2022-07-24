@@ -12,6 +12,9 @@ export interface PostBuyerReviewParams {
   content: string;
 }
 
+export interface PutReviewHideParams {
+  review_id: number;
+}
 export interface DeleteSellerReviewParams {
   sellerReviewId: number;
 }
@@ -82,6 +85,16 @@ export const postBuyerReview = async (postBuyerReviewParams: PostBuyerReviewPara
 export const deleteBuyerReview = async ({ buyerReviewId }: DeleteBuyererReviewParams) => {
   return axios
     .delete(`/api/sale-reviews/buyer/${buyerReviewId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
+export const putReviewHide = async ({ review_id }: PutReviewHideParams) => {
+  return axios
+    .put(`/api/sale-reviews/hide/${review_id}`)
     .then((res) => res.data)
     .catch((error) => {
       console.error(error);

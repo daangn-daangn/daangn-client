@@ -8,6 +8,9 @@ import { IReview } from 'interfaces/Review.interface';
 import { ReviewState } from 'pages/Profile/ReviewPage/ReviewPage';
 import useBuyerReviewDelete from 'hooks/queries/review/buyer/useBuyerReviewDelete';
 import useSellerReviewDelete from 'hooks/queries/review/seller/useSellerReviewDelete';
+import useReviewHide from 'hooks/queries/review/useReviewHide';
+import QUERY_KEYS from 'constants/queryKeys';
+import { useQueryClient } from 'react-query';
 
 export interface ReviewBoxProps {
   review: IReview;
@@ -25,9 +28,15 @@ export const dummyReview: IReview = {
 };
 
 const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
+  const queryClient = useQueryClient();
   const [showMoreModal, setShowMoreModal] = useState<boolean>(false);
   const deleteBuyerReviewMutation = useBuyerReviewDelete();
   const deleteSellerReviewMutation = useSellerReviewDelete();
+  const putReviewHideMutation = useReviewHide({
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY_KEYS.SALEREVIEWS);
+    },
+  });
   const reviewMoreSelect = [
     {
       content: '거래후기 삭제',
@@ -38,6 +47,12 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
         if (reviewState === '판매자 후기') {
           deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
         }
+      },
+    },
+    {
+      content: '숨김',
+      function: () => {
+        putReviewHideMutation.mutate({ review_id: review.id });
       },
     },
     { content: '취소', function: () => console.log('취소') },
@@ -55,9 +70,9 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
           </div>
           <p>{review.content}</p>
         </div>
-        {/* <div className="review_state">
+        <div className="review_state">
           <More onClick={() => setShowMoreModal(true)} />
-        </div> */}
+        </div>
       </ReviewBoxStyled>
       {showMoreModal && <SelectModal setModal={setShowMoreModal} selects={reviewMoreSelect} />}
     </>

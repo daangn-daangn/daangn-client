@@ -8,7 +8,11 @@ interface CustomQueryOption extends UseQueryOptions<IReview[], unknown> {
 }
 
 const useSellerReviewsLoad = ({ userId, ...options }: CustomQueryOption) => {
-  return useQuery<IReview[]>([QUERY_KEYS.SALEREVIEWS_SELLER, userId], () => getSellerReviews(userId), options);
+  return useQuery<IReview[]>(
+    [QUERY_KEYS.SALEREVIEWS, QUERY_KEYS.SALEREVIEWS_SELLER, userId],
+    () => getSellerReviews(userId),
+    options,
+  );
 };
 
 export default useSellerReviewsLoad;
