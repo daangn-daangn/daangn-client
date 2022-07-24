@@ -32,12 +32,12 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
     {
       content: '거래후기 삭제',
       function: () => {
-        // if (reviewState === '구매자 후기') {
-        //   deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
-        // }
-        // if (reviewState === '판매자 후기') {
-        //   deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
-        // }
+        if (reviewState === '구매자 후기') {
+          deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
+        }
+        if (reviewState === '판매자 후기') {
+          deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
+        }
       },
     },
     { content: '취소', function: () => console.log('취소') },
@@ -55,9 +55,9 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
           </div>
           <p>{review.content}</p>
         </div>
-        <div className="review_state">
+        {/* <div className="review_state">
           <More onClick={() => setShowMoreModal(true)} />
-        </div>
+        </div> */}
       </ReviewBoxStyled>
       {showMoreModal && <SelectModal setModal={setShowMoreModal} selects={reviewMoreSelect} />}
     </>

@@ -1,10 +1,8 @@
 import { BuyHistoryPageStyled } from './BuyHistoryPageStyled';
 import Top from '@molecules/Top/Top';
 import MyProductBox from '@molecules/MyProductBox/MyProductBox';
-import { dummyProduct } from 'pages/Product/ProductDetailPage/ProductDetailPage';
 import usePurchaseHistoryLoad from 'hooks/queries/product/usePurchaseHistoryLoad';
 import Spinner from '@atoms/Spinner/Spinner';
-import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 
 const MyProductBoxSelects = {
   후기안씀: {
@@ -31,25 +29,17 @@ const BuyHistoryPage = () => {
     <>
       <BuyHistoryPageStyled>
         <Top title="구매내역" left="prev" />
-        {/* <MyProductBox
-          type="sell"
-          product={dummyProduct}
-          stateSelects={MyProductBoxSelects.후기씀.stateSelects}
-          moreSelects={MyProductBoxSelects.후기씀.moreSelects}
-        />
-        <MyProductBox
-          type="sell"
-          product={dummyProduct}
-          stateSelects={MyProductBoxSelects.후기안씀.stateSelects}
-          moreSelects={MyProductBoxSelects.후기안씀.moreSelects}
-        /> */}
         {products.map((product) => (
           <MyProductBox
             key={product.id}
             type="sell"
             product={product}
-            stateSelects={MyProductBoxSelects.후기안씀.stateSelects}
-            moreSelects={MyProductBoxSelects.후기안씀.moreSelects}
+            stateSelects={
+              !product.has_review ? MyProductBoxSelects.후기안씀.stateSelects : MyProductBoxSelects.후기씀.stateSelects
+            }
+            moreSelects={
+              !product.has_review ? MyProductBoxSelects.후기안씀.moreSelects : MyProductBoxSelects.후기씀.moreSelects
+            }
           />
         ))}
       </BuyHistoryPageStyled>

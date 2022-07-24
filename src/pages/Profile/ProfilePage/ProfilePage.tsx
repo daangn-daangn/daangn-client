@@ -11,7 +11,7 @@ import { ReactComponent as Bag } from 'assets/bag.svg';
 import { ReactComponent as Heart } from 'assets/heart.svg';
 import { IUser } from 'interfaces/User.interface';
 import TabBar from '@organisms/TabBar/TabBar';
-import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
+import ReviewBox from '@molecules/ReviewBox/ReviewBox';
 import List from '@atoms/List/List';
 import useMe from 'hooks/queries/user/useMe';
 import Spinner from '@atoms/Spinner/Spinner';

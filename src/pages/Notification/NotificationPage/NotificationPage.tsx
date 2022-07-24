@@ -78,7 +78,7 @@ const NotificationPage = () => {
         <Top left="prev" title="알림" />
         <NotificationCardGroup>
           {data.map((notification, index) => (
-            <NotificationCard key={Number(notification.created_at) + index} notification={notification} />
+            <NotificationCard key={notification.id} notification={notification} />
           ))}
         </NotificationCardGroup>
       </NotificationPageStyled>

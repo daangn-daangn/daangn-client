@@ -35,6 +35,7 @@ const ReviewGivePage = () => {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm<IForm>();
 
   const onSubmit = (data: IForm) => {
@@ -73,7 +74,7 @@ const ReviewGivePage = () => {
           placeholder_color="#ffffff"
         />
         <Message message={errors?.content?.message} />
-        <Button type="submit" height="50px" width="100%">
+        <Button disabled={!watch('content')} type="submit" height="50px" width="100%">
           후기 남기기
         </Button>
       </form>

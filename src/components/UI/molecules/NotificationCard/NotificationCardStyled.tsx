@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 
-export const StyledNotificationCard = styled.div`
+export const StyledNotificationCard = styled.div<{ isRead: boolean }>`
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 0 10px 20px;
+  padding: 20px 10px 20px;
+  background-color: ${(props) => (!props.isRead ? props.theme.$black20 : '#fff')};
   cursor: pointer;
   .noti_detail {
     flex: 1;
