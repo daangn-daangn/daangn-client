@@ -15,6 +15,7 @@ import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
 import List from '@atoms/List/List';
 import useMe from 'hooks/queries/user/useMe';
 import Spinner from '@atoms/Spinner/Spinner';
+import useReviewsLoad from 'hooks/queries/review/useReviewsLoad';
 
 const dummyUser: IUser = {
   id: 1,
@@ -28,6 +29,10 @@ const dummyUser: IUser = {
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { data: me } = useMe();
+  const { data: allReviews } = useReviewsLoad({
+    userId: me?.id as number,
+    enabled: !!me,
+  });
   if (!me) {
     return <Spinner />;
   }
@@ -99,10 +104,11 @@ const ProfilePage = () => {
           <div className="justify-space-between" onClick={() => navigate('review')}>
             받은 거래 후기 <Next className="next-svg" />
           </div>
-          <div className="reviews-wrap">
-            <ReviewBox review={dummyReview} />
-            <ReviewBox review={dummyReview} />
-          </div>
+          {allReviews?.map((review) => (
+            <div key={review.id} className="reviews-wrap">
+              <ReviewBox review={review} />
+            </div>
+          ))}
         </List>
         <TabBar />
       </ProfilePageStyled>

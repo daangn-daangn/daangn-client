@@ -43,21 +43,35 @@ const ReviewPage = () => {
           <NavStateBar states={navStates} />
         </div>
         {/* 리뷰 없는 경우 나중에 추가 */}
-        <span className="review-count"> 후기 1개</span>
         {reviewState === '전체후기' && (
-          <div className="reviews-wrap">
-            <ReviewBox reviewState={reviewState} review={dummyReview} />
-          </div>
+          <>
+            <span className="review-count"> {allReviews ? `후기 ${allReviews.length}개` : '로딩중...'}</span>
+            {allReviews?.map((review) => (
+              <div key={review.id} className="reviews-wrap">
+                <ReviewBox reviewState={reviewState} review={review} />
+              </div>
+            ))}
+          </>
         )}
         {reviewState === '판매자 후기' && (
-          <div className="reviews-wrap">
-            <ReviewBox reviewState={reviewState} review={dummyReview} />
-          </div>
+          <>
+            <span className="review-count"> {sellerReviews ? `후기 ${sellerReviews.length}개` : '로딩중...'}</span>
+            {sellerReviews?.map((review) => (
+              <div key={review.id} className="reviews-wrap">
+                <ReviewBox reviewState={reviewState} review={review} />
+              </div>
+            ))}
+          </>
         )}
         {reviewState === '구매자 후기' && (
-          <div className="reviews-wrap">
-            <ReviewBox reviewState={reviewState} review={dummyReview} />
-          </div>
+          <>
+            <span className="review-count"> {buyerReviews ? `후기 ${buyerReviews.length}개` : '로딩중...'}</span>
+            {buyerReviews?.map((review) => (
+              <div key={review.id} className="reviews-wrap">
+                <ReviewBox reviewState={reviewState} review={review} />
+              </div>
+            ))}
+          </>
         )}
       </ReviewPageStyled>
     </>
