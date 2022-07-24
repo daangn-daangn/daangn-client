@@ -120,8 +120,7 @@ const SellHistoryPage = () => {
         {
           content: '거래완료',
           function: (productId: number) => {
-            // 거래완료 id 나중에 구매자 id구해 줘야함.
-            // productEditStateMutation.mutate({ productId, productState: ProductState.SOLD_OUT, buyerId: 1 });
+            navigate(`/select-buyer/${productId}`);
           },
         },
       ],
@@ -150,7 +149,12 @@ const SellHistoryPage = () => {
     거래완료: {
       stateSelects: [{ content: '후기 보내기', function: (productId: number) => console.log('후기 보내기') }],
       moreSelects: [
-        { content: '판매중', function: () => console.log('판매중') },
+        {
+          content: '판매중',
+          function: () => {
+            productEditStateMutation.mutate({ productId: selectProductId, productState: ProductState.FOR_SALE });
+          },
+        },
         {
           content: '게시글 수정',
           function: () => {

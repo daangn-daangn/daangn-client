@@ -32,7 +32,7 @@ const BuyHistoryPage = () => {
         {products.map((product) => (
           <MyProductBox
             key={product.id}
-            type="sell"
+            type="buy"
             product={product}
             stateSelects={
               !product.has_review ? MyProductBoxSelects.후기안씀.stateSelects : MyProductBoxSelects.후기씀.stateSelects

@@ -49,11 +49,8 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
           <Price productPrice={product.price} />
         </div>
         <div className="product_state">
-          {type !== 'like' ? (
-            <More width="18" height="18" fill="#808080" onClick={onClickMoreButton} />
-          ) : (
-            <Like isFavorite={true} width="18px" height="18px" />
-          )}
+          {type === 'like' && <Like isFavorite={true} width="18px" height="18px" />}
+          {type === 'sell' && <More width="18" height="18" fill="#808080" onClick={onClickMoreButton} />}
           <Like isFavorite={true} count={product.favorite_count} />
         </div>
       </StyledMyProductBox>
