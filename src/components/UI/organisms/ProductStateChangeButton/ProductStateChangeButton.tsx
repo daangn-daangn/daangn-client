@@ -7,6 +7,7 @@ import { ISelect } from '@molecules/MyProductBox/MyProductBox';
 import useProductEditState from 'hooks/queries/product/useProductEditState';
 import QUERY_KEYS from 'constants/queryKeys';
 import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 export interface ProductStateChangeButtonProps {
   productId: number;
@@ -14,6 +15,7 @@ export interface ProductStateChangeButtonProps {
 }
 
 const ProductStateChangeButton = ({ productId, productState }: ProductStateChangeButtonProps) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showProductStateModal, setShowProductStateModal] = useState(false);
   const onClickShowModal = () => {
@@ -57,7 +59,7 @@ const ProductStateChangeButton = ({ productId, productState }: ProductStateChang
             mutation.mutate({ productId, productState: content });
             break;
           case ProductState.SOLD_OUT:
-            console.log('구매자 선택 페이지로 이동');
+            navigate(`/select-buyer/${productId}`);
             break;
           default:
             break;

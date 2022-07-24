@@ -1,6 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { selectProductIdState } from 'stores/Profile';
 import { SelectModalStyled, SelectModalWrapper } from './SelectModalStyled';
 
 export interface SelectModalProps {

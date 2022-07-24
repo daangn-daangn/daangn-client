@@ -19,6 +19,7 @@ import ProfilePage from 'pages/Profile/ProfilePage/ProfilePage';
 import ReviewPage from 'pages/Profile/ReviewPage/ReviewPage';
 import SellHistoryPage from 'pages/Profile/SellHistoryPage/SellHistoryPage';
 import ReviewGivePage from 'pages/Review/ReviewGivePage/ReviewGivePage';
+import SelectBuyerPage from 'pages/SelectBuyer/SelectBuyerPage/SelectBuyerPage';
 import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage';
 import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
@@ -67,6 +68,9 @@ const LoggedInRouter = () => {
         </Route>
         <Route path="/review">
           <Route path="give" element={<ReviewGivePage />} />
+        </Route>
+        <Route path="/select-buyer">
+          <Route path=":productId" element={<SelectBuyerPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ReviewBoxStyled } from './ReviewBoxStyled';
-import { IUser } from 'interfaces/User.interface';
 import Image from '@atoms/Image/Image';
 import Time from '@atoms/Time/Time';
 import { ReactComponent as More } from 'assets/more.svg';
