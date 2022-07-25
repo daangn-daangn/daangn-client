@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { ReviewPageStyled } from './ReviewPageStyled';
 import Top from '@molecules/Top/Top';
 import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
@@ -11,23 +11,23 @@ import useBuyerReviewsLoad from 'hooks/queries/review/buyer/useBuyerReviewsLoad'
 export type ReviewState = '전체후기' | '판매자 후기' | '구매자 후기';
 
 const ReviewPage = () => {
+  const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { ReviewState: ReviewState };
   const reviewState: ReviewState = state?.ReviewState || '전체후기';
-  const { data: me } = useMe({ refetchOnWindowFocus: false });
   const { data: allReviews } = useReviewsLoad({
-    userId: me?.id as number,
-    enabled: reviewState === '전체후기' && !!me,
+    userId: Number(userId),
+    enabled: reviewState === '전체후기' && !!userId,
   });
   const { data: sellerReviews } = useSellerReviewsLoad({
-    userId: me?.id as number,
-    enabled: reviewState === '판매자 후기' && !!me,
+    userId: Number(userId),
+    enabled: reviewState === '판매자 후기' && !!userId,
   });
 
   const { data: buyerReviews } = useBuyerReviewsLoad({
-    userId: me?.id as number,
-    enabled: reviewState === '구매자 후기' && !!me,
+    userId: Number(userId),
+    enabled: reviewState === '구매자 후기' && !!userId,
   });
   const navStates = [
     { menu: '전체후기', onClick: () => navigate('', { state: { ReviewState: '전체후기' } }) },
@@ -39,7 +39,7 @@ const ReviewPage = () => {
     <>
       <ReviewPageStyled>
         <div className="review-page-top">
-          <Top title="거래 후기 상세" left="prev" leftClick={() => navigate('/profile')} />
+          <Top title="거래 후기 상세" left="prev" leftClick={() => navigate(`/profile/${Number(userId)}`)} />
           <NavStateBar states={navStates} />
         </div>
         {/* 리뷰 없는 경우 나중에 추가 */}

@@ -11,6 +11,8 @@ import useSellerReviewDelete from 'hooks/queries/review/seller/useSellerReviewDe
 import useReviewHide from 'hooks/queries/review/useReviewHide';
 import QUERY_KEYS from 'constants/queryKeys';
 import { useQueryClient } from 'react-query';
+import useMe from 'hooks/queries/user/useMe';
+import { useParams } from 'react-router-dom';
 
 export interface ReviewBoxProps {
   review: IReview;
@@ -29,30 +31,44 @@ export const dummyReview: IReview = {
 
 const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
   const queryClient = useQueryClient();
+  const { userId } = useParams<{ userId: string }>();
+  const { data: me } = useMe({ refetchOnWindowFocus: false });
   const [showMoreModal, setShowMoreModal] = useState<boolean>(false);
-  const deleteBuyerReviewMutation = useBuyerReviewDelete();
-  const deleteSellerReviewMutation = useSellerReviewDelete();
+  const deleteBuyerReviewMutation = useBuyerReviewDelete({
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY_KEYS.SALEREVIEWS);
+    },
+  });
+  const deleteSellerReviewMutation = useSellerReviewDelete({
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY_KEYS.SALEREVIEWS);
+    },
+  });
   const putReviewHideMutation = useReviewHide({
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.SALEREVIEWS);
     },
   });
-  const reviewMoreSelect = [
-    // {
-    //   content: '거래후기 삭제',
-    //   function: () => {
-    //     if (reviewState === '구매자 후기') {
-    //       deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
-    //     }
-    //     if (reviewState === '판매자 후기') {
-    //       deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
-    //     }
-    //   },
-    // },
+  const myProfileReviewMoreSelect = [
     {
       content: '숨김',
       function: () => {
         putReviewHideMutation.mutate({ review_id: review.id });
+      },
+    },
+    { content: '취소', function: () => console.log('취소') },
+  ];
+
+  const myReviewMoreSelect = [
+    {
+      content: '거래후기 삭제',
+      function: () => {
+        if (reviewState === '구매자 후기') {
+          deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
+        }
+        if (reviewState === '판매자 후기') {
+          deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
+        }
       },
     },
     { content: '취소', function: () => console.log('취소') },
@@ -70,11 +86,18 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
           </div>
           <p>{review.content}</p>
         </div>
-        <div className="review_state">
-          <More onClick={() => setShowMoreModal(true)} />
-        </div>
+        {(me?.id === Number(userId) || review.reviewer_id === me?.id) && (
+          <div className="review_state">
+            <More onClick={() => setShowMoreModal(true)} />
+          </div>
+        )}
       </ReviewBoxStyled>
-      {showMoreModal && <SelectModal setModal={setShowMoreModal} selects={reviewMoreSelect} />}
+      {showMoreModal && (
+        <SelectModal
+          setModal={setShowMoreModal}
+          selects={review.reviewer_id === me?.id ? myReviewMoreSelect : myProfileReviewMoreSelect}
+        />
+      )}
     </>
   );
 };

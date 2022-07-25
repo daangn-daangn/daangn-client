@@ -14,11 +14,13 @@ import { useEffect } from 'react';
 import Spinner from '@atoms/Spinner/Spinner';
 import { useQueryClient } from 'react-query';
 import QUERY_KEYS from 'constants/queryKeys';
+import useMe from 'hooks/queries/user/useMe';
 
 const SellHistoryPage = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
+  const { data: me } = useMe({ refetchOnWindowFocus: false });
   const state = location.state as { productState: ProductState };
   const { data: products } = useSalesHistoryLoad({
     productState: state?.productState || ProductState.FOR_SALE,
@@ -207,7 +209,7 @@ const SellHistoryPage = () => {
     <>
       <SellHistoryPageStyled>
         <div className="sell-history-page-top">
-          <Top title="판매내역" left="prev" leftClick={() => navigate('/profile')} />
+          <Top title="판매내역" left="prev" leftClick={() => navigate(`/profile/${me?.id}`)} />
           <NavStateBar states={navStates} />
         </div>
         {products ? (

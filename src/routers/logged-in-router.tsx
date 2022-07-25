@@ -55,13 +55,13 @@ const LoggedInRouter = () => {
           <Route path="location/share" element={<LocationSharePage />} />
         </Route>
         <Route path="/profile">
-          <Route path="" element={<ProfilePage />} />
           <Route path="edit" element={<ProfileEditPage />} />
           <Route path="sell" element={<SellHistoryPage />} />
           <Route path="buy" element={<BuyHistoryPage />} />
           <Route path="like" element={<LikeListPage />} />
-          <Route path="review" element={<ReviewPage />} />
-          <Route path="manner" element={<MannerPage />} />
+          <Route path=":userId" element={<ProfilePage />} />
+          <Route path=":userId/manner" element={<MannerPage />} />
+          <Route path=":userId/review" element={<ReviewPage />} />
         </Route>
         <Route path="/notification">
           <Route path="" element={<NotificationPage />} />
