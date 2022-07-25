@@ -33,23 +33,32 @@ const BuyHistoryPage = () => {
       <BuyHistoryPageStyled>
         <Top title="구매내역" left="prev" />
         <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_BUY_HISTORY} />}>
-          {products.map((product) => (
-            <MyProductBox
-              key={product.id}
-              type="buy"
-              product={product}
-              stateSelects={
-                !product.has_review
-                  ? MyProductBoxSelects.후기안씀.stateSelects
-                  : MyProductBoxSelects.후기씀.stateSelects
-              }
-              moreSelects={
-                !product.has_review ? MyProductBoxSelects.후기안씀.moreSelects : MyProductBoxSelects.후기씀.moreSelects
-              }
-            />
-          ))}
+          <BuyProductContainer />
         </ErrorBoundary>
       </BuyHistoryPageStyled>
+    </>
+  );
+};
+
+const BuyProductContainer = () => {
+  const { data: products } = usePurchaseHistoryLoad({
+    refetchOnWindowFocus: false,
+  });
+  return (
+    <>
+      {products?.map((product) => (
+        <MyProductBox
+          key={product.id}
+          type="buy"
+          product={product}
+          stateSelects={
+            !product.has_review ? MyProductBoxSelects.후기안씀.stateSelects : MyProductBoxSelects.후기씀.stateSelects
+          }
+          moreSelects={
+            !product.has_review ? MyProductBoxSelects.후기안씀.moreSelects : MyProductBoxSelects.후기씀.moreSelects
+          }
+        />
+      ))}
     </>
   );
 };

@@ -20,16 +20,39 @@ import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
 
 const SellHistoryPage = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
   const { data: me } = useMe({ refetchOnWindowFocus: false });
   const state = location.state as { productState: ProductState };
+  const prodcutState = state?.productState || ProductState.FOR_SALE;
+  const navStates = [
+    { menu: ProductState.FOR_SALE, onClick: () => navigate('', { state: { productState: ProductState.FOR_SALE } }) },
+    { menu: ProductState.SOLD_OUT, onClick: () => navigate('', { state: { productState: ProductState.SOLD_OUT } }) },
+    { menu: ProductState.HIDE, onClick: () => navigate('', { state: { productState: ProductState.HIDE } }) },
+  ];
+  return (
+    <>
+      <SellHistoryPageStyled>
+        <div className="sell-history-page-top">
+          <Top title="판매내역" left="prev" leftClick={() => navigate(`/profile/${me?.id}`)} />
+          <NavStateBar states={navStates} />
+        </div>
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_SELL_HISTORY} />}>
+          <SellProdcutContainer productState={prodcutState} />
+        </ErrorBoundary>
+      </SellHistoryPageStyled>
+    </>
+  );
+};
+
+const SellProdcutContainer = ({ productState }: { productState: ProductState }) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { data: products } = useSalesHistoryLoad({
-    productState: state?.productState || ProductState.FOR_SALE,
+    productState,
     refetchOnWindowFocus: false,
   });
-  const queryKey = [QUERY_KEYS.PRODUCTS, state?.productState || ProductState.FOR_SALE];
+  const queryKey = [QUERY_KEYS.PRODUCTS, productState];
   const [selectProductId, setSelectProductId] = useRecoilState(selectProductIdState);
   const productEditStateMutation = useProductEditState({
     onMutate: async ({ productId }) => {
@@ -94,17 +117,6 @@ const SellHistoryPage = () => {
       queryClient.invalidateQueries(queryKey);
     },
   });
-  const navStates = [
-    { menu: ProductState.FOR_SALE, onClick: () => navigate('', { state: { productState: ProductState.FOR_SALE } }) },
-    { menu: ProductState.SOLD_OUT, onClick: () => navigate('', { state: { productState: ProductState.SOLD_OUT } }) },
-    { menu: ProductState.HIDE, onClick: () => navigate('', { state: { productState: ProductState.HIDE } }) },
-  ];
-
-  useEffect(() => {
-    // 페이지 나갈시 고른 productId -1로 초기화
-    return () => setSelectProductId(-1);
-  }, []);
-
   const MyProductBoxSelects = {
     판매중: {
       stateSelects: [
@@ -207,38 +219,31 @@ const SellHistoryPage = () => {
       ],
     },
   };
-
+  useEffect(() => {
+    // 페이지 나갈시 고른 productId -1로 초기화
+    return () => setSelectProductId(-1);
+  }, []);
   return (
     <>
-      <SellHistoryPageStyled>
-        <div className="sell-history-page-top">
-          <Top title="판매내역" left="prev" leftClick={() => navigate(`/profile/${me?.id}`)} />
-          <NavStateBar states={navStates} />
-        </div>
-        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_SELL_HISTORY} />}>
-          {products ? (
-            products.map((product) => (
-              <MyProductBox
-                key={product.id}
-                type="sell"
-                product={product}
-                stateSelects={
-                  MyProductBoxSelects[
-                    (state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE
-                  ].stateSelects
-                }
-                moreSelects={
-                  MyProductBoxSelects[
-                    (state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE
-                  ].moreSelects
-                }
-              />
-            ))
-          ) : (
-            <Spinner />
-          )}
-        </ErrorBoundary>
-      </SellHistoryPageStyled>
+      {products ? (
+        products.map((product) => (
+          <MyProductBox
+            key={product.id}
+            type="sell"
+            product={product}
+            stateSelects={
+              MyProductBoxSelects[(productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                .stateSelects
+            }
+            moreSelects={
+              MyProductBoxSelects[(productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
+                .moreSelects
+            }
+          />
+        ))
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 };

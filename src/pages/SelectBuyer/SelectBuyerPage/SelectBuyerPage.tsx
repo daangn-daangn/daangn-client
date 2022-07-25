@@ -40,13 +40,11 @@ const SelectBuyerPage = () => {
       <UserList>
         <Title fontWeigt="700">최근 채팅 목록에서 구매자 찾기</Title>
         <ul className="buyer_list">
-          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
-            {users?.map((user) => (
-              <li key={user.id} onClick={() => onClickUser(user.id)}>
-                <CheckBox text={`닉네임 - ${user.name}`} isCheck={selectUser == user.id} />
-              </li>
-            ))}
-          </ErrorBoundary>
+          {users?.map((user) => (
+            <li key={user.id} onClick={() => onClickUser(user.id)}>
+              <CheckBox text={`닉네임 - ${user.name}`} isCheck={selectUser == user.id} />
+            </li>
+          ))}
         </ul>
       </UserList>
       <Button

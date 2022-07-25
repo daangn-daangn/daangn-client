@@ -7,9 +7,7 @@ import TabBar from '@organisms/TabBar/TabBar';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { ERROR_MSG } from 'constants/message';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
-import { useRecoilValue } from 'recoil';
-import { craeteSearchParamsState } from 'stores/Home';
-import { IProduct, IProductLoad } from '../../../interfaces/Product.interface';
+import { IProductLoad } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
 
 export const dummyProduct: IProductLoad = {
@@ -34,8 +32,6 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
-  const craeteSearchParams = useRecoilValue(craeteSearchParamsState);
-  console.log(craeteSearchParams);
   const { data: products, isLoading } = useProductsLoad({ refetchOnWindowFocus: false });
   if (isLoading) {
     return <Spinner />;

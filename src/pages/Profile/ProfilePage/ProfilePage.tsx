@@ -20,6 +20,7 @@ import useUserInfo from 'hooks/queries/user/useUserInfo';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
+import { IReview } from 'interfaces/Review.interface';
 
 const dummyUser: IUser = {
   id: 1,
@@ -35,10 +36,6 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { data: me } = useMe();
   const { data: user } = useUserInfo({ userId: Number(userId) });
-  const { data: allReviews } = useReviewsLoad({
-    userId: Number(userId),
-    enabled: !!userId,
-  });
   if (!user) {
     return <Spinner />;
   }
@@ -117,11 +114,7 @@ const ProfilePage = () => {
             받은 거래 후기 <Next className="next-svg" />
           </div>
           <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_ALL} />}>
-            {allReviews?.map((review) => (
-              <div key={review.id} className="reviews-wrap">
-                <ReviewBox review={review} />
-              </div>
-            ))}
+            <ReviewContainer userId={1} />
           </ErrorBoundary>
         </List>
         <TabBar />
@@ -129,4 +122,20 @@ const ProfilePage = () => {
     </>
   );
 };
+
+const ReviewContainer = ({ userId }: { userId: number }) => {
+  const { data: allReviews } = useReviewsLoad({
+    userId,
+  });
+  return (
+    <>
+      {allReviews?.map((review) => (
+        <div key={review.id} className="reviews-wrap">
+          <ReviewBox review={review} />
+        </div>
+      ))}
+    </>
+  );
+};
+
 export default ProfilePage;

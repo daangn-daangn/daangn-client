@@ -8,22 +8,27 @@ import useNotificationsLoad from 'hooks/queries/notification/useNotificationsLoa
 import { NotificationCardGroup, NotificationPageStyled } from './NotificationPageStyled';
 
 const NotificationPage = () => {
-  const { data } = useNotificationsLoad();
-  if (!data) {
-    return <Spinner />;
-  }
   return (
     <>
       <NotificationPageStyled>
         <Top left="prev" title="알림" />
         <NotificationCardGroup>
           <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_NOTIFICATIONS} />}>
-            {data.map((notification) => (
-              <NotificationCard key={notification.id} notification={notification} />
-            ))}
+            <NotificationCardContaioner />
           </ErrorBoundary>
         </NotificationCardGroup>
       </NotificationPageStyled>
+    </>
+  );
+};
+
+const NotificationCardContaioner = () => {
+  const { data: notifications } = useNotificationsLoad();
+  return (
+    <>
+      {notifications?.map((notification) => (
+        <NotificationCard key={notification.id} notification={notification} />
+      ))}
     </>
   );
 };
