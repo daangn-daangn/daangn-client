@@ -1,8 +1,10 @@
 import PostButton from '@atoms/PostButton/PostButton';
 import Spinner from '@atoms/Spinner/Spinner';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
+import ErrorBoundary from 'components/ErrorBoundary';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
 import { useRecoilValue } from 'recoil';
 import { craeteSearchParamsState } from 'stores/Home';
@@ -40,7 +42,13 @@ const HomePage = () => {
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
-      <div className="productWrapper">{products && <ProductBoxes products={products} />}</div>
+      <div className="productWrapper">
+        {products && (
+          <ErrorBoundary fallback={<ErrorFallback message="물품들을 불러오는데 에러가 발생했습니다." />}>
+            <ProductBoxes products={products} />
+          </ErrorBoundary>
+        )}
+      </div>
       <TabBar />
       <PostButton />
     </StyledHome>

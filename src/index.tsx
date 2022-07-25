@@ -10,6 +10,8 @@ import { ThemeProvider } from '@emotion/react';
 import Theme from './styles/Theme';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -28,7 +30,9 @@ ReactDOM.render(
       <RecoilRoot>
         <ThemeProvider theme={Theme}>
           <Global styles={GlobalStyle} />
-          <App />
+          <ErrorBoundary fallback={<ErrorFallback message="얘기치 못한 에러가 발생했어요!" />}>
+            <App />
+          </ErrorBoundary>
           <ToastContainer />
         </ThemeProvider>
       </RecoilRoot>

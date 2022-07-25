@@ -5,6 +5,7 @@ import { DetailBoxStyled } from './DetailBoxStyled';
 import { IProduct } from 'interfaces/Product.interface';
 import ProductStateChangeButton from '@organisms/ProductStateChangeButton/ProductStateChangeButton';
 import { Link } from 'react-router-dom';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 export interface DetailBoxProps {
   slides: Pick<IProduct, 'product_images'>;
