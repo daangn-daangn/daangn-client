@@ -8,6 +8,7 @@ export const StyledProductBox = styled.div`
   .product_info {
     flex: 1;
     margin-left: 10px;
+    margin-top: 6px;
     display: flex;
     flex-direction: column;
     gap: 10px;

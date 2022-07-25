@@ -9,7 +9,6 @@ import { ReactComponent as Next } from 'assets/next.svg';
 import { ReactComponent as Receipt } from 'assets/receipt.svg';
 import { ReactComponent as Bag } from 'assets/bag.svg';
 import { ReactComponent as Heart } from 'assets/heart.svg';
-import { IUser } from 'interfaces/User.interface';
 import TabBar from '@organisms/TabBar/TabBar';
 import ReviewBox from '@molecules/ReviewBox/ReviewBox';
 import List from '@atoms/List/List';
@@ -20,16 +19,6 @@ import useUserInfo from 'hooks/queries/user/useUserInfo';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
-import { IReview } from 'interfaces/Review.interface';
-
-const dummyUser: IUser = {
-  id: 1,
-  nickname: '유키링',
-  profile_url:
-    'https://img1.cgtrader.com/items/3095532/6fb947cfc0/large/hello-kitty-sanrio-3d-model-low-poly-obj-ztl.jpg',
-  location: '서울 강남',
-  manner: 38.6,
-};
 
 const ProfilePage = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -114,7 +103,7 @@ const ProfilePage = () => {
             받은 거래 후기 <Next className="next-svg" />
           </div>
           <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_ALL} />}>
-            <ReviewContainer userId={1} />
+            <ReviewContainer userId={Number(userId)} />
           </ErrorBoundary>
         </List>
         <TabBar />

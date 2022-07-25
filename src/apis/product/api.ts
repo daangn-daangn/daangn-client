@@ -2,11 +2,15 @@ import axios from 'axios';
 import { INewProduct, ProductState } from 'interfaces/Product.interface';
 import checkProdcutStateNum from 'utils/checkProdcutStateNum';
 
+interface PageNationParams {
+  page?: number;
+}
+
 interface IProductIdParams {
   productId: number;
 }
 
-export interface GetProdctsParams {
+export interface GetProdctsParams extends PageNationParams {
   title?: string | null;
   categories?: string | null;
   minPrice?: string | null;
@@ -44,12 +48,12 @@ export interface DeleteProdductParams extends IProductIdParams {}
 export interface PostProductFavoriteParams extends IProductIdParams {}
 export interface DeleteProductFavoriteParams extends IProductIdParams {}
 
-export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
+export const getProdcts = async ({ title, categories, minPrice, maxPrice, page = 0 }: GetProdctsParams) => {
   return axios
     .get('/api/products', {
-      params: { title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
+      params: { page, size: 20, title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
     })
-    .then((res) => res.data.response);
+    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 20 }));
 };
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {
@@ -77,19 +81,43 @@ export const getProductById = async (productId: number) => {
 
 export const putProductChangeState = async ({ productId, productState, buyer_id }: PutProductChangeStateParmas) => {
   const state = checkProdcutStateNum(productState);
-  return axios.put(`/api/products/state/${productId}`, { state, buyer_id }).then((res) => res.data);
+  return axios
+    .put(`/api/products/state/${productId}`, { state, buyer_id })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const putProductPullUp = async ({ productId }: PutProdcutPullUpParams) => {
-  return axios.put(`/api/products/refreshment/${productId}`).then((res) => res.data);
+  return axios
+    .put(`/api/products/refreshment/${productId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const putProductHide = async ({ productId }: PutProdcutHideParams) => {
-  return axios.put(`/api/sale-reviews/hide/${productId}`).then((res) => res.data);
+  return axios
+    .put(`/api/sale-reviews/hide/${productId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const deleteProduct = async ({ productId }: DeleteProdductParams) => {
-  return axios.delete(`/api/products/${productId}`).then((res) => res.data);
+  return axios
+    .delete(`/api/products/${productId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
 export const getPurchaseHistory = async () => {
@@ -102,10 +130,12 @@ export const getPurchaseHistory = async () => {
     });
 };
 
-export const getProductFavorite = async () => {
+export const getProductFavorite = async ({ page = 0 }: PageNationParams) => {
   return axios
-    .get('/api/favorite-products')
-    .then((res) => res.data.response)
+    .get('/api/favorite-products', {
+      params: { page },
+    })
+    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 20 }))
     .catch((error) => {
       console.error(error);
       throw new Error(error);

@@ -20,14 +20,20 @@ const LikeListPage = () => {
 };
 
 const LikeProductContainer = () => {
-  const { data: products } = useProductsFavoriteLoad({
-    refetchOnWindowFocus: false,
-  });
+  const { data, isFetchingNextPage, ref } = useProductsFavoriteLoad();
   return (
     <>
-      {products?.map((product) => (
+      {/* {products?.map((product) => (
         <MyProductBox key={product.id} type="like" product={product} />
+      ))} */}
+      {data?.pages.map((page, index) => (
+        <>
+          {page.data.map((product) => (
+            <MyProductBox key={product.id} type="like" product={product} />
+          ))}
+        </>
       ))}
+      {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
     </>
   );
 };

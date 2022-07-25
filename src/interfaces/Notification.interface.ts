@@ -35,7 +35,7 @@ export interface INotiCodeTwo extends INotiCodeCommon {
   price: null;
   title: string;
   thumb_nail_image: string;
-  reviewer_id: null;
+  reviewer_id: number;
   nickname: null;
   profile_url: null;
 }

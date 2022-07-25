@@ -32,23 +32,31 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
-  const { data: products, isLoading } = useProductsLoad({ refetchOnWindowFocus: false });
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
       <div className="productWrapper">
-        {products && (
-          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
-            <ProductBoxes products={products} />
-          </ErrorBoundary>
-        )}
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
+          <ProductContainer />
+        </ErrorBoundary>
       </div>
       <TabBar />
       <PostButton />
     </StyledHome>
+  );
+};
+
+const ProductContainer = () => {
+  const { data, isFetchingNextPage, ref } = useProductsLoad();
+  return (
+    <>
+      {data?.pages.map((page, index) => (
+        <div key={index}>
+          <ProductBoxes products={page.data} />
+          {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
+        </div>
+      ))}
+    </>
   );
 };
 

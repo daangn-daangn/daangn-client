@@ -1,31 +1,39 @@
 import { getProdcts } from 'apis/product/api';
 import QUERY_KEYS from 'constants/queryKeys';
-import { IProduct, IProductLoad } from 'interfaces/Product.interface';
-import { useQuery, UseQueryOptions } from 'react-query';
+import { IProductLoad } from 'interfaces/Product.interface';
+import { useInfiniteQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { craeteSearchParamsState } from 'stores/Home';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
+import { PageNation } from 'interfaces/Pagination.interface';
 
-interface CustomQueryOption extends UseQueryOptions<IProductLoad[], unknown> {}
-
-const useProductsLoad = ({ ...options }: CustomQueryOption = {}) => {
+const useProductsLoad = () => {
+  const { ref, inView } = useInView();
   const [searchParams] = useSearchParams();
-  // const craeteSearchParams = useRecoilValue(craeteSearchParamsState);
-  // console.log(craeteSearchParams);
   const queries = {
     title: searchParams.get('title'),
     categories: searchParams.get('categories'),
     minPrice: searchParams.get('minPrice'),
     maxPrice: searchParams.get('maxPrice'),
   };
-  return useQuery<IProductLoad[]>(
+  const { data, refetch, fetchNextPage, isFetchingNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [QUERY_KEYS.PRODUCTS, queries],
-    () =>
-      getProdcts({
-        ...queries,
-      }),
-    options,
+    ({ pageParam = 0 }) => getProdcts({ ...queries, page: pageParam }),
+    {
+      getNextPageParam: (lastPage: PageNation<IProductLoad[]>) => (!lastPage.isLast ? lastPage.nextPage : undefined),
+    },
   );
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetching) fetchNextPage();
+  }, [inView]);
+
+  return {
+    data,
+    isFetching,
+    isFetchingNextPage,
+    ref,
+    refetch,
+  };
 };
 
 export default useProductsLoad;
