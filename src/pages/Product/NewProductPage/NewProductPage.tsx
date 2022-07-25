@@ -23,7 +23,6 @@ const NewProductPage = () => {
   const mutation = useProductUpload({
     onSuccess: (data) => {
       // 성공시 홈으로?
-      console.log(data);
       navigate('/');
     },
     onError: (error) => {

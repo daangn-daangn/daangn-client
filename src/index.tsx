@@ -8,7 +8,8 @@ import { Global } from '@emotion/react';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from '@emotion/react';
 import Theme from './styles/Theme';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -28,6 +29,7 @@ ReactDOM.render(
         <ThemeProvider theme={Theme}>
           <Global styles={GlobalStyle} />
           <App />
+          <ToastContainer />
         </ThemeProvider>
       </RecoilRoot>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
