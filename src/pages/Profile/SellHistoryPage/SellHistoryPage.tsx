@@ -123,14 +123,12 @@ const SellProdcutContainer = ({ productState }: { productState: ProductState }) 
         {
           content: '끌어올리기',
           function: (productId: number) => {
-            console.log('끌어올리기', productId);
             prodcutPullUpMutation.mutate({ productId });
           },
         },
         {
           content: '예약중',
           function: (productId: number) => {
-            //예약중변경 API 요청
             productEditStateMutation.mutate({ productId, productState: ProductState.REVERSED });
           },
         },
@@ -157,7 +155,6 @@ const SellProdcutContainer = ({ productState }: { productState: ProductState }) 
         {
           content: '삭제',
           function: () => {
-            console.log('삭제');
             prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },
@@ -212,7 +209,6 @@ const SellProdcutContainer = ({ productState }: { productState: ProductState }) 
         {
           content: '삭제',
           function: () => {
-            console.log('삭제');
             prodcutdeleteMutation.mutate({ productId: selectProductId });
           },
         },

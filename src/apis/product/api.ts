@@ -11,6 +11,7 @@ export interface GetProdctsParams {
   categories?: string | null;
   minPrice?: string | null;
   maxPrice?: string | null;
+  page?: number;
 }
 
 export interface EditProdctsParams {
@@ -44,12 +45,12 @@ export interface DeleteProdductParams extends IProductIdParams {}
 export interface PostProductFavoriteParams extends IProductIdParams {}
 export interface DeleteProductFavoriteParams extends IProductIdParams {}
 
-export const getProdcts = async ({ title, categories, minPrice, maxPrice }: GetProdctsParams) => {
+export const getProdcts = async ({ title, categories, minPrice, maxPrice, page = 0 }: GetProdctsParams) => {
   return axios
     .get('/api/products', {
-      params: { title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
+      params: { page, title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
     })
-    .then((res) => res.data.response);
+    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 5 }));
 };
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {

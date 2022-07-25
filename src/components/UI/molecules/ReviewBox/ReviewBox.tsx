@@ -27,6 +27,7 @@ export const dummyReview: IReview = {
   content: '다음에 또 거래해요!',
   location: '부산광역시 남구 대연동',
   created_at: new Date(),
+  review_type: 0,
 };
 
 const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
@@ -63,10 +64,10 @@ const ReviewBox = ({ review, reviewState }: ReviewBoxProps) => {
     {
       content: '거래후기 삭제',
       function: () => {
-        if (reviewState === '구매자 후기') {
+        if (reviewState === '구매자 후기' || review.review_type === 1) {
           deleteBuyerReviewMutation.mutate({ buyerReviewId: review.id });
         }
-        if (reviewState === '판매자 후기') {
+        if (reviewState === '판매자 후기' || review.review_type === 0) {
           deleteSellerReviewMutation.mutate({ sellerReviewId: review.id });
         }
       },

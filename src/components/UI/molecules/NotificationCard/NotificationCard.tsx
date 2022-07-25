@@ -4,6 +4,7 @@ import Time from '@atoms/Time/Time';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 import QUERY_KEYS from 'constants/queryKeys';
 import useNotificationRead from 'hooks/queries/notification/useNotificationRead';
+import useMe from 'hooks/queries/user/useMe';
 import { INotiCodeZero, NotificationType } from 'interfaces/Notification.interface';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ export interface NotificationCardProps {
 
 const NotificationCard = ({ notification }: NotificationCardProps) => {
   const navigate = useNavigate();
+  const { data: me } = useMe({ refetchOnWindowFocus: false });
   const queryClient = useQueryClient();
   const setReviewUpload = useSetRecoilState(reviewUploadState);
   const mutattion = useNotificationRead({
@@ -33,12 +35,12 @@ const NotificationCard = ({ notification }: NotificationCardProps) => {
           setReviewUpload({
             type: 'buyer',
             product_id: notification.product_id,
-            seller_id: notification.reviewer_id || 1,
+            seller_id: notification.reviewer_id,
           });
           navigate(`/review/give`);
           break;
         case 3:
-          navigate(`/profile/review`);
+          navigate(`/profile/${me?.id}/review`);
           break;
         default:
           break;

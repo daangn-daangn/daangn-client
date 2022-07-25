@@ -6,4 +6,5 @@ export interface IReview {
   location: string;
   content: string;
   created_at: Date;
+  review_type: 0 | 1;
 }
