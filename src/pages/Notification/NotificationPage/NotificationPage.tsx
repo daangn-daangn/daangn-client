@@ -1,74 +1,14 @@
 import Spinner from '@atoms/Spinner/Spinner';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import NotificationCard from '@molecules/NotificationCard/NotificationCard';
 import Top from '@molecules/Top/Top';
+import ErrorBoundary from 'components/ErrorBoundary';
+import { ERROR_MSG } from 'constants/message';
 import useNotificationsLoad from 'hooks/queries/notification/useNotificationsLoad';
-import { NotificationType } from 'interfaces/Notification.interface';
-import { dummyProduct } from 'pages/Home/HomePage/HomePage';
-import { dummyUser } from 'pages/Product/ProductDetailPage/ProductDetailPage';
-
 import { NotificationCardGroup, NotificationPageStyled } from './NotificationPageStyled';
 
-// const dummyNotifications: NotificationType[] = [
-//   {
-//     id: 1,
-//     created_at: new Date(),
-//     view: false,
-//     noti_code: 0,
-//     noti_type: '찜한 상품이 거래 완료된 경우',
-//     product_id: 1,
-//     price: null,
-//     title: 'TEST',
-//     thumb_nail_image: dummyProduct.thumb_nail_image,
-//     reviewer_id: null,
-//     nickname: null,
-//     profile_url: null,
-//   },
-//   {
-//     id: 2,
-//     created_at: new Date(),
-//     view: false,
-//     noti_code: 1,
-//     noti_type: '찜한 상품의 가격이 낮아진 경우',
-//     product_id: 1,
-//     price: 20000,
-//     title: 'TEST',
-//     thumb_nail_image: dummyProduct.thumb_nail_image,
-//     reviewer_id: null,
-//     nickname: null,
-//     profile_url: null,
-//   },
-//   {
-//     id: 3,
-//     created_at: new Date(),
-//     view: false,
-//     noti_code: 2,
-//     noti_type: '판매자가 판매완료로 상태를 변경한 경우',
-//     product_id: 1,
-//     price: null,
-//     title: 'TEST',
-//     thumb_nail_image: dummyProduct.thumb_nail_image,
-//     reviewer_id: null,
-//     nickname: null,
-//     profile_url: null,
-//   },
-//   {
-//     id: 4,
-//     created_at: new Date(),
-//     view: false,
-//     noti_code: 3,
-//     noti_type: '구매후기를 남긴 경우',
-//     product_id: null,
-//     price: null,
-//     title: null,
-//     thumb_nail_image: null,
-//     reviewer_id: 1,
-//     nickname: 'TEST',
-//     profile_url: dummyUser.profile_url,
-//   },
-// ];
-
 const NotificationPage = () => {
-  const { data, isLoading } = useNotificationsLoad();
+  const { data } = useNotificationsLoad();
   if (!data) {
     return <Spinner />;
   }
@@ -77,9 +17,11 @@ const NotificationPage = () => {
       <NotificationPageStyled>
         <Top left="prev" title="알림" />
         <NotificationCardGroup>
-          {data.map((notification, index) => (
-            <NotificationCard key={notification.id} notification={notification} />
-          ))}
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_NOTIFICATIONS} />}>
+            {data.map((notification) => (
+              <NotificationCard key={notification.id} notification={notification} />
+            ))}
+          </ErrorBoundary>
         </NotificationCardGroup>
       </NotificationPageStyled>
     </>

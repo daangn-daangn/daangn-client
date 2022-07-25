@@ -17,6 +17,9 @@ import useMe from 'hooks/queries/user/useMe';
 import Spinner from '@atoms/Spinner/Spinner';
 import useReviewsLoad from 'hooks/queries/review/useReviewsLoad';
 import useUserInfo from 'hooks/queries/user/useUserInfo';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 
 const dummyUser: IUser = {
   id: 1,
@@ -113,11 +116,13 @@ const ProfilePage = () => {
           <div className="justify-space-between" onClick={() => navigate('review')}>
             받은 거래 후기 <Next className="next-svg" />
           </div>
-          {allReviews?.map((review) => (
-            <div key={review.id} className="reviews-wrap">
-              <ReviewBox review={review} />
-            </div>
-          ))}
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_ALL} />}>
+            {allReviews?.map((review) => (
+              <div key={review.id} className="reviews-wrap">
+                <ReviewBox review={review} />
+              </div>
+            ))}
+          </ErrorBoundary>
         </List>
         <TabBar />
       </ProfilePageStyled>

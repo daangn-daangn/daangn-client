@@ -1,12 +1,14 @@
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { ReviewPageStyled } from './ReviewPageStyled';
 import Top from '@molecules/Top/Top';
-import ReviewBox, { dummyReview } from '@molecules/ReviewBox/ReviewBox';
+import ReviewBox from '@molecules/ReviewBox/ReviewBox';
 import NavStateBar from '@molecules/NavStateBar/NavStateBar';
 import useReviewsLoad from 'hooks/queries/review/useReviewsLoad';
-import useMe from 'hooks/queries/user/useMe';
+import { ERROR_MSG } from 'constants/message';
 import useSellerReviewsLoad from 'hooks/queries/review/seller/ useSellerReviewsLoad';
 import useBuyerReviewsLoad from 'hooks/queries/review/buyer/useBuyerReviewsLoad';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 
 export type ReviewState = '전체후기' | '판매자 후기' | '구매자 후기';
 
@@ -44,34 +46,34 @@ const ReviewPage = () => {
         </div>
         {/* 리뷰 없는 경우 나중에 추가 */}
         {reviewState === '전체후기' && (
-          <>
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_ALL} />}>
             <span className="review-count"> {allReviews ? `후기 ${allReviews.length}개` : '로딩중...'}</span>
             {allReviews?.map((review) => (
               <div key={review.id} className="reviews-wrap">
                 <ReviewBox reviewState={reviewState} review={review} />
               </div>
             ))}
-          </>
+          </ErrorBoundary>
         )}
         {reviewState === '판매자 후기' && (
-          <>
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_SELLER} />}>
             <span className="review-count"> {sellerReviews ? `후기 ${sellerReviews.length}개` : '로딩중...'}</span>
             {sellerReviews?.map((review) => (
               <div key={review.id} className="reviews-wrap">
                 <ReviewBox reviewState={reviewState} review={review} />
               </div>
             ))}
-          </>
+          </ErrorBoundary>
         )}
         {reviewState === '구매자 후기' && (
-          <>
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_REVIEW_BUYER} />}>
             <span className="review-count"> {buyerReviews ? `후기 ${buyerReviews.length}개` : '로딩중...'}</span>
             {buyerReviews?.map((review) => (
               <div key={review.id} className="reviews-wrap">
                 <ReviewBox reviewState={reviewState} review={review} />
               </div>
             ))}
-          </>
+          </ErrorBoundary>
         )}
       </ReviewPageStyled>
     </>

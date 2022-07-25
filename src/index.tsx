@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -30,7 +31,7 @@ ReactDOM.render(
       <RecoilRoot>
         <ThemeProvider theme={Theme}>
           <Global styles={GlobalStyle} />
-          <ErrorBoundary fallback={<ErrorFallback message="얘기치 못한 에러가 발생했어요!" />}>
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.UNKNOWN_ERROR} />}>
             <App />
           </ErrorBoundary>
           <ToastContainer />

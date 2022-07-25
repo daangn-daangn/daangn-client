@@ -15,6 +15,9 @@ import Spinner from '@atoms/Spinner/Spinner';
 import { useQueryClient } from 'react-query';
 import QUERY_KEYS from 'constants/queryKeys';
 import useMe from 'hooks/queries/user/useMe';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 
 const SellHistoryPage = () => {
   const queryClient = useQueryClient();
@@ -212,25 +215,29 @@ const SellHistoryPage = () => {
           <Top title="판매내역" left="prev" leftClick={() => navigate(`/profile/${me?.id}`)} />
           <NavStateBar states={navStates} />
         </div>
-        {products ? (
-          products.map((product) => (
-            <MyProductBox
-              key={product.id}
-              type="sell"
-              product={product}
-              stateSelects={
-                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
-                  .stateSelects
-              }
-              moreSelects={
-                MyProductBoxSelects[(state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE]
-                  .moreSelects
-              }
-            />
-          ))
-        ) : (
-          <Spinner />
-        )}
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_SELL_HISTORY} />}>
+          {products ? (
+            products.map((product) => (
+              <MyProductBox
+                key={product.id}
+                type="sell"
+                product={product}
+                stateSelects={
+                  MyProductBoxSelects[
+                    (state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE
+                  ].stateSelects
+                }
+                moreSelects={
+                  MyProductBoxSelects[
+                    (state?.productState as keyof typeof MyProductBoxSelects) || ProductState.FOR_SALE
+                  ].moreSelects
+                }
+              />
+            ))
+          ) : (
+            <Spinner />
+          )}
+        </ErrorBoundary>
       </SellHistoryPageStyled>
     </>
   );

@@ -7,9 +7,12 @@ import useProductEditState from 'hooks/queries/product/useProductEditState';
 import { ProductState } from 'interfaces/Product.interface';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { StyledSelectBuyerPage, UserList } from './SelectBuyerPageStyled';
 import { reviewUploadState } from 'stores/review';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 
 const SelectBuyerPage = () => {
   const navigate = useNavigate();
@@ -37,11 +40,13 @@ const SelectBuyerPage = () => {
       <UserList>
         <Title fontWeigt="700">최근 채팅 목록에서 구매자 찾기</Title>
         <ul className="buyer_list">
-          {users?.map((user) => (
-            <li key={user.id} onClick={() => onClickUser(user.id)}>
-              <CheckBox text={`닉네임 - ${user.name}`} isCheck={selectUser == user.id} />
-            </li>
-          ))}
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
+            {users?.map((user) => (
+              <li key={user.id} onClick={() => onClickUser(user.id)}>
+                <CheckBox text={`닉네임 - ${user.name}`} isCheck={selectUser == user.id} />
+              </li>
+            ))}
+          </ErrorBoundary>
         </ul>
       </UserList>
       <Button

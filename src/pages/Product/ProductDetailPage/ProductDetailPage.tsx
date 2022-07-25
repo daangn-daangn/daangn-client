@@ -10,6 +10,9 @@ import { useParams } from 'react-router-dom';
 import Spinner from '@atoms/Spinner/Spinner';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 import useMe from 'hooks/queries/user/useMe';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -54,32 +57,34 @@ const ProductDetailPage = () => {
     <>
       <ProductDetailPageStyled>
         <DetailTabBar />
-        <DetailBox
-          slides={{
-            product_images: product.product_images.length == 0 ? [PRODUCT_DEFAULT_IMAGE] : product.product_images,
-          }}
-          productDetail={{
-            id: product.id,
-            category_id: product.category_id,
-            chatting_count: product.chatting_count,
-            created_at: product.created_at,
-            description: product.description,
-            favorite_count: product.favorite_count,
-            title: product.title,
-            view_count: product.view_count,
-            product_state: product.product_state,
-          }}
-          isMyProduct={me?.id === product.seller.id}
-          sellerId={product.seller.id}
-        />
-        <DealBox
-          isMyProduct={me?.id === product.seller.id}
-          isFavorite={product.is_favorite}
-          productPrice={product.price}
-          chatLength={product.chatting_count}
-          productId={product.id}
-          sellerId={product.seller.id}
-        />
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_PRODUCTS} />}>
+          <DetailBox
+            slides={{
+              product_images: product.product_images.length == 0 ? [PRODUCT_DEFAULT_IMAGE] : product.product_images,
+            }}
+            productDetail={{
+              id: product.id,
+              category_id: product.category_id,
+              chatting_count: product.chatting_count,
+              created_at: product.created_at,
+              description: product.description,
+              favorite_count: product.favorite_count,
+              title: product.title,
+              view_count: product.view_count,
+              product_state: product.product_state,
+            }}
+            isMyProduct={me?.id === product.seller.id}
+            sellerId={product.seller.id}
+          />
+          <DealBox
+            isMyProduct={me?.id === product.seller.id}
+            isFavorite={product.is_favorite}
+            productPrice={product.price}
+            chatLength={product.chatting_count}
+            productId={product.id}
+            sellerId={product.seller.id}
+          />
+        </ErrorBoundary>
       </ProductDetailPageStyled>
     </>
   );

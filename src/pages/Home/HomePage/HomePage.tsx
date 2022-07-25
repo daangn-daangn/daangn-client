@@ -5,6 +5,7 @@ import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
 import ErrorBoundary from 'components/ErrorBoundary';
+import { ERROR_MSG } from 'constants/message';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
 import { useRecoilValue } from 'recoil';
 import { craeteSearchParamsState } from 'stores/Home';
@@ -44,7 +45,7 @@ const HomePage = () => {
       <NavBar type="홈" location="대연동" />
       <div className="productWrapper">
         {products && (
-          <ErrorBoundary fallback={<ErrorFallback message="물품들을 불러오는데 에러가 발생했습니다." />}>
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
             <ProductBoxes products={products} />
           </ErrorBoundary>
         )}
