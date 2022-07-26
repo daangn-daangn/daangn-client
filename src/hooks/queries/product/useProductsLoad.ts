@@ -27,6 +27,7 @@ const useProductsLoad = () => {
   useEffect(() => {
     if (inView && hasNextPage && !isFetching) fetchNextPage();
   }, [inView]);
+
   return {
     data,
     isFetching,

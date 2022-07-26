@@ -4,11 +4,17 @@ import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
+import { getProdcts, GetProdctsParams } from 'apis/product/api';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { ERROR_MSG } from 'constants/message';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
+import { useInfiniteQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import { IProductLoad } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
+import QUERY_KEYS from 'constants/queryKeys';
 
 export const dummyProduct: IProductLoad = {
   id: 1,
