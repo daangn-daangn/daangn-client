@@ -22,7 +22,6 @@ const NewProductPage = () => {
   const location = useLocation();
   const state = location.state as PostProductUploadParams;
   const mutation = useProductUpload({
-
     onSuccess: (res, variables: PostProductUploadParams) => {
       localStorage.removeItem('temporary_new_product');
 
@@ -103,7 +102,7 @@ const NewProductPage = () => {
     console.log(data);
     mutation.mutate({
       ...data,
-      price,
+      price: data.price,
     });
   };
 

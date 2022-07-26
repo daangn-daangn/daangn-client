@@ -52,7 +52,6 @@ export interface DeleteProductFavoriteParams extends IProductIdParams {}
 export const getProdcts = async ({ title, categories, minPrice, maxPrice, page = 0 }: GetProdctsParams) => {
   return axios
     .get('/api/products', {
-<<<<<<< HEAD
       params: { page, size: 20, title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
     })
     .then((res) =>
@@ -61,11 +60,6 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice, page =
         page,
       }),
     );
-=======
-      params: { page, title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
-    })
-    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 5 }));
->>>>>>> 3e118e06b53d5420fc5440f3f6df1e6e87113a5b
 };
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {

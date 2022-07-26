@@ -16,7 +16,6 @@ export interface GetChatMessagesParams extends chatRoomIdParams {
   page: number;
 }
 
-
 export interface GetProductIdParams {
   productId: number;
 }
@@ -31,7 +30,6 @@ export type PostChatMessageParams = ChatType & {
   receiver_id: number;
   message_type: ChatMessageEnum;
 };
-
 
 export const getChatRooms = async () => {
   return axios
@@ -63,10 +61,15 @@ export const getCharRoom = async ({ chatRoomId }: GetChatRoomParams) => {
     });
 };
 
-
 export const getChatRoomUsers = async ({ productId }: GetProductIdParams) => {
   return axios
     .get(`/api/chat-rooms/product/${productId}`)
+    .then((res) => res.data.response)
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
 
 export const getChatMessages = async ({ chatRoomId, page }: GetChatMessagesParams) => {
   return axios
@@ -83,8 +86,6 @@ export const getChatMessages = async ({ chatRoomId, page }: GetChatMessagesParam
     });
 };
 
-
 export const postChatMessage = async (postChatMessageParams: PostChatMessageParams) => {
   return axios.post('/chat/messages', postChatMessageParams);
 };
-
