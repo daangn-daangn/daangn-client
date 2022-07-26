@@ -25,36 +25,40 @@ const BuyHistoryPage = () => {
 const BuyProductContainer = () => {
   const setReviewUpload = useSetRecoilState(reviewUploadState);
   const navigate = useNavigate();
-  const { data: products } = usePurchaseHistoryLoad({
-    refetchOnWindowFocus: false,
-  });
+  const { data, isFetchingNextPage, ref } = usePurchaseHistoryLoad();
   return (
     <>
-      {products?.map((product) => (
-        <MyProductBox
-          key={product.id}
-          type="buy"
-          product={product}
-          stateSelects={
-            !product.has_review
-              ? [
-                  {
-                    content: '거래후기 남기기',
-                    function: () => {
-                      setReviewUpload({
-                        type: 'buyer',
-                        seller_id: product.seller_id,
-                        product_id: product.id,
-                      });
-                      navigate('/review/give');
-                    },
-                  },
-                ]
-              : undefined
-          }
-        />
+      {data?.pages.map((page, index) => (
+        <div key={index}>
+          {page.data.map((product) => (
+            <MyProductBox
+              key={product.id}
+              type="buy"
+              product={product}
+              stateSelects={
+                !product.has_review
+                  ? [
+                      {
+                        content: '거래후기 남기기',
+                        function: () => {
+                          setReviewUpload({
+                            type: 'buyer',
+                            seller_id: product.seller_id,
+                            product_id: product.id,
+                          });
+                          navigate('/review/give');
+                        },
+                      },
+                    ]
+                  : undefined
+              }
+            />
+          ))}
+        </div>
       ))}
+      {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
     </>
   );
 };
+
 export default BuyHistoryPage;

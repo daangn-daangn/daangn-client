@@ -1,4 +1,4 @@
-export interface PageNation<T> {
+export interface PageNation<T = any> {
   data: T;
   nextPage: number;
   isLast: boolean;

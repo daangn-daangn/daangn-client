@@ -21,12 +21,12 @@ const useProductsLoad = () => {
     ({ pageParam = 0 }) => getProdcts({ ...queries, page: pageParam }),
     {
       getNextPageParam: (lastPage: PageNation<IProductLoad[]>) => (!lastPage.isLast ? lastPage.nextPage : undefined),
+      refetchOnWindowFocus: false,
     },
   );
   useEffect(() => {
     if (inView && hasNextPage && !isFetching) fetchNextPage();
   }, [inView]);
-
   return {
     data,
     isFetching,

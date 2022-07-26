@@ -23,15 +23,12 @@ const LikeProductContainer = () => {
   const { data, isFetchingNextPage, ref } = useProductsFavoriteLoad();
   return (
     <>
-      {/* {products?.map((product) => (
-        <MyProductBox key={product.id} type="like" product={product} />
-      ))} */}
       {data?.pages.map((page, index) => (
-        <>
+        <div key={index}>
           {page.data.map((product) => (
             <MyProductBox key={product.id} type="like" product={product} />
           ))}
-        </>
+        </div>
       ))}
       {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
     </>

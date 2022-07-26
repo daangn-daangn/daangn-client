@@ -1,15 +1,10 @@
 import { getProductFavorite } from 'apis/product/api';
 import QUERY_KEYS from 'constants/queryKeys';
 import { IProductFavorite } from 'interfaces/Product.interface';
-import { useInfiniteQuery, useQuery, UseQueryOptions } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { PageNation } from 'interfaces/Pagination.interface';
 import { useEffect } from 'react';
-interface CustomQueryOption extends UseQueryOptions<IProductFavorite[], unknown> {}
-
-// const useProductsFavoriteLoad = ({ ...options }: CustomQueryOption = {}) => {
-//   return useQuery<IProductFavorite[]>([QUERY_KEYS.PRODUCTS, 'FAVORITE'], () => getProductFavorite(), options);
-// };
 
 const useProductsFavoriteLoad = () => {
   const { ref, inView } = useInView();
@@ -19,6 +14,7 @@ const useProductsFavoriteLoad = () => {
     {
       getNextPageParam: (lastPage: PageNation<IProductFavorite[]>) =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
+      refetchOnWindowFocus: false,
     },
   );
   useEffect(() => {

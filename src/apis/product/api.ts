@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { INewProduct, ProductState } from 'interfaces/Product.interface';
 import checkProdcutStateNum from 'utils/checkProdcutStateNum';
+import { createPaginationValue } from 'utils/createPaginationValue';
 
 interface PageNationParams {
   page?: number;
@@ -53,7 +54,12 @@ export const getProdcts = async ({ title, categories, minPrice, maxPrice, page =
     .get('/api/products', {
       params: { page, size: 20, title, category: categories, 'min-price': minPrice, 'max-price': maxPrice },
     })
-    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 20 }));
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    );
 };
 
 export const postNewProduct = async (newProduct: PostProductUploadParams) => {
@@ -120,10 +126,15 @@ export const deleteProduct = async ({ productId }: DeleteProdductParams) => {
     });
 };
 
-export const getPurchaseHistory = async () => {
+export const getPurchaseHistory = async ({ page = 0 }: PageNationParams) => {
   return axios
     .get(`/api/products/purchase-history`)
-    .then((res) => res.data.response)
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    )
     .catch((error) => {
       console.error(error);
       throw new Error(error);
@@ -135,7 +146,12 @@ export const getProductFavorite = async ({ page = 0 }: PageNationParams) => {
     .get('/api/favorite-products', {
       params: { page },
     })
-    .then((res) => ({ data: res.data.response, nextPage: page + 1, isLast: res.data.response.length < 20 }))
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    )
     .catch((error) => {
       console.error(error);
       throw new Error(error);
