@@ -11,6 +11,7 @@ import SelectModal from '@molecules/SelectModal/SelectModal';
 import { useSetRecoilState } from 'recoil';
 import { selectProductIdState } from 'stores/Profile';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
+import { Link } from 'react-router-dom';
 
 export interface ISelectWithProductId {
   content: string;
@@ -39,21 +40,20 @@ const MyProductBox = ({ type, stateSelects, moreSelects, product }: MyProductBox
   return (
     <>
       <StyledMyProductBox {...{ type, product }}>
-        <Image imgUrl={product.thumb_nail_image || PRODUCT_DEFAULT_IMAGE} />
-        <div className="product_info">
-          <Title>{product.title}</Title>
-          <div className="product_info__detail">
-            <span className="product_info__detail-location">{product.location} &#183;</span>
-            <Time time={product.created_at} />
+        <Link to={`/product/${product.id}`}>
+          <Image imgUrl={product.thumb_nail_image || PRODUCT_DEFAULT_IMAGE} />
+          <div className="product_info">
+            <Title>{product.title}</Title>
+            <div className="product_info__detail">
+              <span className="product_info__detail-location">{product.location} &#183;</span>
+              <Time time={product.created_at} />
+            </div>
+            <Price productPrice={product.price} />
           </div>
-          <Price productPrice={product.price} />
-        </div>
+        </Link>
         <div className="product_state">
-          {type !== 'like' ? (
-            <More width="18" height="18" fill="#808080" onClick={onClickMoreButton} />
-          ) : (
-            <Like isFavorite={true} width="18px" height="18px" />
-          )}
+          {type === 'like' && <Like isFavorite={true} width="18px" height="18px" />}
+          {type === 'sell' && <More width="18" height="18" fill="#808080" onClick={onClickMoreButton} />}
           <Like isFavorite={true} count={product.favorite_count} />
         </div>
       </StyledMyProductBox>

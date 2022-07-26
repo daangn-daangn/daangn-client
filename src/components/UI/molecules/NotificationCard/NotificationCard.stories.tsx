@@ -64,7 +64,7 @@ NotiCode_Two.args = {
     price: null,
     title: 'TEST',
     thumb_nail_image: PRODUCT_DEFAULT_IMAGE,
-    reviewer_id: null,
+    reviewer_id: 1,
     nickname: null,
     profile_url: null,
   },

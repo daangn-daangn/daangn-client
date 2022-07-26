@@ -1,13 +1,20 @@
 import PostButton from '@atoms/PostButton/PostButton';
 import Spinner from '@atoms/Spinner/Spinner';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import NavBar from '@organisms/NavBar/NavBar';
 import ProductBoxes from '@organisms/ProductBoxes/ProductBoxes';
 import TabBar from '@organisms/TabBar/TabBar';
+import { getProdcts, GetProdctsParams } from 'apis/product/api';
+import ErrorBoundary from 'components/ErrorBoundary';
+import { ERROR_MSG } from 'constants/message';
 import useProductsLoad from 'hooks/queries/product/useProductsLoad';
-import { useRecoilValue } from 'recoil';
-import { craeteSearchParamsState } from 'stores/Home';
-import { IProduct, IProductLoad } from '../../../interfaces/Product.interface';
+import { useInfiniteQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
+import { IProductLoad } from '../../../interfaces/Product.interface';
 import { StyledHome } from './HomePageStyled';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
+import QUERY_KEYS from 'constants/queryKeys';
 
 export const dummyProduct: IProductLoad = {
   id: 1,
@@ -31,17 +38,31 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
-  const { data: products, isLoading } = useProductsLoad();
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />
-      <div className="productWrapper">{products && <ProductBoxes products={products} />}</div>
+      <div className="productWrapper">
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
+          <ProductContainer />
+        </ErrorBoundary>
+      </div>
       <TabBar />
       <PostButton />
     </StyledHome>
+  );
+};
+
+const ProductContainer = () => {
+  const { data, isFetchingNextPage, ref } = useProductsLoad();
+  return (
+    <>
+      {data?.pages.map((page, index) => (
+        <div key={index}>
+          <ProductBoxes products={page.data} />
+          {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
+        </div>
+      ))}
+    </>
   );
 };
 

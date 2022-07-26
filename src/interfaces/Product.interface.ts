@@ -50,6 +50,8 @@ export interface IProductLoad {
   created_at: Date;
 }
 
-export interface IProductPurchasHistory extends IProductLoad {}
+export interface IProductPurchasHistory extends IProductLoad {
+  seller_id: number;
+}
 
 export interface IProductFavorite extends IProductLoad {}

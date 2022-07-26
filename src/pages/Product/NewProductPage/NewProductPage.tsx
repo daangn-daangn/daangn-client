@@ -31,9 +31,9 @@ const NewProductPage = () => {
       });
 
       // 성공시 홈으로?
-      //navigate('/');
 
-
+      navigate('/');
+    },
     onError: (error) => {
       console.log(error);
     },

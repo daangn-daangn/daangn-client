@@ -61,6 +61,11 @@ export interface IChatRoomDetail {
   product_state: string;
 }
 
+export interface IChatRoomUser {
+  id: number;
+  name: string;
+}
+
 export const dummyGetChat = {
   chat_room_id: '62a992369d47a67cf5aaca76',
   participant: '테스트닉네임1',

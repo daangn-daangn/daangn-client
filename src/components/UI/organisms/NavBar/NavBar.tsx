@@ -5,7 +5,7 @@ import { ReactComponent as Search } from '../../../../assets/search.svg';
 import { ReactComponent as Setting } from '../../../../assets/setting.svg';
 import { Link } from 'react-router-dom';
 
-type NavBarType = '홈' | '채팅' | '나의 당근';
+type NavBarType = '홈' | '채팅' | '나의 당근' | '프로필';
 
 export interface NavBarProps {
   type?: NavBarType;

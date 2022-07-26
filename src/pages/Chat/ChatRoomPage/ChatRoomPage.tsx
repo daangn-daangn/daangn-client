@@ -1,8 +1,11 @@
 import Spinner from '@atoms/Spinner/Spinner';
 import ChatTabBar from '@molecules/ChatTabBar/ChatTabBar';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import ProductInfoBox from '@molecules/ProductInfoBox/ProductInfoBox';
 import MessageContainer from '@organisms/MessageContainer/MessageContainer';
+import ErrorBoundary from 'components/ErrorBoundary';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
+import { ERROR_MSG } from 'constants/message';
 import useSetLocation from 'hooks/common/useSetLocation';
 import useChatRoomDetail from 'hooks/queries/chat/useChatRoomDetail';
 import { ProductState } from 'interfaces/Product.interface';
@@ -28,8 +31,10 @@ const ChatRoomPage = () => {
   return (
     <ChatRoomPageStyled>
       <div className="chatRoom_fixed">
-        <ChatTabBar userDetail={{ nickname: data.participant_nickname, manner: data.participant_manner }} />
-        <ProductInfoBox product={data} />
+        <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_CHAT_ROOM} />}>
+          <ChatTabBar userDetail={{ nickname: data.participant_nickname, manner: data.participant_manner }} />
+          <ProductInfoBox product={data} />
+        </ErrorBoundary>
       </div>
       <MessageContainer chatRoomId={chatRoomId as string} />
     </ChatRoomPageStyled>

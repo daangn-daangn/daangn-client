@@ -4,6 +4,8 @@ import DescriptionBox from '@molecules/DescriptionBox/DescriptionBox';
 import { DetailBoxStyled } from './DetailBoxStyled';
 import { IProduct } from 'interfaces/Product.interface';
 import ProductStateChangeButton from '@organisms/ProductStateChangeButton/ProductStateChangeButton';
+import { Link } from 'react-router-dom';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 export interface DetailBoxProps {
   slides: Pick<IProduct, 'product_images'>;
@@ -31,7 +33,9 @@ const DetailBox = (props: DetailBoxProps) => {
           <Slider {...props} height="400px" />
         </div>
         <div className="paddingWrapper">
-          <SellerBox sellerId={props.sellerId} />
+          <Link to={`/profile/${props.sellerId}`}>
+            <SellerBox sellerId={props.sellerId} />
+          </Link>
           {props.isMyProduct && (
             <div className="detailbox_stateBtn">
               <ProductStateChangeButton

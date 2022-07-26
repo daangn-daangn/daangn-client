@@ -7,6 +7,7 @@ import { IProductWithUser } from 'interfaces/Product.interface';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../atoms/Button/Button';
 import Like from '../../atoms/Like/Like';
 import Price from '../../atoms/Price/Price';
@@ -46,6 +47,7 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId,
     },
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
+      toast.success('찜 목록에 추가되었습니다.');
     },
   });
   const deleteFavoriteMutation = useProdcutFavoriteDelete({
@@ -69,6 +71,7 @@ const DealBox = ({ isFavorite, productPrice, isMyProduct, chatLength, productId,
     },
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
+      toast.success('찜 목록에서 삭제되었습니다.');
     },
   });
   const createChatRoomMutation = useChatRoomCreate({

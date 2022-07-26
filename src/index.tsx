@@ -8,7 +8,11 @@ import { Global } from '@emotion/react';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from '@emotion/react';
 import Theme from './styles/Theme';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import { ERROR_MSG } from 'constants/message';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,7 +31,10 @@ ReactDOM.render(
       <RecoilRoot>
         <ThemeProvider theme={Theme}>
           <Global styles={GlobalStyle} />
-          <App />
+          <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.UNKNOWN_ERROR} />}>
+            <App />
+          </ErrorBoundary>
+          <ToastContainer />
         </ThemeProvider>
       </RecoilRoot>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

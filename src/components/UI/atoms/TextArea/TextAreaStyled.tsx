@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TextAreaProps } from './TextArea';
 
@@ -16,7 +17,12 @@ export const TextAreaStyled = styled.div<TextAreaProps>`
       outline: none;
     }
   }
-  textarea::placeholder {
-    color: ${(props) => props.theme.$black40};
-  }
+  ${(props) => {
+    const color = props.placeholder_color || props.theme.$black40;
+    return css`
+      textarea::placeholder {
+        color: ${color};
+      }
+    `;
+  }}
 `;

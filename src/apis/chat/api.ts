@@ -16,6 +16,10 @@ export interface GetChatMessagesParams extends chatRoomIdParams {
   page: number;
 }
 
+
+export interface GetProductIdParams {
+  productId: number;
+}
 type ChatMessageType = { message: string; img_files?: never };
 type ChatImageType = { img_files: string; message?: never };
 
@@ -27,6 +31,7 @@ export type PostChatMessageParams = ChatType & {
   receiver_id: number;
   message_type: ChatMessageEnum;
 };
+
 
 export const getChatRooms = async () => {
   return axios
@@ -58,6 +63,11 @@ export const getCharRoom = async ({ chatRoomId }: GetChatRoomParams) => {
     });
 };
 
+
+export const getChatRoomUsers = async ({ productId }: GetProductIdParams) => {
+  return axios
+    .get(`/api/chat-rooms/product/${productId}`)
+
 export const getChatMessages = async ({ chatRoomId, page }: GetChatMessagesParams) => {
   return axios
     .get(`/chat/messages`, {
@@ -73,6 +83,8 @@ export const getChatMessages = async ({ chatRoomId, page }: GetChatMessagesParam
     });
 };
 
+
 export const postChatMessage = async (postChatMessageParams: PostChatMessageParams) => {
   return axios.post('/chat/messages', postChatMessageParams);
 };
+

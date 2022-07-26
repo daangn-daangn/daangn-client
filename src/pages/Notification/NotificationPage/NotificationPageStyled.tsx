@@ -4,9 +4,8 @@ export const NotificationPageStyled = styled.div``;
 
 export const NotificationCardGroup = styled.div`
   display: flex;
-  padding: 70px 0;
+  padding: 52px 0;
   flex-direction: column;
-  gap: 20px;
   & > div {
     border-bottom: 1px solid ${(props) => props.theme.$black20};
   }

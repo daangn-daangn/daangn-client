@@ -4,11 +4,14 @@ import { MyProductBoxProps } from './MyProductBox';
 export const StyledMyProductBox = styled.div<MyProductBoxProps>`
   background: white;
   width: 100%;
-  display: flex;
   padding: 15px ${(props) => (props.type === 'like' ? '0px' : '15px')};
   border-bottom: 1px solid ${(props) => props.theme.$black20};
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  a {
+    display: flex;
+  }
   .product_info {
-    flex: 1;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
