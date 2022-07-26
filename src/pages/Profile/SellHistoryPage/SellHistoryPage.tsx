@@ -18,11 +18,13 @@ import useMe from 'hooks/queries/user/useMe';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 
 const SellHistoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: me } = useMe({ refetchOnWindowFocus: false });
+  useLogOut();
   const state = location.state as { productState: ProductState };
   const prodcutState = state?.productState || ProductState.FOR_SALE;
   const navStates = [

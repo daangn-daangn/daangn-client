@@ -15,6 +15,7 @@ import { StyledHome } from './HomePageStyled';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import QUERY_KEYS from 'constants/queryKeys';
+import useLogOut from 'hooks/common/useLogOut';
 
 export const dummyProduct: IProductLoad = {
   id: 1,
@@ -38,6 +39,7 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
+  useLogOut();
   return (
     <StyledHome>
       <NavBar type="홈" location="대연동" />

@@ -5,6 +5,7 @@ import Button from '@atoms/Button/Button';
 import List from '@atoms/List/List';
 import { SearchPageStyled } from './SearchPageStyled';
 import { ReactComponent as Close } from 'assets/close.svg';
+import useLogOut from 'hooks/common/useLogOut';
 
 export interface SearchPageProps {
   recentSearch?: boolean;
@@ -23,6 +24,8 @@ const SearchPage = () => {
     setRecentSearch([]);
     localStorage.removeItem('Recent-Search');
   };
+
+  useLogOut();
 
   return (
     <SearchPageStyled recentSearch={recentSearch.length > 0 ? true : false}>

@@ -5,6 +5,11 @@ export const nicknameState = atom({
   default: '',
 });
 
+export const profileImageFileState = atom<File | null>({
+  key: 'profileImageFileState',
+  default: null,
+});
+
 export const userLocationState = atom<{ latitude: number; longitude: number }>({
   key: 'userLocationState',
   default: {

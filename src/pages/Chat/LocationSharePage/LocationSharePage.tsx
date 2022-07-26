@@ -5,11 +5,12 @@ import { LocationSharePageStyled } from './LocationSharePageStyled';
 import { useRecoilState } from 'recoil';
 import { userLocationState } from 'stores/User';
 import useSetLocation from 'hooks/common/useSetLocation';
+import useLogOut from 'hooks/common/useLogOut';
 
 const LocationSharePage = () => {
   const MapWrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [userLocation, setUserLocation] = useSetLocation();
-
+  useLogOut();
   return (
     <>
       <LocationSharePageStyled>

@@ -8,8 +8,10 @@ import useChatRoomsLoad from 'hooks/queries/chat/useChatRoomsLoad';
 import { Link } from 'react-router-dom';
 import { ChatPageStyled } from './ChatPageStyled';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 
 const ChatPage = () => {
+  useLogOut();
   return (
     <ChatPageStyled>
       <NavBar type="채팅" />

@@ -15,6 +15,7 @@ import SelectModal from '@molecules/SelectModal/SelectModal';
 import { daangnee } from 'constants/defaultProfilePic';
 import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
 import { uploadFileToS3 } from 'utils/handleFileToS3';
+import useLogOut from 'hooks/common/useLogOut';
 
 export interface IUserProfileEdid extends Pick<IUser, 'nickname' | 'profile_url' | 'location'> {
   profile_file?: File;
@@ -23,9 +24,9 @@ export interface IUserProfileEdid extends Pick<IUser, 'nickname' | 'profile_url'
 const ProfileEditPage = () => {
   const location = useLocation();
   const state = location.state as IUser;
-
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const [showProfilePicModal, setShowProfilePicModal] = useState<boolean>(false);
+  useLogOut();
 
   const inputPhotoRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 

@@ -6,6 +6,7 @@ import MessageContainer from '@organisms/MessageContainer/MessageContainer';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { PRODUCT_DEFAULT_IMAGE } from 'constants/defaultImages';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 import useSetLocation from 'hooks/common/useSetLocation';
 import useChatRoomDetail from 'hooks/queries/chat/useChatRoomDetail';
 import { ProductState } from 'interfaces/Product.interface';
@@ -24,10 +25,10 @@ const ChatRoomPage = () => {
   const { chatRoomId } = useParams<{ chatRoomId: string }>();
   const { data } = useChatRoomDetail({ chatRoomId, refetchOnWindowFocus: false });
 
+  useLogOut();
   if (!data) {
     return <Spinner />;
   }
-
   return (
     <ChatRoomPageStyled>
       <div className="chatRoom_fixed">

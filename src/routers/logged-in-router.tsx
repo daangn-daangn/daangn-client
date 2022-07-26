@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TOKEN_KEY } from 'constants/localstoregeKeys';
 import SignupLayout from 'Layouts/SignupLayout';
 import ChatPage from 'pages/Chat/ChatPage/ChatPage';
 import ChatRoomPage from 'pages/Chat/ChatRoomPage/ChatRoomPage';
@@ -23,13 +24,28 @@ import SelectBuyerPage from 'pages/SelectBuyer/SelectBuyerPage/SelectBuyerPage';
 import LocationCheckPage from 'pages/Signup/LocationCheckPage/LocationCheckPage';
 import LocationFindPage from 'pages/Signup/LocationFindPage/LocationFindPage';
 import NickNameSettingPage from 'pages/Signup/NickNameSettingPage/NickNameSettingPage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { tokenState } from 'stores/Auth';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isLoggedState, tokenState } from 'stores/Auth';
 
 const LoggedInRouter = () => {
-  const token = useRecoilValue(tokenState);
+  const [token, setToken] = useRecoilState(tokenState);
+  const [isLogged, setIsLogged] = useRecoilState(isLoggedState);
   axios.defaults.headers.common['api_key'] = `Bearer ${token}`;
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response?.data.error.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        setIsLogged(false);
+        setToken('');
+      }
+      return Promise.reject(error);
+    },
+  );
   return (
     <BrowserRouter>
       <Routes>

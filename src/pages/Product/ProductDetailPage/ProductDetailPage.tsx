@@ -13,6 +13,7 @@ import useMe from 'hooks/queries/user/useMe';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 
 export const dummyUser: IUser = {
   id: 1,
@@ -50,6 +51,7 @@ const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const { data: me } = useMe({ refetchOnWindowFocus: false });
   const { data: product } = useProductDetail({ productId: Number(productId), refetchOnWindowFocus: false });
+  useLogOut();
   if (!product) {
     return <Spinner />;
   }

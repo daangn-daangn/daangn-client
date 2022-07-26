@@ -13,7 +13,6 @@ const ImagePage = () => {
   const clickClose = () => {
     navigate(-1);
   };
-
   return (
     <>
       <ImagePageStyled>

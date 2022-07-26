@@ -16,11 +16,13 @@ import { categoryList } from 'utils/categoryFilter';
 import { postNewProduct, PostProductUploadParams } from 'apis/product/api';
 import useProductUpload from 'hooks/queries/product/useProductUpload';
 import { uploadFileToS3 } from 'utils/handleFileToS3';
+import useLogOut from 'hooks/common/useLogOut';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as PostProductUploadParams;
+  useLogOut();
   const mutation = useProductUpload({
     onSuccess: (res, variables: PostProductUploadParams) => {
       localStorage.removeItem('temporary_new_product');
