@@ -1,2 +1,1 @@
-export const daangnee =
-  'https://t1.daumcdn.net/thumb/R720x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/6H5a/image/YBkEc953Kf-Dr1zVi1drGkxujkE.jpg';
+export const daangnee = 'https://pbs.twimg.com/profile_images/1463023431684079616/ghuPttFw_400x400.jpg';
