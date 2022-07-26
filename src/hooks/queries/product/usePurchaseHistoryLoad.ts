@@ -3,7 +3,7 @@ import QUERY_KEYS from 'constants/queryKeys';
 import { IProductPurchasHistory } from 'interfaces/Product.interface';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
-import { PageNation } from 'interfaces/Pagination.interface';
+import { PagiNation } from 'interfaces/Pagination.interface';
 import { useEffect } from 'react';
 
 const usePurchaseHistoryLoad = () => {
@@ -12,7 +12,7 @@ const usePurchaseHistoryLoad = () => {
     [QUERY_KEYS.PRODUCTS, 'PURCHASE'],
     ({ pageParam = 0 }) => getPurchaseHistory({ page: pageParam }),
     {
-      getNextPageParam: (lastPage: PageNation<IProductPurchasHistory[]>) =>
+      getNextPageParam: (lastPage: PagiNation<IProductPurchasHistory[]>) =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
       refetchOnWindowFocus: false,
     },

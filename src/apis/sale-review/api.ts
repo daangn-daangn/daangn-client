@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { PagiNationParams } from 'interfaces/Pagination.interface';
+import { createPaginationValue } from 'utils/createPaginationValue';
 
 export interface PostSellerReviewParams {
   product_id: number;
@@ -22,21 +24,36 @@ export interface DeleteBuyererReviewParams {
   buyerReviewId: number;
 }
 
-export const getAllSaleRevies = async (userId: number) => {
+export interface GetReviewsParams extends PagiNationParams {
+  userId: number;
+}
+
+export const getAllSaleReviews = async ({ userId, page = 0 }: GetReviewsParams) => {
   return axios
-    .get(`/api/sale-reviews/user/${userId}`)
-    .then((res) => res.data.response)
+    .get(`/api/sale-reviews/user/${userId}`, { params: { page } })
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    )
     .catch((error) => {
       console.error(error);
       throw new Error(error);
     });
 };
 
-export const getSellerReviews = async (userId: number) => {
+export const getSellerReviews = async ({ userId, page = 0 }: GetReviewsParams) => {
   return axios
-    .get(`/api/sale-reviews/seller/${userId}`)
-    .then((res) => res.data.response)
+    .get(`/api/sale-reviews/seller/${userId}`, { params: { page } })
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    )
     .catch((error) => {
+      console.log('??');
       console.error(error);
       throw new Error(error);
     });
@@ -62,10 +79,15 @@ export const deleteSellerReview = async ({ sellerReviewId }: DeleteSellerReviewP
     });
 };
 
-export const getBuyerReviews = async (userId: number) => {
+export const getBuyerReviews = async ({ userId, page = 0 }: GetReviewsParams) => {
   return axios
-    .get(`/api/sale-reviews/buyer/${userId}`)
-    .then((res) => res.data.response)
+    .get(`/api/sale-reviews/buyer/${userId}`, { params: { page } })
+    .then((res) =>
+      createPaginationValue({
+        data: res.data.response,
+        page,
+      }),
+    )
     .catch((error) => {
       console.error(error);
       throw new Error(error);

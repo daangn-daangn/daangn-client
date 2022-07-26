@@ -1,17 +1,14 @@
 import axios from 'axios';
+import { PagiNationParams } from 'interfaces/Pagination.interface';
 import { INewProduct, ProductState } from 'interfaces/Product.interface';
 import checkProdcutStateNum from 'utils/checkProdcutStateNum';
 import { createPaginationValue } from 'utils/createPaginationValue';
-
-interface PageNationParams {
-  page?: number;
-}
 
 interface IProductIdParams {
   productId: number;
 }
 
-export interface GetProdctsParams extends PageNationParams {
+export interface GetProdctsParams extends PagiNationParams {
   title?: string | null;
   categories?: string | null;
   minPrice?: string | null;
@@ -126,9 +123,9 @@ export const deleteProduct = async ({ productId }: DeleteProdductParams) => {
     });
 };
 
-export const getPurchaseHistory = async ({ page = 0 }: PageNationParams) => {
+export const getPurchaseHistory = async ({ page = 0 }: PagiNationParams) => {
   return axios
-    .get(`/api/products/purchase-history`)
+    .get(`/api/products/purchase-history`, { params: { page } })
     .then((res) =>
       createPaginationValue({
         data: res.data.response,
@@ -141,7 +138,7 @@ export const getPurchaseHistory = async ({ page = 0 }: PageNationParams) => {
     });
 };
 
-export const getProductFavorite = async ({ page = 0 }: PageNationParams) => {
+export const getProductFavorite = async ({ page = 0 }: PagiNationParams) => {
   return axios
     .get('/api/favorite-products', {
       params: { page },

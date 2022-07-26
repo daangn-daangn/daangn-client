@@ -113,16 +113,20 @@ const ProfilePage = () => {
 };
 
 const ReviewContainer = ({ userId }: { userId: number }) => {
-  const { data: allReviews } = useReviewsLoad({
+  const { data, isFetchingNextPage, ref } = useReviewsLoad({
     userId,
+    refetchOnWindowFocus: false,
   });
   return (
     <>
-      {allReviews?.map((review) => (
-        <div key={review.id} className="reviews-wrap">
-          <ReviewBox review={review} />
+      {data?.pages.map((page, index) => (
+        <div key={index} className="reviews-wrap">
+          {page.data.map((review) => (
+            <ReviewBox key={review.id} review={review} />
+          ))}
         </div>
       ))}
+      {isFetchingNextPage ? '로딩중..' : <div ref={ref}></div>}
     </>
   );
 };

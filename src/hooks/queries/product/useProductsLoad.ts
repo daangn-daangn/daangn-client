@@ -5,7 +5,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import { PageNation } from 'interfaces/Pagination.interface';
+import { PagiNation } from 'interfaces/Pagination.interface';
 
 const useProductsLoad = () => {
   const { ref, inView } = useInView();
@@ -20,7 +20,7 @@ const useProductsLoad = () => {
     [QUERY_KEYS.PRODUCTS, queries],
     ({ pageParam = 0 }) => getProdcts({ ...queries, page: pageParam }),
     {
-      getNextPageParam: (lastPage: PageNation<IProductLoad[]>) => (!lastPage.isLast ? lastPage.nextPage : undefined),
+      getNextPageParam: (lastPage: PagiNation<IProductLoad[]>) => (!lastPage.isLast ? lastPage.nextPage : undefined),
       refetchOnWindowFocus: false,
     },
   );
