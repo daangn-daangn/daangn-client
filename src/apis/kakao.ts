@@ -7,7 +7,7 @@ export const getUserLocation = async (longitude: number, latitude: number) => {
     .get('https://dapi.kakao.com/v2/local/geo/coord2regioncode.json', {
       params: { x: longitude, y: latitude },
       headers: {
-        Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}`,
+        Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}`,
       },
     })
     .then((res) => {
