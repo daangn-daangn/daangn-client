@@ -8,9 +8,10 @@ import { IUser } from 'interfaces/User.interface';
 import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
 import useSetLocation from 'hooks/common/useSetLocation';
 import { useRecoilValue } from 'recoil';
-import { nicknameState } from 'stores/User';
+import { nicknameState, profileImageFileState } from 'stores/User';
 import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
 import { KAKAO_PROFILE_URL } from 'constants/localstoregeKeys';
+import { uploadFileToS3 } from 'utils/handleFileToS3';
 
 export interface IUserLocation {
   latitude: number; //위도
@@ -21,6 +22,7 @@ const LocationCheckPage = () => {
   const navigate = useNavigate();
 
   const nickname = useRecoilValue(nicknameState);
+  const profileImageFile = useRecoilValue(profileImageFileState);
 
   const [userLocation] = useSetLocation();
 
@@ -34,6 +36,7 @@ const LocationCheckPage = () => {
   const userInfoEditMutation = useUserInfoEdit({
     onSuccess: (data) => {
       console.log(data.response.profile_url);
+      uploadFileToS3(data.response.profile_url, profileImageFile);
     },
     onError: (error) => {
       console.log(error);
@@ -44,15 +47,14 @@ const LocationCheckPage = () => {
   else setValue('location', data);
 
   const onSubmit = (data: Pick<IUser, 'location'>) => {
-    const profile_url = localStorage.getItem(KAKAO_PROFILE_URL);
-    if (!profile_url) {
+    if (!profileImageFile) {
       // 어떻게 처리 할지 생각
       return;
     }
     userInfoEditMutation.mutate({
       nickname,
       location: data.location,
-      profile_url,
+      profile_url: profileImageFile.name,
     });
   };
 

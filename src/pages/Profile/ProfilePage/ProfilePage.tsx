@@ -48,7 +48,7 @@ const ProfilePage = () => {
               fontColor="black"
               border="1px solid #e0dfde"
               onClick={() => {
-                navigate('edit', { state: { ...me } });
+                navigate('/profile/edit', { state: { ...me } });
               }}
             >
               프로필 수정
