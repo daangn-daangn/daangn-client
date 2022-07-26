@@ -6,6 +6,7 @@ const QUERY_KEYS = {
   SALEREVIEWS: 'sale_reviews',
   SALEREVIEWS_BUYER: 'sale_reviews_buyer',
   SALEREVIEWS_SELLER: 'sale_reviews_seller',
+  MESSAGES: 'messgaes',
 };
 
 export default QUERY_KEYS;

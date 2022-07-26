@@ -11,7 +11,6 @@ const MessagesPerMinute = ({ chats }: MessagesPerMinuteProps) => {
     return (
       (sender === 'you' && chatMessages.length === currentIndex + 1) ||
       (sender === 'me' && chatMessages.length === currentIndex + 1) ||
-      (sender === 'you' && chatMessages.length === currentIndex + 1) ||
       (sender === 'you' && chatMessages[currentIndex + 1] && chatMessages[currentIndex + 1].sender === 'me') ||
       (sender === 'me' && chatMessages[currentIndex + 1] && chatMessages[currentIndex + 1].sender === 'you')
     );

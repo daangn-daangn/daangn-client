@@ -22,13 +22,12 @@ export const dummyProductInfoBox = {
 const ChatRoomPage = () => {
   const [userLocation, setUserLocation] = useSetLocation();
   const { chatRoomId } = useParams<{ chatRoomId: string }>();
-  const { data } = useChatRoomDetail({ chatRoomId } as { chatRoomId: string });
+  const { data } = useChatRoomDetail({ chatRoomId, refetchOnWindowFocus: false });
 
   if (!data) {
     return <Spinner />;
   }
 
-  console.log(chatRoomId);
   return (
     <ChatRoomPageStyled>
       <div className="chatRoom_fixed">
@@ -37,7 +36,7 @@ const ChatRoomPage = () => {
           <ProductInfoBox product={data} />
         </ErrorBoundary>
       </div>
-      <MessageContainer />
+      <MessageContainer chatRoomId={chatRoomId as string} />
     </ChatRoomPageStyled>
   );
 };

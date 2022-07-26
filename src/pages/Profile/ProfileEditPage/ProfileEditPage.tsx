@@ -12,6 +12,13 @@ import { ReactComponent as Camera } from 'assets/camera.svg';
 import Button from '@atoms/Button/Button';
 import { encodeFileToBase64 } from 'utils/encodeImage';
 import SelectModal from '@molecules/SelectModal/SelectModal';
+import { daangnee } from 'constants/defaultProfilePic';
+import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
+import { uploadFileToS3 } from 'utils/handleFileToS3';
+
+export interface IUserProfileEdid extends Pick<IUser, 'nickname' | 'profile_url' | 'location'> {
+  profile_file?: File;
+}
 
 const ProfileEditPage = () => {
   const location = useLocation();
@@ -22,6 +29,16 @@ const ProfileEditPage = () => {
 
   const inputPhotoRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
+  const userInfoEditMutation = useUserInfoEdit({
+    onSuccess: (data, variables: IUserProfileEdid) => {
+      console.log(data);
+      uploadFileToS3(data.response.profile_url, variables.profile_file);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -30,23 +47,33 @@ const ProfileEditPage = () => {
     watch,
     reset,
     trigger,
-  } = useForm<Pick<IUser, 'nickname' | 'profile_url'>>();
+  } = useForm<IUserProfileEdid>();
 
-  const onSubmit = (data: Pick<IUser, 'nickname' | 'profile_url'>) => {
+  const onSubmit = (data: IUserProfileEdid) => {
+    data.profile_url = data.profile_file?.name || daangnee;
     console.log(data);
-  };
-
-  const onChange = () => {
-    trigger();
-    watch('nickname') ? setButtonDisabled(false) : setButtonDisabled(true);
+    userInfoEditMutation.mutate(data);
   };
 
   useEffect(() => {
     reset({ ...state });
   }, []);
 
+  useEffect(() => {
+    if (JSON.stringify(state) === JSON.stringify(watch())) {
+      setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
+    }
+  }, [watch()]);
+
   const onClickShowModal = () => {
     setShowProfilePicModal((prev) => !prev);
+  };
+
+  const deleteProfilePic = () => {
+    setValue('profile_url', daangnee);
+    setValue('profile_file', undefined);
   };
 
   const ProfilePicModalSelects = [
@@ -57,22 +84,23 @@ const ProfileEditPage = () => {
         setShowProfilePicModal(false);
       },
     },
-    { content: '프로필 사진 삭제', function: () => console.log('프로필 사진 삭제') },
+    { content: '프로필 사진 삭제', function: () => deleteProfilePic() },
   ];
 
   return (
     <>
       <ProfileEditPageStyled>
         <Top title="프로필 수정" left="prev" />
-        <form onSubmit={handleSubmit(onSubmit)} onChange={(e) => onChange()}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="profile-url">
             <div onClick={onClickShowModal}>
               <Image imgUrl={watch('profile_url')} borderRedius="50%" />
             </div>
             <InputPhoto
-              setPickedPhotos={(value) =>
-                encodeFileToBase64(value[0]).then((data) => setValue('profile_url', data as string))
-              }
+              setPickeFiles={(value) => {
+                setValue('profile_file', value[0]);
+                encodeFileToBase64(value[0]).then((data) => setValue('profile_url', data as string));
+              }}
               buttonNode={<div ref={inputPhotoRef} />}
             />
             <div className="camera-icon">

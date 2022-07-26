@@ -5,15 +5,15 @@ import { InputPhotoStyled } from './InputPhotoStyled';
 export interface InputPhotoProps {
   register?: UseFormRegisterReturn;
   buttonNode?: React.ReactNode;
-  setPickedPhotos?: (value: FileList) => void;
+  setPickeFiles?: (value: FileList) => void;
 }
 
 const InputPhoto = (props: InputPhotoProps) => {
   const InputFileRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && props.setPickedPhotos) {
-      props.setPickedPhotos(e.target.files);
+    if (e.target.files && props.setPickeFiles) {
+      props.setPickeFiles(e.target.files);
     }
   };
 
