@@ -13,6 +13,7 @@ import { reviewUploadState } from 'stores/review';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 
 const SelectBuyerPage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const SelectBuyerPage = () => {
   const [selectUser, setSelectUser] = useState<number>(-1);
   const { productId } = useParams<{ productId: string }>();
   const { data: users } = useChatRoomUsersLoad({ productId: Number(productId), refetchOnWindowFocus: false });
+  useLogOut();
   const onClickUser = (id: number) => {
     setSelectUser(id);
     setReviewUpload({

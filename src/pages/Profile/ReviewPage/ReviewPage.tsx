@@ -9,6 +9,7 @@ import useSellerReviewsLoad from 'hooks/queries/review/seller/ useSellerReviewsL
 import useBuyerReviewsLoad from 'hooks/queries/review/buyer/useBuyerReviewsLoad';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
+import useLogOut from 'hooks/common/useLogOut';
 
 export type ReviewState = '전체후기' | '판매자 후기' | '구매자 후기';
 
@@ -30,12 +31,12 @@ const ReviewPage = () => {
   const location = useLocation();
   const state = location.state as { ReviewState: ReviewState };
   const reviewState: ReviewState = state?.ReviewState || '전체후기';
-
   const { data, isFetchingNextPage, ref } = mode[reviewState].useReviewsLoad({
     userId: Number(userId),
     enabled: !!userId,
   });
 
+  useLogOut();
   const navStates = [
     { menu: '전체후기', onClick: () => navigate('', { state: { ReviewState: '전체후기' } }) },
     { menu: '판매자 후기', onClick: () => navigate('', { state: { ReviewState: '판매자 후기' } }) },

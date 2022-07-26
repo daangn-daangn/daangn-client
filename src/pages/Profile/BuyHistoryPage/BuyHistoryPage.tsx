@@ -8,8 +8,10 @@ import { ERROR_MSG } from 'constants/message';
 import { useSetRecoilState } from 'recoil';
 import { reviewUploadState } from 'stores/review';
 import { useNavigate } from 'react-router-dom';
+import useLogOut from 'hooks/common/useLogOut';
 
 const BuyHistoryPage = () => {
+  useLogOut();
   return (
     <>
       <BuyHistoryPageStyled>

@@ -19,12 +19,14 @@ import useUserInfo from 'hooks/queries/user/useUserInfo';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 
 const ProfilePage = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const { data: me } = useMe();
   const { data: user } = useUserInfo({ userId: Number(userId) });
+  useLogOut();
   if (!user) {
     return <Spinner />;
   }

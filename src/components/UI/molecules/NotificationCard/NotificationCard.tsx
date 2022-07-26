@@ -48,7 +48,6 @@ const NotificationCard = ({ notification }: NotificationCardProps) => {
     },
   });
   const onClickNotiCard = () => {
-    console.log(notification.id);
     mutattion.mutate({ notificationId: notification.id });
   };
   return (

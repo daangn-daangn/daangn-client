@@ -4,6 +4,7 @@ import List from '@atoms/List/List';
 import { ReactComponent as Smile } from 'assets/smile-color.svg';
 import { ReactComponent as Sad } from 'assets/sad-color.svg';
 import { ReactComponent as People } from 'assets/people.svg';
+import useLogOut from 'hooks/common/useLogOut';
 
 export const scores = Array.from({ length: 11 }, (_, i) => String(i - 5) + '점');
 export const dummyManner: { score: string; count: number }[] = [];
@@ -12,6 +13,7 @@ scores.forEach((score) => {
 });
 
 const MannerPage = () => {
+  useLogOut();
   return (
     <MannerPageStyled>
       <Top title="매너 상세" left="prev" />

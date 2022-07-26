@@ -15,6 +15,7 @@ import { encodeFileToBase64 } from 'utils/encodeImage';
 import { ReactComponent as Camera } from 'assets/camera.svg';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 import { useRef, useState } from 'react';
+import useLogOut from 'hooks/common/useLogOut';
 
 interface IForm extends Pick<IUser, 'nickname' | 'profile_url'> {
   profile_file?: File;
@@ -22,6 +23,7 @@ interface IForm extends Pick<IUser, 'nickname' | 'profile_url'> {
 
 const NickNameSettingPage = () => {
   const navigate = useNavigate();
+  useLogOut();
   const [showProfilePicModal, setShowProfilePicModal] = useState<boolean>(false);
   const setNicname = useSetRecoilState(nicknameState);
   const setProfileImage = useSetRecoilState(profileImageFileState);
@@ -62,7 +64,7 @@ const NickNameSettingPage = () => {
     <NickNameSettingPageStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title fontSize="23px" fontWeigt="700">
-          닉네임과 프로필을 설정해주세요.
+          닉네임과 프로필을 설정해 주세요.
         </Title>
         <div className="profile-url">
           <div className="profile-url_image" onClick={() => setShowProfilePicModal((prev) => !prev)}>

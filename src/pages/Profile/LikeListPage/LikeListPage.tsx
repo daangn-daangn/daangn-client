@@ -5,8 +5,10 @@ import useProductsFavoriteLoad from 'hooks/queries/product/useProductsFavoriteLo
 import { ERROR_MSG } from 'constants/message';
 import ErrorFallback from '@molecules/ErrorFallback/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
+import useLogOut from 'hooks/common/useLogOut';
 
 const LikeListPage = () => {
+  useLogOut();
   return (
     <>
       <LikeListPageStyled>

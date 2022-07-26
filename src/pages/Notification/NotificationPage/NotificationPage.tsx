@@ -4,10 +4,12 @@ import NotificationCard from '@molecules/NotificationCard/NotificationCard';
 import Top from '@molecules/Top/Top';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { ERROR_MSG } from 'constants/message';
+import useLogOut from 'hooks/common/useLogOut';
 import useNotificationsLoad from 'hooks/queries/notification/useNotificationsLoad';
 import { NotificationCardGroup, NotificationPageStyled } from './NotificationPageStyled';
 
 const NotificationPage = () => {
+  useLogOut();
   return (
     <>
       <NotificationPageStyled>

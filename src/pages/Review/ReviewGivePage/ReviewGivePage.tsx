@@ -3,6 +3,7 @@ import Message from '@atoms/Message/Message';
 import TextArea from '@atoms/TextArea/TextArea';
 import Title from '@atoms/Title/Title';
 import Top from '@molecules/Top/Top';
+import useLogOut from 'hooks/common/useLogOut';
 import useBuyerReviewUpload from 'hooks/queries/review/buyer/useBuyerReviewUpload';
 import useSellerReviewUpload from 'hooks/queries/review/seller/useSellerReviewUpload';
 import { useForm } from 'react-hook-form';
@@ -30,7 +31,7 @@ const ReviewGivePage = () => {
       navigate('/');
     },
   });
-
+  useLogOut();
   const {
     register,
     formState: { errors },

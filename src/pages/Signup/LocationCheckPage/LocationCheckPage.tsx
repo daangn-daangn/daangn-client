@@ -12,6 +12,7 @@ import { nicknameState, profileImageFileState } from 'stores/User';
 import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
 import { KAKAO_PROFILE_URL } from 'constants/localstoregeKeys';
 import { uploadFileToS3 } from 'utils/handleFileToS3';
+import useLogOut from 'hooks/common/useLogOut';
 
 export interface IUserLocation {
   latitude: number; //위도
@@ -25,7 +26,7 @@ const LocationCheckPage = () => {
   const profileImageFile = useRecoilValue(profileImageFileState);
 
   const [userLocation] = useSetLocation();
-
+  useLogOut();
   const { data } = useCurrentLocation({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,
@@ -37,6 +38,7 @@ const LocationCheckPage = () => {
     onSuccess: (data) => {
       console.log(data.response.profile_url);
       uploadFileToS3(data.response.profile_url, profileImageFile);
+      navigate('/');
     },
     onError: (error) => {
       console.log(error);
@@ -78,7 +80,7 @@ const LocationCheckPage = () => {
               위치 찾기
             </Button>
           </div>
-          <Button width="100%" height="56px" type="submit">
+          <Button disabled={!data} width="100%" height="56px" type="submit">
             완료
           </Button>
         </form>

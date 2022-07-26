@@ -9,6 +9,7 @@ import useCurrentLocation from 'hooks/queries/kakao/useCurrentLocation';
 import { useRecoilValue } from 'recoil';
 import { userLocationState } from 'stores/User';
 import useSetLocation from 'hooks/common/useSetLocation';
+import useLogOut from 'hooks/common/useLogOut';
 
 const LocationFindPage = () => {
   const navigae = useNavigate();
@@ -20,7 +21,7 @@ const LocationFindPage = () => {
     longitude: userLocation.longitude,
     enabled: !!(userLocation.latitude && userLocation.longitude),
   });
-
+  useLogOut();
   const onSubmit = () => {
     navigae(-1);
   };
