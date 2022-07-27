@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Title from '@atoms/Title/Title';
 import Button from '@atoms/Button/Button';
@@ -16,6 +16,11 @@ const LocationFindPage = () => {
   const MapWrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const { handleSubmit } = useForm();
   const [userLocation, setUserLocation] = useSetLocation();
+
+  useEffect(() => {
+    setUserLocation({ latitude: 37.4820956, longitude: 126.895297 });
+  }, []);
+
   const { data: mapLocation } = useCurrentLocation({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,

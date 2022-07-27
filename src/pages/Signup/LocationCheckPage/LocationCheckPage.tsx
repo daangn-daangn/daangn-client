@@ -45,11 +45,15 @@ const LocationCheckPage = () => {
     },
   });
 
-  console.log('위도 경도 잘 나옴????', userLocation.latitude, userLocation.longitude);
-  console.log('주소 잘 나옴??????', data, status);
+  console.log(data, status);
 
-  if (!data) setValue('location', '위치 찾는 중...');
-  else setValue('location', data);
+  if (!(userLocation.latitude && userLocation.longitude)) {
+    setValue('location', '위치를 찾을 수 없습니다😭. 위치 찾기 버튼을 눌러서 직접 선택 해주세요.');
+  } else if (!data) {
+    setValue('location', '위치 찾는 중 ...');
+  } else {
+    setValue('location', data);
+  }
 
   const onSubmit = (data: Pick<IUser, 'location'>) => {
     if (!profileImageFile) {
