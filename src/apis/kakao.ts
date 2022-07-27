@@ -12,5 +12,8 @@ export const getUserLocation = async (longitude: number, latitude: number) => {
     })
     .then((res) => {
       return res.data.documents[0].address_name;
+    })
+    .catch((err) => {
+      console.log('@@@@@@@@@@@@@안됨!!!!!!!!!', err);
     });
 };

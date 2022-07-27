@@ -27,7 +27,7 @@ const LocationCheckPage = () => {
 
   const [userLocation] = useSetLocation();
   useLogOut();
-  const { data } = useCurrentLocation({
+  const { data, status } = useCurrentLocation({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,
     enabled: !!(userLocation.latitude && userLocation.longitude),
@@ -44,6 +44,9 @@ const LocationCheckPage = () => {
       console.log(error);
     },
   });
+
+  console.log('위도 경도 잘 나옴????', userLocation.latitude, userLocation.longitude);
+  console.log('주소 잘 나옴??????', data, status);
 
   if (!data) setValue('location', '위치 찾는 중...');
   else setValue('location', data);
