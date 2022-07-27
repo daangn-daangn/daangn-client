@@ -8,6 +8,7 @@ import Button from '@atoms/Button/Button';
 import { useRecoilState } from 'recoil';
 import { searchParamsState } from 'stores/Home';
 import { createSearchParamFn } from 'utils/createSearchParamFn';
+import useMe from 'hooks/queries/user/useMe';
 
 interface ISearch {
   keyword: string;
@@ -22,7 +23,7 @@ const TopSearch = (props: TopSearchProps) => {
   const onClickLeft = useCallback(() => {
     navigate(-1);
   }, []);
-
+  const { data: me } = useMe();
   const onSubmit = (data: ISearch) => {
     // 검색 결과로 이동하는 api
     saveKeyword(data.keyword);
@@ -61,7 +62,7 @@ const TopSearch = (props: TopSearchProps) => {
         <Input
           register={{ ...register('keyword') }}
           height="35px"
-          placeholder="고잔동 근처에서 검색"
+          placeholder={`${me?.location} 근처에서 검색`}
           background="#f5f5f5"
           border="none"
           autoComplete="off"
