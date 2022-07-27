@@ -24,7 +24,6 @@ const ProductStateChangeButton = ({ productId, productState }: ProductStateChang
   const queryKey = [QUERY_KEYS.PRODUCTS, productId];
   const mutation = useProductEditState({
     onMutate: async ({ productState }) => {
-      throw new Error();
       await queryClient.cancelQueries(queryKey);
       const previousProduct = queryClient.getQueryData<IProductWithUser>(queryKey);
       queryClient.setQueryData<IProductWithUser | undefined>(
