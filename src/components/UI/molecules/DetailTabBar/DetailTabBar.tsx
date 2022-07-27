@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { DetailTabBarStyled } from './DetailTabBarStyled';
 import { ReactComponent as Home } from '../../../../assets/home.svg';
 import { ReactComponent as Back } from '../../../../assets/back-thick.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export interface DetailTabBarProps {
   isScroll?: boolean;
 }
 
 const DetailTabBar = (props: DetailTabBarProps) => {
+  const navigate = useNavigate();
   const [isScroll, setIsScroll] = useState<boolean>(false);
 
   const handleScroll = useCallback(() => {
@@ -22,10 +23,14 @@ const DetailTabBar = (props: DetailTabBarProps) => {
     };
   }, [handleScroll]);
 
+  const onClickBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <DetailTabBarStyled isScroll={isScroll}>
-        <Back width="18" height="18" />
+        <Back width="18" height="18" onClick={onClickBack} />
         <Link to="/">
           <Home width="18" height="18" />
         </Link>

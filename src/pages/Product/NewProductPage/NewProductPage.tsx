@@ -103,7 +103,6 @@ const NewProductPage = () => {
     });
     data.product_images = filesNames;
 
-    console.log(data);
     mutation.mutate({
       ...data,
       price: data.price,
