@@ -17,10 +17,12 @@ import { postNewProduct, PostProductUploadParams } from 'apis/product/api';
 import useProductUpload from 'hooks/queries/product/useProductUpload';
 import { uploadFileToS3 } from 'utils/handleFileToS3';
 import useLogOut from 'hooks/common/useLogOut';
+import useMe from 'hooks/queries/user/useMe';
 
 const NewProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { data: me } = useMe();
   const state = location.state as PostProductUploadParams;
   useLogOut();
   const mutation = useProductUpload({
@@ -175,7 +177,7 @@ const NewProductPage = () => {
         <div className="input-description-div borer-bottom-gray">
           <TextArea
             register={{ ...register('description') }}
-            placeholder="고잔동에 올릴 게시글 내용을 작성해주세요. (가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
+            placeholder={`${me?.location}에 올릴 게시글 내용을 작성해주세요. (가품 및 판매금지품목은 게시가 제한될 수 있어요.)`}
           />
         </div>
       </form>

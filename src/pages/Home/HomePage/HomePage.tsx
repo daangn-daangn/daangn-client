@@ -16,6 +16,7 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import QUERY_KEYS from 'constants/queryKeys';
 import useLogOut from 'hooks/common/useLogOut';
+import useMe from 'hooks/queries/user/useMe';
 
 export const dummyProduct: IProductLoad = {
   id: 1,
@@ -39,10 +40,11 @@ export const dummyProducts: IProductLoad[] = Array(10)
   });
 
 const HomePage = () => {
+  const { data: me } = useMe();
   useLogOut();
   return (
     <StyledHome>
-      <NavBar type="홈" location="대연동" />
+      <NavBar type="홈" location={me?.location} />
       <div className="productWrapper">
         <ErrorBoundary fallback={<ErrorFallback message={ERROR_MSG.LOAD_DATA} />}>
           <ProductContainer />
