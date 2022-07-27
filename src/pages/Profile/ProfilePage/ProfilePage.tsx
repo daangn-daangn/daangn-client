@@ -84,9 +84,9 @@ const ProfilePage = () => {
           )}
         </div>
         <div className="user-activity">
-          {user.location} 1회 인증, 경기도 부천시 원미구 미인증 (최근 30일)
+          {user.location} 1회 인증 (최근 30일)
           <br />
-          최근 3일 이내 활동 (2020년 11월 20일 가입)
+          최근 3일 이내 활동 (2022년 7월 27일 가입)
         </div>
         {me?.id === user.id && (
           <List fontWeight="700">
