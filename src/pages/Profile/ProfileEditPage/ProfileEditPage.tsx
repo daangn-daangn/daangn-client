@@ -14,7 +14,7 @@ import { encodeFileToBase64 } from 'utils/encodeImage';
 import SelectModal from '@molecules/SelectModal/SelectModal';
 import { daangnee } from 'constants/defaultProfilePic';
 import useUserInfoEdit from 'hooks/queries/user/useUserInfoEdit';
-import { uploadFileToS3 } from 'utils/handleFileToS3';
+import { uploadFileToS3, convertURLtoImageFile } from 'utils/handleFileToS3';
 import useLogOut from 'hooks/common/useLogOut';
 
 export interface IUserProfileEdid extends Pick<IUser, 'nickname' | 'profile_url' | 'location'> {
@@ -51,8 +51,7 @@ const ProfileEditPage = () => {
   } = useForm<IUserProfileEdid>();
 
   const onSubmit = (data: IUserProfileEdid) => {
-    data.profile_url = data.profile_file?.name || daangnee;
-    console.log(data);
+    data.profile_url = 'profile_image.jpg';
     userInfoEditMutation.mutate(data);
   };
 
@@ -73,8 +72,10 @@ const ProfileEditPage = () => {
   };
 
   const deleteProfilePic = () => {
-    setValue('profile_url', daangnee);
-    setValue('profile_file', undefined);
+    convertURLtoImageFile(daangnee).then((res) => {
+      setValue('profile_url', daangnee);
+      setValue('profile_file', res);
+    });
   };
 
   const ProfilePicModalSelects = [
@@ -100,7 +101,9 @@ const ProfileEditPage = () => {
             <InputPhoto
               setPickeFiles={(value) => {
                 setValue('profile_file', value[0]);
-                encodeFileToBase64(value[0]).then((data) => setValue('profile_url', data as string));
+                encodeFileToBase64(value[0]).then((data) => {
+                  setValue('profile_url', data as string);
+                });
               }}
               buttonNode={<div ref={inputPhotoRef} />}
             />
